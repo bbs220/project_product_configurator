@@ -18,7 +18,7 @@ const ProductModelLoader = () => {
   }, [actions, names]);
 
   return (
-    <group ref={group} position={[0, 0, 0]} scale={[0.5, 0.5, 0.5]}>
+    <group ref={group} position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]}>
       <primitive object={scene} />
     </group>
   );
