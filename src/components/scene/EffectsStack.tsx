@@ -1,7 +1,7 @@
 "use client";
 
-import { useTweakpane } from "@/src/hooks/useTweakpane";
-import { EffectComposer, SMAA, Vignette } from "@react-three/postprocessing";
+import { useTweakpane } from "@/hooks/useTweakpane";
+import { EffectComposer, Vignette } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 
 const EffectsStack = () => {

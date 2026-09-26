@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { assetPaths } from "@/src/lib/utils";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { assetPaths } from "@/lib/utils";
 
 const ProductModelLoader = () => {
   const group = useRef<THREE.Group>(null);

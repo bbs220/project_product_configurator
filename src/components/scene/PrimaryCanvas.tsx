@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
-import { Suspense } from "react"
-import { Canvas } from "@react-three/fiber"
+import { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
 import {
   GizmoHelper,
   GizmoViewport,
-  Gltf,
   OrbitControls,
   PerspectiveCamera,
   Stats,
   Environment,
-} from "@react-three/drei"
-import { useTweakpane } from "@/src/hooks/useTweakpane"
-import ProductModelLoader from "./ProductModelLoader"
-import EffectsStack from "./EffectsStack"
+} from "@react-three/drei";
+import ProductModelLoader from "./ProductModelLoader";
+import EffectsStack from "./EffectsStack";
+import { useTweakpane } from "@/hooks/useTweakpane";
 
 const PrimaryScene = () => {
   const { showFPS, showGizmo } = useTweakpane(
@@ -21,14 +20,14 @@ const PrimaryScene = () => {
     {
       showFPS: { value: true, label: "show fps" },
       showGizmo: { value: true, label: "show gizmo" },
-    }
-  )
+    },
+  );
   return (
     <>
       <Suspense fallback={null}>
         <ProductModelLoader />
         <Stats showPanel={showFPS ? 0 : 4} />
-        <Environment preset="city"/>
+        <Environment preset="city" background />
         <OrbitControls makeDefault />
         <PerspectiveCamera makeDefault position={[0, 10, 20]} />
         <GizmoHelper
@@ -41,8 +40,8 @@ const PrimaryScene = () => {
         </GizmoHelper>
       </Suspense>
     </>
-  )
-}
+  );
+};
 
 const PrimaryCanvas = () => {
   const { setDpr } = useTweakpane(
@@ -55,15 +54,15 @@ const PrimaryCanvas = () => {
         step: 0.1,
         label: "viewport resolution",
       },
-    }
-  )
+    },
+  );
 
   return (
     <Canvas shadows={"soft"} dpr={setDpr}>
       <PrimaryScene />
       <EffectsStack />
     </Canvas>
-  )
-}
+  );
+};
 
-export default PrimaryCanvas
+export default PrimaryCanvas;
