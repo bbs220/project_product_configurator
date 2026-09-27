@@ -3,10 +3,6 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  /* tweakpane width override */
-  .tp-dfwv {
-    width: 340px !important;
-  }
 }
 
 @theme inline {
@@ -39,9 +35,13 @@ body {
   }
 }
 
-/* constrain Tweakpane height to the canvas and enable vertical scrolling */
+/* Tweakpane overrides (width, positioning, and scroll limits) */
 .tp-dfwv {
-  max-height: 85vh !important; /* little breathing room at the top and bottom */
+  width: 340px !important;
+  top: 80px !important; /* 64px navbar + 16px spacing */
+  max-height: calc(
+    100vh - 96px
+  ) !important; /* constrain to viewport minus navbar and spacing */
   overflow-y: auto !important;
   overflow-x: hidden !important;
 }
