@@ -2,6 +2,7 @@ import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { UserCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const Navbar = () => {
   return (
@@ -26,6 +27,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         <Show when="signed-out">
           <SignInButton mode="modal">
             <button className="shrink-0 w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
