@@ -1,8 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  if (pathname === "/configurator") {
+    return null;
+  }
+
   return (
-    <footer className="w-full py-6 px-8 md:px-12 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 backdrop-blur-md mt-auto">
+    <footer className="w-full py-6 px-8 md:px-12 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 backdrop-blur-md mt-auto shrink-0">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           &copy; {new Date().getFullYear()} forma. All rights reserved.
