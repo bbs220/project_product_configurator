@@ -30,8 +30,7 @@ const PrimaryScene = () => {
         <ProductModelLoader />
         <Floor />
         <StatsGl
-          showPanel={showFPS ? 0 : 4}
-          className="fixed top-16"
+          className={`${showFPS ? "block" : "hidden"} fixed top-16`}
           horizontal={false}
         />
         <Environment preset="city" />
