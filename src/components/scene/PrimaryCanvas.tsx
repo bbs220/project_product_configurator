@@ -13,6 +13,7 @@ import {
 import ProductModelLoader from "./ProductModelLoader";
 import EffectsStack from "./EffectsStack";
 import { useTweakpane } from "@/hooks/useTweakpane";
+import Floor from "./Floor";
 
 const PrimaryScene = () => {
   const { showFPS, showGizmo } = useTweakpane(
@@ -26,8 +27,9 @@ const PrimaryScene = () => {
     <>
       <Suspense fallback={null}>
         <ProductModelLoader />
+        <Floor />
         <Stats showPanel={showFPS ? 0 : 4} />
-        <Environment preset="city" background />
+        <Environment preset="city" />
         <OrbitControls makeDefault />
         <PerspectiveCamera makeDefault position={[0, 10, 20]} />
         <GizmoHelper

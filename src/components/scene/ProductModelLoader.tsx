@@ -7,7 +7,7 @@ import { assetPaths } from "@/lib/utils";
 
 const ProductModelLoader = () => {
   const group = useRef<THREE.Group>(null);
-  const { scene, animations } = useGLTF(assetPaths.gt3);
+  const { scene, animations } = useGLTF(assetPaths.veneno);
   const { actions, names } = useAnimations(animations, group);
 
   // play all animations on load
@@ -18,7 +18,7 @@ const ProductModelLoader = () => {
   }, [actions, names]);
 
   return (
-    <group ref={group} position={[0, 0, 0]} scale={[1, 1, 1]}>
+    <group ref={group} position={[0, 0, 0]} scale={[1, 1, 1]} castShadow>
       <primitive object={scene} />
     </group>
   );
