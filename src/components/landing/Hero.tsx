@@ -16,7 +16,7 @@ export function Hero() {
 
       <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
         <Link
-          href="/configurator"
+          href="/dashboard"
           className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-8 py-4 rounded-xl font-medium hover:opacity-90 transition-opacity"
         >
           Launch Configurator
