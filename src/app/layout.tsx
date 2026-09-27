@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // throw new Error("Crashing the layout to test global-error!");
   return (
     <ClerkProvider>
       <html
