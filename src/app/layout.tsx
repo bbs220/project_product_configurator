@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Configurator",
-  description: "Configure your products in real-time 3D",
+  title: "forma",
+  description: "shape your product",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

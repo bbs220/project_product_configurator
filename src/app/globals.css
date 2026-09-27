@@ -29,6 +29,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer base {
+  button, 
+  [type='button'], 
+  [type='reset'], 
+  [type='submit'],
+  [role='button'] {
+    @apply cursor-pointer;
+  }
+}
+
 /* constrain Tweakpane height to the canvas and enable vertical scrolling */
 .tp-dfwv {
   max-height: 85vh !important; /* little breathing room at the top and bottom */
