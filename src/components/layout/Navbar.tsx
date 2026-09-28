@@ -1,3 +1,5 @@
+"use client";
+
 import { Show, UserButton } from "@clerk/nextjs";
 import { UserCircle } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +38,15 @@ const Navbar = () => {
           </Link>
         </Show>
         <Show when="signed-in">
-          <UserButton />
+          <UserButton>
+            <UserButton.MenuItems>
+              <UserButton.Link
+                label="My Garage"
+                labelIcon={<UserCircle className="w-4 h-4" />}
+                href="/garage"
+              />
+            </UserButton.MenuItems>
+          </UserButton>
         </Show>
       </div>
     </header>

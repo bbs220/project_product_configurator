@@ -35,7 +35,7 @@ const PrimaryScene = () => {
         />
         <Environment preset="city" />
         <OrbitControls makeDefault />
-        <PerspectiveCamera makeDefault position={[0, 10, 20]} />
+        <PerspectiveCamera makeDefault position={[0, 5, 10]} />
         <GizmoHelper
           renderPriority={2}
           alignment="top-left"
