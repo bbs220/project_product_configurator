@@ -35,8 +35,4 @@ const ProductModelLoader = () => {
   );
 };
 
-useGLTF.preload(assetPaths.p1);
-useGLTF.preload(assetPaths.laFerrari);
-useGLTF.preload(assetPaths.spyder918);
-
 export default ProductModelLoader;
