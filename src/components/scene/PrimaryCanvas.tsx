@@ -7,7 +7,6 @@ import {
   GizmoViewport,
   OrbitControls,
   PerspectiveCamera,
-  Environment,
   StatsGl,
 } from "@react-three/drei";
 import ProductModelLoader from "./ProductModelLoader";
@@ -15,6 +14,7 @@ import EffectsStack from "./EffectsStack";
 import { useTweakpane } from "@/hooks/useTweakpane";
 import Floor from "./Floor";
 import EditorLoader from "./EditorLoader";
+import EnvLoader from "./EnvLoader";
 
 const PrimaryScene = () => {
   const { showFPS, showGizmo } = useTweakpane(
@@ -33,7 +33,7 @@ const PrimaryScene = () => {
           className={`${showFPS ? "block" : "hidden"} fixed top-16`}
           horizontal={false}
         />
-        <Environment preset="city" />
+        <EnvLoader />
         <OrbitControls makeDefault />
         <PerspectiveCamera makeDefault position={[0, 5, 10]} />
         <GizmoHelper
