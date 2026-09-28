@@ -9,13 +9,13 @@ import { useSearchParams } from "next/navigation";
 
 const ProductModelLoader = () => {
   const searchParams = useSearchParams();
-  const modelName = searchParams.get("model") || "veneno";
+  const modelName = searchParams.get("model") || "p1";
 
   // ensure we don't load an invalid model if the url param is messed with
   const modelPath =
     modelName in assetPaths
       ? assetPaths[modelName as keyof typeof assetPaths]
-      : assetPaths.veneno;
+      : assetPaths.p1;
 
   const group = useRef<THREE.Group>(null);
   const { scene, animations } = useGLTF(modelPath);
@@ -35,7 +35,8 @@ const ProductModelLoader = () => {
   );
 };
 
-useGLTF.preload(assetPaths.veneno);
-useGLTF.preload(assetPaths.gt3);
+useGLTF.preload(assetPaths.p1);
+useGLTF.preload(assetPaths.laFerrari);
+useGLTF.preload(assetPaths.spyder918);
 
 export default ProductModelLoader;
