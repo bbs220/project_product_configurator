@@ -17,11 +17,20 @@ import EditorLoader from "./EditorLoader";
 import EnvLoader from "./EnvLoader";
 
 const PrimaryScene = () => {
-  const { showFPS, showGizmo } = useTweakpane(
+  const { showFPS, showGizmo, showFog, fogColor, fogDensity } = useTweakpane(
     { title: "☀️ Scene" },
     {
       showFPS: { value: true, label: "show fps" },
       showGizmo: { value: true, label: "show gizmo" },
+      showFog: { value: true, label: "enable fog", folder: "Fog" },
+      fogColor: { value: "#000000", label: "fog color", folder: "Fog" },
+      fogDensity: {
+        value: 0.03,
+        min: 0.01,
+        max: 1,
+        label: "fog density",
+        folder: "Fog",
+      },
     },
   );
   return (
@@ -34,8 +43,9 @@ const PrimaryScene = () => {
           horizontal={false}
         />
         <EnvLoader />
-        <OrbitControls makeDefault />
-        <PerspectiveCamera makeDefault position={[0, 5, 10]} />
+        <OrbitControls makeDefault maxPolarAngle={1.5} maxDistance={5} />
+        {showFog && <fogExp2 attach="fog" args={[fogColor, fogDensity]} />}
+        <PerspectiveCamera makeDefault position={[0, 2, 5]} fov={60} />
         <GizmoHelper
           renderPriority={2}
           alignment="top-left"

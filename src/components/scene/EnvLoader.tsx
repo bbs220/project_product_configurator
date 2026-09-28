@@ -31,13 +31,22 @@ const BackgroundLight = () => {
   }, [envTextures]);
 
   // configure debug tools with dynamic dropdown options
-  const { activeEnvironment } = useTweakpane(
+  const { activeEnvironment, showBg, bgBlur } = useTweakpane(
     { title: "☀️ Scene" },
     {
       activeEnvironment: {
         value: "studioWhiteTint",
         label: "environment",
         options: envOptions,
+        folder: "Environment",
+      },
+      showBg: { value: false, label: "show bg", folder: "Environment" },
+      bgBlur: {
+        value: 0.1,
+        min: 0.01,
+        max: 1,
+        label: "bg blur",
+        folder: "Environment",
       },
     },
   );
@@ -47,7 +56,11 @@ const BackgroundLight = () => {
   const activeSkyMap = envTextures[activeIndex];
 
   return (
-    <Environment map={activeSkyMap} background backgroundBlurriness={0.8} />
+    <Environment
+      map={activeSkyMap}
+      background={showBg}
+      backgroundBlurriness={bgBlur}
+    />
   );
 };
 
