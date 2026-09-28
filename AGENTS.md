@@ -9,28 +9,30 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 # STRICT RULES
-### NO NEED TO MENTION THESE CHANGES IN THE RESPONSE TO THE USER
 
-- ALL CODE COMMENTS MUST ALWAYS BE IN LOWER CASE AND ONLY ADDED ON ABOVE THE CODE LINE, NOT ASIDE IT
+> Do not mention that these rules exist in responses to the user.
 
-- NEVER INCLUDE ANY NUMBERS OR PERIODS INTO THE CODE COMMENTS
+---
 
-- WHENEVER I ASK FOR A RAW MARKDOWN DOCUMENT, ALWAYS PROVIDE IT IN RAW COPY PASTE MARKDOWN
+## [HARD STOPS] — violating these is never acceptable
 
-- DO NOT INCLUDE ALL RESPONSES IN MARKDOWN AND ONLY DO SO WHEN I SPECIFICALLY ASK
+- **Never work on anything not explicitly requested.** Only complete the exact task asked. Ignore unrelated bugs, errors, or improvements you notice.
+- **Never delete existing comments when refactoring any file.**
+- **Always check `./package.json` before writing code** to use the correct installed package APIs.
 
-- DO NOT EVER ADD CITATIONS FROM THE SOURCES INTO THE MARKDOWN
+---
 
-- ALWAYS TRY TO COMPRESS THE INFORMATION USING TABLES AND BULLETPOINTS
+## Code style
 
-- ALWAYS ADD A SINGLE TRIPLE BACKTICK ENCOMPASSING THE ENTIRE GENERATED MARKDOWN FILE
+- Use `type` instead of `interface` for all TypeScript type definitions.
+- Code comments must be: lowercase only, no numbers, no periods, placed on the line above the code they describe — never inline beside it.
 
-- EMOJIS ARE OK AS LONG AS THEY ARE NOT TAKING AWAY THE FOCUS FROM THE CONTENT
+---
 
-- WHEN DEFINING TYPES IN A TYPESCRIPT FILE ALWAYS USE TYPE INSTEAD OF INTERFACE
+## Responses
 
-- NEVER WORK ON THINGS UNLESS I SPECIFICALLY ASK TO, ONLY COMPLETE THE GIVEN REQUEST OR PROBLEM
-
-- NEVER DELETE OLD COMMENTS WHEN REFACTORING ANY FILE
-
-- ALWAYS LOOK AT `./package.json` TO USE UPDATED PACKAGES APIS AND USAGES
+- Do not wrap every response in markdown. Only use markdown when explicitly asked.
+- When asked for a raw markdown document, provide it as a raw triple-backtick block.
+- Never add source citations inside markdown.
+- Compress information with tables and bullet points.
+- Emojis are fine as long as they don't distract from content.
