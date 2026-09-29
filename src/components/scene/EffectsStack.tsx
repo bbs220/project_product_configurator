@@ -6,7 +6,7 @@ import { BlendFunction } from "postprocessing";
 
 const EffectsStack = () => {
   const { enableVig } = useTweakpane(
-    { title: "✨ Post Processing", expanded: true },
+    { title: "✨ Post Processing", expanded: false },
     {
       enableVig: { value: true, label: "vignette" },
     },

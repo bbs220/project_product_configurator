@@ -15,13 +15,15 @@ import { useTweakpane } from "@/hooks/useTweakpane";
 import Floor from "./Floor";
 import EditorLoader from "./EditorLoader";
 import EnvLoader from "./EnvLoader";
+import { useSidebarStore } from "@/stores/useSidebarStore";
 
 const PrimaryScene = () => {
+  const { isSidebarOpen } = useSidebarStore();
   const { showFPS, showGizmo, showFog, fogColor, fogDensity } = useTweakpane(
-    { title: "☀️ Scene" },
+    { title: "☀️ Scene", expanded: false },
     {
-      showFPS: { value: true, label: "show fps" },
-      showGizmo: { value: true, label: "show gizmo" },
+      showFPS: { value: false, label: "show fps" },
+      showGizmo: { value: false, label: "show gizmo" },
       showFog: { value: true, label: "enable fog", folder: "Fog" },
       fogColor: { value: "#000000", label: "fog color", folder: "Fog" },
       fogDensity: {
@@ -39,7 +41,7 @@ const PrimaryScene = () => {
         <ProductModelLoader />
         <Floor />
         <StatsGl
-          className={`${showFPS ? "block" : "hidden"} fixed top-16`}
+          className={`${showFPS ? "block" : "hidden"} fixed top-16 ${isSidebarOpen ? "left-72" : "left-14"}`}
           horizontal={false}
         />
         <EnvLoader />
