@@ -27,7 +27,7 @@ const ConfiguratorSidebar = () => {
 
   return (
     <aside
-      className={`flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 transition-all duration-300 shrink-0 ${
+      className={`absolute top-0 left-0 bottom-0 z-10 flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ${
         isSidebarOpen ? "w-72" : "w-14"
       }`}
     >

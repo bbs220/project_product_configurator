@@ -7,7 +7,7 @@ const Floor = () => {
       position={[0, -0.01, 0]}
       receiveShadow
     >
-      <planeGeometry args={[1000, 1000]} />
+      <circleGeometry args={[1000, 10, 0, 6.3]} />
       <MeshReflectorMaterial
         blur={[300, 100]}
         resolution={1024}

@@ -19,17 +19,24 @@ import { useThemeStore } from "@/stores/useThemeStore";
 
 const PrimaryScene = () => {
   const { theme } = useThemeStore();
-  const { showFPS, showGizmo, showFog, fogDensity } = useTweakpane(
+  const { showFPS, showGizmo, showFog, fogNear, fogFar } = useTweakpane(
     { title: "☀️ Scene", expanded: false },
     {
       showFPS: { value: false, label: "show fps" },
       showGizmo: { value: false, label: "show gizmo" },
       showFog: { value: true, label: "enable fog", folder: "Fog" },
-      fogDensity: {
-        value: 0.03,
-        min: 0.01,
-        max: 1,
-        label: "fog density",
+      fogNear: {
+        value: 0.3,
+        min: 0.1,
+        max: 100,
+        label: "fog near",
+        folder: "Fog",
+      },
+      fogFar: {
+        value: 70,
+        min: 0.1,
+        max: 100,
+        label: "fog far",
         folder: "Fog",
       },
     },
@@ -53,9 +60,20 @@ const PrimaryScene = () => {
           horizontal={false}
         />
         <EnvLoader />
-        <OrbitControls makeDefault maxPolarAngle={1.5} maxDistance={10} />
-        {showFog && <fogExp2 attach="fog" args={[fogColor, fogDensity]} />}
-        <PerspectiveCamera makeDefault position={[0, 5, 10]} fov={60} />
+        <OrbitControls
+          makeDefault
+          maxPolarAngle={1.5}
+          maxDistance={10}
+          enablePan={false}
+        />
+        {showFog && <fog attach="fog" args={[fogColor, fogNear, fogFar]} />}
+        <color attach="background" args={[fogColor]} />
+        <PerspectiveCamera
+          makeDefault
+          position={[0, 5, 10]}
+          fov={60}
+          focus={10}
+        />
         <GizmoHelper
           renderPriority={2}
           alignment="bottom-right"
