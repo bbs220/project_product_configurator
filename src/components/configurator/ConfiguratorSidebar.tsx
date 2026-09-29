@@ -13,17 +13,17 @@ import { useSidebarStore } from "@/stores/useSidebarStore";
 
 // sidebar tab definitions
 const tabs = [
-  { id: "paint", label: "Paint", icon: Palette },
+  { id: "body", label: "Body", icon: Palette },
   { id: "wheels", label: "Wheels", icon: Disc },
   { id: "interior", label: "Interior", icon: Layers },
-  { id: "options", label: "Options", icon: Settings2 },
+  { id: "extras", label: "Extras", icon: Settings2 },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
 
 const ConfiguratorSidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
-  const [activeTab, setActiveTab] = useState<TabId>("paint");
+  const [activeTab, setActiveTab] = useState<TabId>("body");
 
   return (
     <aside
@@ -53,21 +53,33 @@ const ConfiguratorSidebar = () => {
       {/* tab strip */}
       <nav className="flex flex-col gap-1 p-2 border-b border-gray-200 dark:border-gray-800">
         {tabs.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => {
-              setActiveTab(id);
-              if (!isSidebarOpen) toggleSidebar();
-            }}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-              activeTab === id && isSidebarOpen
-                ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
-                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
-            }`}
-          >
-            <Icon className="w-4 h-4 shrink-0" />
-            {isSidebarOpen && <span>{label}</span>}
-          </button>
+          <div key={id} className="relative group">
+            <button
+              onClick={() => {
+                setActiveTab(id);
+                if (!isSidebarOpen) toggleSidebar();
+              }}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                activeTab === id && isSidebarOpen
+                  ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
+              }`}
+            >
+              <Icon className="w-4 h-4 shrink-0" />
+              {isSidebarOpen && <span>{label}</span>}
+            </button>
+
+            {/* discord-style tooltip — only visible when sidebar is collapsed */}
+            {!isSidebarOpen && (
+              <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 ease-out">
+                {/* arrow */}
+                <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-0 h-0 border-y-4 border-y-transparent border-r-4 border-r-gray-900 dark:border-r-white" />
+                <div className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs font-semibold px-2.5 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
+                  {label}
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </nav>
 

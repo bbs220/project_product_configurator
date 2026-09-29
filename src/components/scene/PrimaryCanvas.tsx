@@ -15,15 +15,16 @@ import { useTweakpane } from "@/hooks/useTweakpane";
 import Floor from "./Floor";
 import EditorLoader from "./EditorLoader";
 import EnvLoader from "./EnvLoader";
+import { useThemeStore } from "@/stores/useThemeStore";
 
 const PrimaryScene = () => {
-  const { showFPS, showGizmo, showFog, fogColor, fogDensity } = useTweakpane(
+  const { theme } = useThemeStore();
+  const { showFPS, showGizmo, showFog, fogDensity } = useTweakpane(
     { title: "☀️ Scene", expanded: false },
     {
       showFPS: { value: false, label: "show fps" },
       showGizmo: { value: false, label: "show gizmo" },
       showFog: { value: true, label: "enable fog", folder: "Fog" },
-      fogColor: { value: "#000000", label: "fog color", folder: "Fog" },
       fogDensity: {
         value: 0.03,
         min: 0.01,
@@ -33,6 +34,15 @@ const PrimaryScene = () => {
       },
     },
   );
+
+  // derive fog color from the active theme so it blends with the ui background
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const fogColor = isDark ? "#0a0a0a" : "#ffffff";
+
   return (
     <>
       <Suspense fallback={null}>
