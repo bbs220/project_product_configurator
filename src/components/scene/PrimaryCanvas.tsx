@@ -15,10 +15,8 @@ import { useTweakpane } from "@/hooks/useTweakpane";
 import Floor from "./Floor";
 import EditorLoader from "./EditorLoader";
 import EnvLoader from "./EnvLoader";
-import { useSidebarStore } from "@/stores/useSidebarStore";
 
 const PrimaryScene = () => {
-  const { isSidebarOpen } = useSidebarStore();
   const { showFPS, showGizmo, showFog, fogColor, fogDensity } = useTweakpane(
     { title: "☀️ Scene", expanded: false },
     {
@@ -41,7 +39,7 @@ const PrimaryScene = () => {
         <ProductModelLoader />
         <Floor />
         <StatsGl
-          className={`${showFPS ? "block" : "hidden"} fixed top-16 ${isSidebarOpen ? "left-72" : "left-14"}`}
+          className={`${showFPS ? "block" : "hidden"} fixed bottom-0 right-0`}
           horizontal={false}
         />
         <EnvLoader />
@@ -50,11 +48,13 @@ const PrimaryScene = () => {
         <PerspectiveCamera makeDefault position={[0, 5, 10]} fov={60} />
         <GizmoHelper
           renderPriority={2}
-          alignment="top-left"
-          margin={[160, 60]}
+          alignment="bottom-right"
+          margin={[150, 50]}
           visible={showGizmo}
         >
-          <GizmoViewport disabled visible={showGizmo} />
+          <group scale={[0.9, 0.9, 0.9]}>
+            <GizmoViewport disabled visible={showGizmo} labelColor="white" />
+          </group>
         </GizmoHelper>
       </Suspense>
     </>
