@@ -1,27 +1,19 @@
 "use client";
 
 import { useTweakpane } from "@/hooks/useTweakpane";
-import { EffectComposer, Vignette } from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
+import { EffectComposer, SMAA } from "@react-three/postprocessing";
 
 const EffectsStack = () => {
-  const { enableVig } = useTweakpane(
+  const { enableSMAA } = useTweakpane(
     { title: "✨ Post Processing", expanded: false },
     {
-      enableVig: { value: true, label: "vignette" },
+      enableSMAA: { value: true, label: "smaa" },
     },
   );
 
   return (
     <EffectComposer enableNormalPass={false} renderPriority={2}>
-      {enableVig && (
-        <Vignette
-          offset={0.5}
-          darkness={0.5}
-          eskil={false}
-          blendFunction={BlendFunction.NORMAL}
-        />
-      )}
+      {enableSMAA && <SMAA />}
     </EffectComposer>
   );
 };

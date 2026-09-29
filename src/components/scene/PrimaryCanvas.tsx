@@ -65,12 +65,13 @@ const PrimaryScene = () => {
           maxPolarAngle={1.5}
           maxDistance={10}
           enablePan={false}
+          target={[0, 1, 0]}
         />
         {showFog && <fog attach="fog" args={[fogColor, fogNear, fogFar]} />}
         <color attach="background" args={[fogColor]} />
         <PerspectiveCamera
           makeDefault
-          position={[0, 5, 10]}
+          position={[0, 5, -10]}
           fov={60}
           focus={10}
         />
