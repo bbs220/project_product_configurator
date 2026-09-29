@@ -35,10 +35,10 @@ body {
   }
 }
 
-/* Tweakpane overrides (width, positioning, and scroll limits) */
+/* tweakpane overrides (width, positioning, and scroll limits) */
 .tp-dfwv {
   width: 340px !important;
-  top: 80px !important; /* 64px navbar + 16px spacing */
+  top: 10% !important;
   max-height: calc(
     100vh - 96px
   ) !important; /* constrain to viewport minus navbar and spacing */

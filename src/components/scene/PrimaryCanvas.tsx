@@ -43,9 +43,9 @@ const PrimaryScene = () => {
           horizontal={false}
         />
         <EnvLoader />
-        <OrbitControls makeDefault maxPolarAngle={1.5} maxDistance={5} />
+        <OrbitControls makeDefault maxPolarAngle={1.5} maxDistance={10} />
         {showFog && <fogExp2 attach="fog" args={[fogColor, fogDensity]} />}
-        <PerspectiveCamera makeDefault position={[0, 2, 5]} fov={60} />
+        <PerspectiveCamera makeDefault position={[0, 5, 10]} fov={60} />
         <GizmoHelper
           renderPriority={2}
           alignment="top-left"
