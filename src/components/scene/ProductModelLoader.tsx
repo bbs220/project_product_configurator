@@ -9,13 +9,13 @@ import { useSearchParams } from "next/navigation";
 
 const ProductModelLoader = () => {
   const searchParams = useSearchParams();
-  const modelName = searchParams.get("model") || "p1";
+  const modelName = searchParams.get("model") || "laFerrari";
 
   // ensure we don't load an invalid model if the url param is messed with
   const modelPath =
     modelName in assetPaths
       ? assetPaths[modelName as keyof typeof assetPaths]
-      : assetPaths.p1;
+      : assetPaths.laFerrari;
 
   const group = useRef<THREE.Group>(null);
   const { scene, animations } = useGLTF(modelPath);

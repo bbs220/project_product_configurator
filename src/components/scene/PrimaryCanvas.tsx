@@ -64,7 +64,6 @@ const PrimaryScene = () => {
           makeDefault
           maxPolarAngle={1.5}
           maxDistance={10}
-          enablePan={false}
           target={[0, 1, 0]}
         />
         {showFog && <fog attach="fog" args={[fogColor, fogNear, fogFar]} />}

@@ -3,8 +3,6 @@ import { twMerge } from "tailwind-merge";
 
 export const assetPaths = {
   laFerrari: "/models/Ferrari_LaFerrari_2013.glb",
-  p1: "/models/McLaren_P1_2013.glb",
-  spyder918: "/models/Porsche_918_Spyder_2015.glb",
 };
 
 export const hdrSet = {
