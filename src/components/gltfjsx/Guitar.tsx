@@ -19,8 +19,8 @@ type GLTFResult = GLTF & {
     volumeControl: THREE.Mesh;
     neakHead: THREE.Mesh;
     frets: THREE.Mesh;
-    Object_23002: THREE.Mesh;
-    Object_23002_1: THREE.Mesh;
+    pickupBridge: THREE.Mesh;
+    strings6to1: THREE.Mesh;
     stringTrees: THREE.Mesh;
     tuningKeys: THREE.Mesh;
     neckHeadSupport: THREE.Mesh;
@@ -34,7 +34,7 @@ type GLTFResult = GLTF & {
   materials: {
     BodyMaterial: THREE.MeshPhysicalMaterial;
     NeckMaterial: THREE.MeshPhysicalMaterial;
-    ["null"]: THREE.MeshStandardMaterial;
+    white: THREE.MeshStandardMaterial;
     MetalPartsMaterial: THREE.MeshStandardMaterial;
     StringMaterial: THREE.MeshStandardMaterial;
   };
@@ -66,7 +66,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.bodyCoverAccentRing.geometry}
-              material={materials["null"]}
+              material={materials.white}
             />
             <mesh
               name="coverScrewsA"
@@ -118,22 +118,20 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
               geometry={nodes.frets.geometry}
               material={materials.MetalPartsMaterial}
             />
-            <group name="strings6to1">
-              <mesh
-                name="Object_23002"
-                castShadow
-                receiveShadow
-                geometry={nodes.Object_23002.geometry}
-                material={materials.MetalPartsMaterial}
-              />
-              <mesh
-                name="Object_23002_1"
-                castShadow
-                receiveShadow
-                geometry={nodes.Object_23002_1.geometry}
-                material={materials.StringMaterial}
-              />
-            </group>
+            <mesh
+              name="pickupBridge"
+              castShadow
+              receiveShadow
+              geometry={nodes.pickupBridge.geometry}
+              material={materials.MetalPartsMaterial}
+            />
+            <mesh
+              name="strings6to1"
+              castShadow
+              receiveShadow
+              geometry={nodes.strings6to1.geometry}
+              material={materials.StringMaterial}
+            />
             <mesh
               name="stringTrees"
               castShadow

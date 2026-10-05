@@ -11,59 +11,59 @@ type GLTFResult = GLTF & {
   nodes: {
     chassis: THREE.Mesh;
     ['body"']: THREE.Mesh;
-    ["Object_708_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_708_Plastic_(5)_0_1"]: THREE.Mesh;
+    ['key"']: THREE.Mesh;
+    ['key"001']: THREE.Mesh;
     ["body-"]: THREE.Mesh;
-    ["Object_198_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_198_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key-"]: THREE.Mesh;
+    ["key-001"]: THREE.Mesh;
     body0: THREE.Mesh;
-    ["Object_199_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_199_Plastic_(5)_0_1"]: THREE.Mesh;
+    key0: THREE.Mesh;
+    key0001: THREE.Mesh;
     body1: THREE.Mesh;
-    ["Object_348_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_348_Plastic_(5)_0_1"]: THREE.Mesh;
+    key1: THREE.Mesh;
+    key1001: THREE.Mesh;
     body2: THREE.Mesh;
-    ["Object_333_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_333_Plastic_(5)_0_1"]: THREE.Mesh;
+    key2: THREE.Mesh;
+    key2001: THREE.Mesh;
     body3: THREE.Mesh;
-    ["Object_318_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_318_Plastic_(5)_0_1"]: THREE.Mesh;
+    key3: THREE.Mesh;
+    key3001: THREE.Mesh;
     body4: THREE.Mesh;
-    ["Object_303_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_303_Plastic_(5)_0_1"]: THREE.Mesh;
+    key4: THREE.Mesh;
+    key4001: THREE.Mesh;
     body5: THREE.Mesh;
-    ["Object_288_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_288_Plastic_(5)_0_1"]: THREE.Mesh;
+    key5: THREE.Mesh;
+    key5001: THREE.Mesh;
     body6: THREE.Mesh;
-    ["Object_273_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_273_Plastic_(5)_0_1"]: THREE.Mesh;
+    key6: THREE.Mesh;
+    key6001: THREE.Mesh;
     body7: THREE.Mesh;
-    ["Object_258_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_258_Plastic_(5)_0_1"]: THREE.Mesh;
+    key7: THREE.Mesh;
+    key7001: THREE.Mesh;
     body8: THREE.Mesh;
-    ["Object_243_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_243_Plastic_(5)_0_1"]: THREE.Mesh;
+    key8: THREE.Mesh;
+    key8001: THREE.Mesh;
     body9: THREE.Mesh;
-    ["Object_228_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_228_Plastic_(5)_0_1"]: THREE.Mesh;
+    key9: THREE.Mesh;
+    key9001: THREE.Mesh;
     ["body;"]: THREE.Mesh;
-    ["Object_679_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_679_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key;"]: THREE.Mesh;
+    ["key;001"]: THREE.Mesh;
     ["body<"]: THREE.Mesh;
-    ["Object_799_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_799_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key<"]: THREE.Mesh;
+    ["key<001"]: THREE.Mesh;
     ["body="]: THREE.Mesh;
-    ["Object_844_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_844_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key="]: THREE.Mesh;
+    ["key=001"]: THREE.Mesh;
     ["body>"]: THREE.Mesh;
-    ["Object_814_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_814_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key>"]: THREE.Mesh;
+    ["key>001"]: THREE.Mesh;
     ["body?"]: THREE.Mesh;
-    ["Object_843_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_843_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key?"]: THREE.Mesh;
+    ["key?001"]: THREE.Mesh;
     bodyA: THREE.Mesh;
-    ["Object_558_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_558_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyA: THREE.Mesh;
+    keyA001: THREE.Mesh;
     bodyArrowDown: THREE.Mesh;
     keyArrowDown: THREE.Mesh;
     bodyArrowLeft: THREE.Mesh;
@@ -73,173 +73,173 @@ type GLTFResult = GLTF & {
     bodyArrowUp: THREE.Mesh;
     keyArrowUp: THREE.Mesh;
     bodyB: THREE.Mesh;
-    ["Object_754_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_754_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyB: THREE.Mesh;
+    keyB001: THREE.Mesh;
     bodyBackspace: THREE.Mesh;
-    ["Object_1281_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1281_Plastic_(1)_0_1"]: THREE.Mesh;
+    keyBackspace: THREE.Mesh;
+    keyBackspace001: THREE.Mesh;
     bodyC: THREE.Mesh;
-    ["Object_724_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_724_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyC: THREE.Mesh;
+    keyC001: THREE.Mesh;
     bodyCaps: THREE.Mesh;
-    ["Object_1052_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1052_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyCaps: THREE.Mesh;
+    keyCaps001: THREE.Mesh;
     bodyD: THREE.Mesh;
-    ["Object_574_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_574_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyD: THREE.Mesh;
+    keyD001: THREE.Mesh;
     bodyDelete: THREE.Mesh;
-    ["Object_1135_Plastic_(3)_0"]: THREE.Mesh;
-    ["Object_1135_Plastic_(3)_0_1"]: THREE.Mesh;
+    keyDelete: THREE.Mesh;
+    keyDelete001: THREE.Mesh;
     bodyE: THREE.Mesh;
-    ["Object_394_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_394_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyE: THREE.Mesh;
+    keyE001: THREE.Mesh;
     bodyEnter: THREE.Mesh;
-    ["Object_1316_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1316_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyEnter: THREE.Mesh;
+    keyEnter001: THREE.Mesh;
     bodyEscape: THREE.Mesh;
-    ["Object_1036_Plastic_(2)_0"]: THREE.Mesh;
-    ["Object_1036_Plastic_(2)_0_1"]: THREE.Mesh;
+    keyEscape: THREE.Mesh;
+    keyEscape001: THREE.Mesh;
     bodyF: THREE.Mesh;
-    ["Object_589_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_589_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF: THREE.Mesh;
+    keyF001: THREE.Mesh;
     bodyF1: THREE.Mesh;
-    ["Object_18_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_18_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF1: THREE.Mesh;
+    keyF1001: THREE.Mesh;
     bodyF10: THREE.Mesh;
-    ["Object_139_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_139_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF10: THREE.Mesh;
+    keyF10001: THREE.Mesh;
     bodyF11: THREE.Mesh;
-    ["Object_168_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_168_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF11: THREE.Mesh;
+    keyF11001: THREE.Mesh;
     bodyF12: THREE.Mesh;
-    ["Object_169_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_169_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF12: THREE.Mesh;
+    keyF12001: THREE.Mesh;
     bodyF2: THREE.Mesh;
-    ["Object_19_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_19_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF2: THREE.Mesh;
+    keyF2001: THREE.Mesh;
     bodyF3: THREE.Mesh;
-    ["Object_34_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_34_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF3: THREE.Mesh;
+    keyF3001: THREE.Mesh;
     bodyF4: THREE.Mesh;
-    ["Object_49_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_49_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF4: THREE.Mesh;
+    keyF4001: THREE.Mesh;
     bodyF5: THREE.Mesh;
-    ["Object_64_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_64_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF5: THREE.Mesh;
+    keyF5001: THREE.Mesh;
     bodyF6: THREE.Mesh;
-    ["Object_79_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_79_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF6: THREE.Mesh;
+    keyF6001: THREE.Mesh;
     bodyF7: THREE.Mesh;
-    ["Object_94_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_94_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF7: THREE.Mesh;
+    keyF7001: THREE.Mesh;
     bodyF8: THREE.Mesh;
-    ["Object_109_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_109_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF8: THREE.Mesh;
+    keyF8001: THREE.Mesh;
     bodyF9: THREE.Mesh;
-    ["Object_124_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_124_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyF9: THREE.Mesh;
+    keyF9001: THREE.Mesh;
     bodyFn: THREE.Mesh;
-    ["Object_1257_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1257_Plastic_(1)_0_1"]: THREE.Mesh;
+    keyFn: THREE.Mesh;
+    keyFn001: THREE.Mesh;
     bodyG: THREE.Mesh;
-    ["Object_604_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_604_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyG: THREE.Mesh;
+    keyG001: THREE.Mesh;
     bodyH: THREE.Mesh;
-    ["Object_619_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_619_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyH: THREE.Mesh;
+    keyH001: THREE.Mesh;
     bodyI: THREE.Mesh;
-    ["Object_469_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_469_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyI: THREE.Mesh;
+    keyI001: THREE.Mesh;
     bodyJ: THREE.Mesh;
-    ["Object_634_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_634_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyJ: THREE.Mesh;
+    keyJ001: THREE.Mesh;
     bodyK: THREE.Mesh;
-    ["Object_649_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_649_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyK: THREE.Mesh;
+    keyK001: THREE.Mesh;
     bodyL: THREE.Mesh;
-    ["Object_664_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_664_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyL: THREE.Mesh;
+    keyL001: THREE.Mesh;
     bodyLeftAlt: THREE.Mesh;
-    ["Object_1226_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1226_Plastic_(1)_0_1"]: THREE.Mesh;
+    keyLeftAlt: THREE.Mesh;
+    keyLeftAlt001: THREE.Mesh;
     bodyLeftCtrl: THREE.Mesh;
-    ["Object_1009_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1009_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyLeftCtrl: THREE.Mesh;
+    keyLeftCtrl001: THREE.Mesh;
     bodyLeftShift: THREE.Mesh;
-    ["Object_1066_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1066_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyLeftShift: THREE.Mesh;
+    keyLeftShift001: THREE.Mesh;
     bodyM: THREE.Mesh;
-    ["Object_784_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_784_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyM: THREE.Mesh;
+    keyM001: THREE.Mesh;
     bodyN: THREE.Mesh;
-    ["Object_769_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_769_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyN: THREE.Mesh;
+    keyN001: THREE.Mesh;
     bodyO: THREE.Mesh;
-    ["Object_484_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_484_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyO: THREE.Mesh;
+    keyO001: THREE.Mesh;
     bodyP: THREE.Mesh;
-    ["Object_499_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_499_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyP: THREE.Mesh;
+    keyP001: THREE.Mesh;
     bodyQ: THREE.Mesh;
-    ["Object_378_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_378_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyQ: THREE.Mesh;
+    keyQ001: THREE.Mesh;
     bodyR: THREE.Mesh;
-    ["Object_409_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_409_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyR: THREE.Mesh;
+    keyR001: THREE.Mesh;
     bodyRightAlt: THREE.Mesh;
-    ["Object_903_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_903_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyRightAlt: THREE.Mesh;
+    keyRightAlt001: THREE.Mesh;
     bodyRightCtrl: THREE.Mesh;
-    ["Object_1261_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1261_Plastic_(1)_0_1"]: THREE.Mesh;
+    keyRightCtrl: THREE.Mesh;
+    keyRightCtrl001: THREE.Mesh;
     bodyRightShift: THREE.Mesh;
-    ["Object_1080_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1080_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyRightShift: THREE.Mesh;
+    keyRightShift001: THREE.Mesh;
     bodyS: THREE.Mesh;
-    ["Object_1178_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1178_Plastic_(1)_0_1"]: THREE.Mesh;
+    keyS: THREE.Mesh;
+    keyS001: THREE.Mesh;
     bodySpace: THREE.Mesh;
     keySpace: THREE.Mesh;
     bodyT: THREE.Mesh;
-    ["Object_424_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_424_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyT: THREE.Mesh;
+    keyT001: THREE.Mesh;
     bodyTab: THREE.Mesh;
-    ["Object_1038_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1038_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyTab: THREE.Mesh;
+    keyTab001: THREE.Mesh;
     bodyTilde: THREE.Mesh;
-    ["Object_349_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_349_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyTilde: THREE.Mesh;
+    keyTilde001: THREE.Mesh;
     bodyU: THREE.Mesh;
-    ["Object_454_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_454_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyU: THREE.Mesh;
+    keyU001: THREE.Mesh;
     bodyUnderPlate: THREE.Mesh;
     bodyV: THREE.Mesh;
-    ["Object_739_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_739_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyV: THREE.Mesh;
+    keyV001: THREE.Mesh;
     bodyW: THREE.Mesh;
-    ["Object_379_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_379_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyW: THREE.Mesh;
+    keyW001: THREE.Mesh;
     bodyWin: THREE.Mesh;
-    ["Object_1008_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1008_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyWin: THREE.Mesh;
+    keyWin001: THREE.Mesh;
     bodyX: THREE.Mesh;
-    ["Object_709_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_709_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyX: THREE.Mesh;
+    keyX001: THREE.Mesh;
     bodyY: THREE.Mesh;
-    ["Object_439_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_439_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyY: THREE.Mesh;
+    keyY001: THREE.Mesh;
     bodyZ: THREE.Mesh;
-    ["Object_964_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_964_Plastic_(5)_0_1"]: THREE.Mesh;
+    keyZ: THREE.Mesh;
+    keyZ001: THREE.Mesh;
     ["body{"]: THREE.Mesh;
-    ["Object_1160_Plastic_(1)_0"]: THREE.Mesh;
-    ["Object_1160_Plastic_(1)_0_1"]: THREE.Mesh;
+    ["key{"]: THREE.Mesh;
+    ["key{001"]: THREE.Mesh;
     ["body|"]: THREE.Mesh;
-    ["Object_1094_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_1094_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key|"]: THREE.Mesh;
+    ["key|001"]: THREE.Mesh;
     ["body}"]: THREE.Mesh;
-    ["Object_529_Plastic_(5)_0"]: THREE.Mesh;
-    ["Object_529_Plastic_(5)_0_1"]: THREE.Mesh;
+    ["key}"]: THREE.Mesh;
+    ["key}001"]: THREE.Mesh;
     infoDisplay: THREE.Mesh;
     keysUnderPlate: THREE.Mesh;
     knobAUnderPlate: THREE.Mesh;
@@ -281,20 +281,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes['body"'].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_708_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_708_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes['key"'].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes['key"001'].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -302,20 +300,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body-"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_198_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_198_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key-"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key-001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -323,20 +319,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body0.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_199_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_199_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key0.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key0001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -344,20 +338,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body1.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_348_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_348_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key1.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key1001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -365,20 +357,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body2.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_333_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_333_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key2.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key2001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -386,20 +376,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body3.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_318_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_318_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key3.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key3001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -407,20 +395,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body4.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_303_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_303_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key4.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key4001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -428,20 +414,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body5.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_288_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_288_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key5.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key5001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -449,20 +433,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body6.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_273_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_273_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key6.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key6001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -470,20 +452,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body7.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_258_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_258_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key7.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key7001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -491,20 +471,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body8.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_243_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_243_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key8.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key8001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -512,20 +490,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.body9.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_228_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_228_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key9.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.key9001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -533,20 +509,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body;"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_679_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_679_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key;"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key;001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -554,20 +528,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body<"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_799_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_799_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key<"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key<001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -575,20 +547,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body="].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_844_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_844_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key="].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key=001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -596,20 +566,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body>"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_814_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_814_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key>"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key>001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -617,20 +585,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body?"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_843_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_843_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key?"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key?001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -638,20 +604,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyA.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_558_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_558_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyA.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyA001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -711,20 +675,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyB.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_754_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_754_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyB.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyB001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -732,20 +694,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyBackspace.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1281_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1281_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyBackspace.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyBackspace001.geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -753,20 +713,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyC.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_724_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_724_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyC.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyC001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -774,20 +732,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyCaps.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1052_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1052_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyCaps.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyCaps001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -795,20 +751,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyD.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_574_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_574_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyD.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyD001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -816,20 +770,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyDelete.geometry}
             material={materials.Plastic_3}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1135_Plastic_(3)_0"].geometry}
-                material={materials.Plastic_3}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1135_Plastic_(3)_0_1"].geometry}
-                material={materials.Plastic_4}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyDelete.geometry}
+              material={materials.Plastic_4}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyDelete001.geometry}
+              material={materials.Plastic_3}
+            />
           </mesh>
           <mesh
             castShadow
@@ -837,20 +789,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyE.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_394_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_394_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyE.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyE001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -858,20 +808,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyEnter.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1316_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1316_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEnter.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEnter001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -879,20 +827,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyEscape.geometry}
             material={materials.Plastic_2}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1036_Plastic_(2)_0"].geometry}
-                material={materials.Plastic_2}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1036_Plastic_(2)_0_1"].geometry}
-                material={materials.Plastic_4}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEscape.geometry}
+              material={materials.Plastic_4}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEscape001.geometry}
+              material={materials.Plastic_2}
+            />
           </mesh>
           <mesh
             castShadow
@@ -900,20 +846,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_589_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_589_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -921,20 +865,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF1.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_18_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_18_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF1.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF1001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -942,20 +884,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF10.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_139_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_139_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF10.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF10001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -963,20 +903,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF11.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_168_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_168_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF11.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF11001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -984,20 +922,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF12.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_169_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_169_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF12.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF12001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1005,20 +941,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF2.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_19_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_19_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF2.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF2001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1026,20 +960,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF3.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_34_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_34_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF3.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF3001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1047,20 +979,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF4.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_49_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_49_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF4.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF4001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1068,20 +998,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF5.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_64_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_64_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF5.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF5001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1089,20 +1017,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF6.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_79_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_79_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF6.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF6001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1110,20 +1036,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF7.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_94_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_94_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF7.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF7001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1131,20 +1055,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF8.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_109_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_109_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF8.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF8001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1152,20 +1074,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyF9.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_124_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_124_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF9.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyF9001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1173,20 +1093,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyFn.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1257_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1257_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFn.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFn001.geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1194,20 +1112,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyG.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_604_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_604_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyG.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyG001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1215,20 +1131,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyH.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_619_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_619_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyH.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyH001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1236,20 +1150,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyI.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_469_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_469_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyI.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyI001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1257,20 +1169,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyJ.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_634_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_634_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyJ.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyJ001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1278,20 +1188,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyK.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_649_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_649_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyK.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyK001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1299,20 +1207,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyL.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_664_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_664_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyL.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyL001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1320,20 +1226,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyLeftAlt.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1226_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1226_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftAlt.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftAlt001.geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1341,20 +1245,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyLeftCtrl.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1009_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1009_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftCtrl.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftCtrl001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1362,20 +1264,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyLeftShift.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1066_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1066_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftShift.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLeftShift001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1383,20 +1283,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyM.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_784_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_784_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyM.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyM001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1404,20 +1302,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyN.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_769_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_769_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyN.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyN001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1425,20 +1321,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyO.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_484_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_484_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyO.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyO001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1446,20 +1340,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyP.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_499_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_499_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyP.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyP001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1467,20 +1359,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyQ.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_378_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_378_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyQ.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyQ001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1488,20 +1378,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyR.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_409_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_409_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyR.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyR001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1509,20 +1397,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyRightAlt.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_903_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_903_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightAlt.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightAlt001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1530,20 +1416,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyRightCtrl.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1261_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1261_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightCtrl.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightCtrl001.geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1551,20 +1435,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyRightShift.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1080_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1080_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightShift.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyRightShift001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1572,20 +1454,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyS.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1178_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1178_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyS.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyS001.geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1606,20 +1486,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyT.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_424_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_424_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyT.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyT001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1627,20 +1505,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyTab.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1038_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1038_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTab.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTab001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1648,20 +1524,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyTilde.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_349_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_349_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTilde.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTilde001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1669,20 +1543,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyU.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_454_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_454_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyU.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyU001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1696,20 +1568,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyV.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_739_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_739_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyV.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyV001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1717,20 +1587,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyW.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_379_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_379_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyW.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyW001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1738,20 +1606,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyWin.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1008_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1008_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyWin.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyWin001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1759,20 +1625,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyX.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_709_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_709_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyX.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyX001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1780,20 +1644,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyY.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_439_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_439_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyY.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyY001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1801,20 +1663,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.bodyZ.geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_964_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_964_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyZ.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.keyZ001.geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1822,20 +1682,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body{"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1160_Plastic_(1)_0"].geometry}
-                material={materials.Plastic_1}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1160_Plastic_(1)_0_1"].geometry}
-                material={materials.Plastic_5}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key{"].geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key{001"].geometry}
+              material={materials.Plastic_1}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1843,20 +1701,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body|"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1094_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_1094_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key|"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key|001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow
@@ -1864,20 +1720,18 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes["body}"].geometry}
             material={materials.Plastic_5}
           >
-            <group>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_529_Plastic_(5)_0"].geometry}
-                material={materials.Plastic_5}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes["Object_529_Plastic_(5)_0_1"].geometry}
-                material={materials.Plastic_1}
-              />
-            </group>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key}"].geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["key}001"].geometry}
+              material={materials.Plastic_5}
+            />
           </mesh>
           <mesh
             castShadow

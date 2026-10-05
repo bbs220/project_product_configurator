@@ -9,11 +9,8 @@ import { JSX } from "react";
 
 type GLTFResult = GLTF & {
   nodes: {
-    LMTUXYhSYYJrnsy: THREE.Mesh;
-    LMTUXYhSYYJrnsy_1: THREE.Mesh;
-    LMTUXYhSYYJrnsy_2: THREE.Mesh;
-    mcBIQkSNmBqhwzR: THREE.Mesh;
-    mcBIQkSNmBqhwzR_1: THREE.Mesh;
+    watchChassis: THREE.Mesh;
+    watchBackPlate: THREE.Mesh;
     watchBackPlateAccents: THREE.Mesh;
     watchBackPlateHighlightRing: THREE.Mesh;
     watchBackPlateScrews: THREE.Mesh;
@@ -24,12 +21,15 @@ type GLTFResult = GLTF & {
     watchHearBeatSensorHalfRing: THREE.Mesh;
     watchHeartBeatSensorRingsA: THREE.Mesh;
     watchHeartBeatSensorRingsB: THREE.Mesh;
+    watchBackPlate001: THREE.Mesh;
     watchBand: THREE.Mesh;
     watchBandExtraStitch: THREE.Mesh;
-    PiDhoxwwGLYiaUX_0: THREE.Mesh;
-    PiDhoxwwGLYiaUX_0_1: THREE.Mesh;
-    PiDhoxwwGLYiaUX_0_2: THREE.Mesh;
+    watchBandGrip: THREE.Mesh;
+    watchBandGrip001: THREE.Mesh;
+    watchBandGrip002: THREE.Mesh;
     watchChassisAccentLine: THREE.Mesh;
+    watchChassisAccentLines: THREE.Mesh;
+    watchChassisBezel: THREE.Mesh;
     watchCrown: THREE.Mesh;
     watchCrownAccentRing: THREE.Mesh;
     watchCrownAccentRingHighlight: THREE.Mesh;
@@ -38,12 +38,12 @@ type GLTFResult = GLTF & {
     watchCrownAccentSupport: THREE.Mesh;
     watchCrownSideButton: THREE.Mesh;
     watchCrownSideButtonRing: THREE.Mesh;
-    DCiPNWQGULbWNNE: THREE.Mesh;
-    DCiPNWQGULbWNNE_1: THREE.Mesh;
-    DCiPNWQGULbWNNE_2: THREE.Mesh;
-    DCiPNWQGULbWNNE_3: THREE.Mesh;
-    DCiPNWQGULbWNNE_4: THREE.Mesh;
-    DCiPNWQGULbWNNE_5: THREE.Mesh;
+    watchInternalsA: THREE.Mesh;
+    watchInternalsB: THREE.Mesh;
+    watchInternalsC: THREE.Mesh;
+    watchInternalsD: THREE.Mesh;
+    watchInternalsE: THREE.Mesh;
+    watchInternalsF: THREE.Mesh;
     watchLowerStrapConnector: THREE.Mesh;
     watchOtherSideButton: THREE.Mesh;
     watchScreenBezel: THREE.Mesh;
@@ -54,9 +54,8 @@ type GLTFResult = GLTF & {
   materials: {
     edhWAPEBZsqCLTg: THREE.MeshStandardMaterial;
     YtajTVWccmKRZBL: THREE.MeshStandardMaterial;
-    GXPSJdzybTrBefY: THREE.MeshStandardMaterial;
-    CdZJpyOXLDMygZg: THREE.MeshStandardMaterial;
     JlRKetQcktLwJwa: THREE.MeshStandardMaterial;
+    CdZJpyOXLDMygZg: THREE.MeshStandardMaterial;
     JSFaTttTQosHtdR: THREE.MeshStandardMaterial;
     hSvQcziHKpXubDY: THREE.MeshStandardMaterial;
     IsuszdatyklnjoT: THREE.MeshStandardMaterial;
@@ -66,10 +65,11 @@ type GLTFResult = GLTF & {
     dSEglLtoqwjlQIP: THREE.MeshStandardMaterial;
     FsJfKVbzNLXJeBa: THREE.MeshStandardMaterial;
     troyYZUIqRYbiDX: THREE.MeshStandardMaterial;
+    ivgxAOQoWknkmNj: THREE.MeshStandardMaterial;
     sTxeXXVKohXeDJU: THREE.MeshStandardMaterial;
     lgIBGhMXHpTEcfq: THREE.MeshStandardMaterial;
-    ivgxAOQoWknkmNj: THREE.MeshStandardMaterial;
     PmrTDgoSkxCPUel: THREE.MeshStandardMaterial;
+    GXPSJdzybTrBefY: THREE.MeshStandardMaterial;
     GvXrALMIeaGmIJo: THREE.MeshStandardMaterial;
     VJcIxaYCeMHzzAJ: THREE.MeshStandardMaterial;
     vqobCvtAVyNLbeh: THREE.MeshStandardMaterial;
@@ -95,43 +95,20 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   return (
     <group {...props} dispose={null}>
       <group name="Scene">
-        <group name="watchChassis">
+        <mesh
+          name="watchChassis"
+          castShadow
+          receiveShadow
+          geometry={nodes.watchChassis.geometry}
+          material={materials.edhWAPEBZsqCLTg}
+        >
           <mesh
-            name="LMTUXYhSYYJrnsy"
+            name="watchBackPlate"
             castShadow
             receiveShadow
-            geometry={nodes.LMTUXYhSYYJrnsy.geometry}
-            material={materials.edhWAPEBZsqCLTg}
-          />
-          <mesh
-            name="LMTUXYhSYYJrnsy_1"
-            castShadow
-            receiveShadow
-            geometry={nodes.LMTUXYhSYYJrnsy_1.geometry}
+            geometry={nodes.watchBackPlate.geometry}
             material={materials.YtajTVWccmKRZBL}
-          />
-          <mesh
-            name="LMTUXYhSYYJrnsy_2"
-            castShadow
-            receiveShadow
-            geometry={nodes.LMTUXYhSYYJrnsy_2.geometry}
-            material={materials.GXPSJdzybTrBefY}
-          />
-          <group name="watchBackPlate">
-            <mesh
-              name="mcBIQkSNmBqhwzR"
-              castShadow
-              receiveShadow
-              geometry={nodes.mcBIQkSNmBqhwzR.geometry}
-              material={materials.CdZJpyOXLDMygZg}
-            />
-            <mesh
-              name="mcBIQkSNmBqhwzR_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.mcBIQkSNmBqhwzR_1.geometry}
-              material={materials.YtajTVWccmKRZBL}
-            />
+          >
             <mesh
               name="watchBackPlateAccents"
               castShadow
@@ -203,7 +180,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
                 material={materials.dSEglLtoqwjlQIP}
               />
             </mesh>
-          </group>
+          </mesh>
+          <mesh
+            name="watchBackPlate001"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchBackPlate001.geometry}
+            material={materials.CdZJpyOXLDMygZg}
+          />
           <mesh
             name="watchBand"
             castShadow
@@ -218,29 +202,27 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
               geometry={nodes.watchBandExtraStitch.geometry}
               material={materials.troyYZUIqRYbiDX}
             />
-            <group name="watchBandGrip">
-              <mesh
-                name="PiDhoxwwGLYiaUX_0"
-                castShadow
-                receiveShadow
-                geometry={nodes.PiDhoxwwGLYiaUX_0.geometry}
-                material={materials.sTxeXXVKohXeDJU}
-              />
-              <mesh
-                name="PiDhoxwwGLYiaUX_0_1"
-                castShadow
-                receiveShadow
-                geometry={nodes.PiDhoxwwGLYiaUX_0_1.geometry}
-                material={materials.lgIBGhMXHpTEcfq}
-              />
-              <mesh
-                name="PiDhoxwwGLYiaUX_0_2"
-                castShadow
-                receiveShadow
-                geometry={nodes.PiDhoxwwGLYiaUX_0_2.geometry}
-                material={materials.ivgxAOQoWknkmNj}
-              />
-            </group>
+            <mesh
+              name="watchBandGrip"
+              castShadow
+              receiveShadow
+              geometry={nodes.watchBandGrip.geometry}
+              material={materials.ivgxAOQoWknkmNj}
+            />
+            <mesh
+              name="watchBandGrip001"
+              castShadow
+              receiveShadow
+              geometry={nodes.watchBandGrip001.geometry}
+              material={materials.sTxeXXVKohXeDJU}
+            />
+            <mesh
+              name="watchBandGrip002"
+              castShadow
+              receiveShadow
+              geometry={nodes.watchBandGrip002.geometry}
+              material={materials.lgIBGhMXHpTEcfq}
+            />
           </mesh>
           <mesh
             name="watchChassisAccentLine"
@@ -248,6 +230,20 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             receiveShadow
             geometry={nodes.watchChassisAccentLine.geometry}
             material={materials.PmrTDgoSkxCPUel}
+          />
+          <mesh
+            name="watchChassisAccentLines"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchChassisAccentLines.geometry}
+            material={materials.YtajTVWccmKRZBL}
+          />
+          <mesh
+            name="watchChassisBezel"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchChassisBezel.geometry}
+            material={materials.GXPSJdzybTrBefY}
           />
           <mesh
             name="watchCrown"
@@ -308,50 +304,48 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
               material={materials.gYvxxOpBYwEcvOZ}
             />
           </mesh>
-          <group name="watchInternals">
-            <mesh
-              name="DCiPNWQGULbWNNE"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE.geometry}
-              material={materials.AGtKlWnOInmqNQI}
-            />
-            <mesh
-              name="DCiPNWQGULbWNNE_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE_1.geometry}
-              material={materials.yKAKXxwHUkGVYpC}
-            />
-            <mesh
-              name="DCiPNWQGULbWNNE_2"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE_2.geometry}
-              material={materials.gYvxxOpBYwEcvOZ}
-            />
-            <mesh
-              name="DCiPNWQGULbWNNE_3"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE_3.geometry}
-              material={materials.ihcWbztBiuXfzKC}
-            />
-            <mesh
-              name="DCiPNWQGULbWNNE_4"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE_4.geometry}
-              material={materials.VkUcBAhoopQFcky}
-            />
-            <mesh
-              name="DCiPNWQGULbWNNE_5"
-              castShadow
-              receiveShadow
-              geometry={nodes.DCiPNWQGULbWNNE_5.geometry}
-              material={materials.ICUREbcRKnCadKa}
-            />
-          </group>
+          <mesh
+            name="watchInternalsA"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsA.geometry}
+            material={materials.AGtKlWnOInmqNQI}
+          />
+          <mesh
+            name="watchInternalsB"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsB.geometry}
+            material={materials.yKAKXxwHUkGVYpC}
+          />
+          <mesh
+            name="watchInternalsC"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsC.geometry}
+            material={materials.gYvxxOpBYwEcvOZ}
+          />
+          <mesh
+            name="watchInternalsD"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsD.geometry}
+            material={materials.ihcWbztBiuXfzKC}
+          />
+          <mesh
+            name="watchInternalsE"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsE.geometry}
+            material={materials.VkUcBAhoopQFcky}
+          />
+          <mesh
+            name="watchInternalsF"
+            castShadow
+            receiveShadow
+            geometry={nodes.watchInternalsF.geometry}
+            material={materials.ICUREbcRKnCadKa}
+          />
           <mesh
             name="watchLowerStrapConnector"
             castShadow
@@ -395,7 +389,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchUpperStrapConnector.geometry}
             material={materials.edhWAPEBZsqCLTg}
           />
-        </group>
+        </mesh>
       </group>
     </group>
   );

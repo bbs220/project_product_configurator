@@ -106,14 +106,14 @@ type GLTFResult = GLTF & {
     supportGearAssemblyB: THREE.Mesh;
     rearSupportGearA: THREE.Mesh;
     rearWheelTyre: THREE.Mesh;
-    Circle003_M_Wheel_1_0: THREE.Mesh;
-    Circle003_M_Wheel_1_0_1: THREE.Mesh;
-    Circle027_M_Cassette_1_0: THREE.Mesh;
-    Circle027_M_Cassette_1_0_1: THREE.Mesh;
+    rearWheelAxle: THREE.Mesh;
+    rearGears: THREE.Mesh;
     rearGearShaft: THREE.Mesh;
+    rearGears001: THREE.Mesh;
     rearWheelDiscBrakeSupport: THREE.Mesh;
     rearWheelDiscBrake: THREE.Mesh;
     rearWheelDiscBrakeScrews: THREE.Mesh;
+    rearWheelAxle001: THREE.Mesh;
     rearWheelCenterTreads: THREE.Mesh;
     rearWheelHalfTreads: THREE.Mesh;
     rearWheelMidTreads: THREE.Mesh;
@@ -886,36 +886,20 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
               geometry={nodes.rearWheelTyre.geometry}
               material={materials.M_Wheel_2}
             >
-              <group name="rearWheelAxle">
+              <mesh
+                name="rearWheelAxle"
+                castShadow
+                receiveShadow
+                geometry={nodes.rearWheelAxle.geometry}
+                material={materials.M_Cassette_1}
+              >
                 <mesh
-                  name="Circle003_M_Wheel_1_0"
+                  name="rearGears"
                   castShadow
                   receiveShadow
-                  geometry={nodes.Circle003_M_Wheel_1_0.geometry}
-                  material={materials.M_Wheel_1}
-                />
-                <mesh
-                  name="Circle003_M_Wheel_1_0_1"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.Circle003_M_Wheel_1_0_1.geometry}
-                  material={materials.M_Cassette_1}
-                />
-                <group name="rearGears">
-                  <mesh
-                    name="Circle027_M_Cassette_1_0"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Circle027_M_Cassette_1_0.geometry}
-                    material={materials.M_Cassette_1}
-                  />
-                  <mesh
-                    name="Circle027_M_Cassette_1_0_1"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Circle027_M_Cassette_1_0_1.geometry}
-                    material={materials.M_Cassette}
-                  />
+                  geometry={nodes.rearGears.geometry}
+                  material={materials.M_Cassette}
+                >
                   <mesh
                     name="rearGearShaft"
                     castShadow
@@ -923,7 +907,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
                     geometry={nodes.rearGearShaft.geometry}
                     material={materials.M_Cassette_1}
                   />
-                </group>
+                </mesh>
+                <mesh
+                  name="rearGears001"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.rearGears001.geometry}
+                  material={materials.M_Cassette_1}
+                />
                 <mesh
                   name="rearWheelDiscBrakeSupport"
                   castShadow
@@ -946,7 +937,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
                     material={materials.M_ShimanoBrake_2}
                   />
                 </mesh>
-              </group>
+              </mesh>
+              <mesh
+                name="rearWheelAxle001"
+                castShadow
+                receiveShadow
+                geometry={nodes.rearWheelAxle001.geometry}
+                material={materials.M_Wheel_1}
+              />
               <mesh
                 name="rearWheelCenterTreads"
                 castShadow
