@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Car, Watch, Keyboard, Bike, Guitar, Box } from "lucide-react";
+import { Car, Watch, Keyboard, Bike, Guitar, Box, type LucideIcon } from "lucide-react";
 import { assetPaths } from "@/lib/utils";
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, LucideIcon> = {
   laFerrari: Car,
   watch: Watch,
   keyboard: Keyboard,
