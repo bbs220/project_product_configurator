@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export const assetPaths = {
-  laFerrari: "/models/Ferrari_LaFerrari_2013.glb",
   watch: "/models/Apple_Watch_Ultra_2_2023.glb",
   keyboard: "/models/Knob1_Mechanical_Keyboard_2024.glb",
   mtBike: "/models/SantaCruz_v10_2026.glb",

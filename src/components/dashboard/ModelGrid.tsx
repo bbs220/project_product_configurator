@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { Car, Watch, Keyboard, Bike, Guitar, Box, type LucideIcon } from "lucide-react";
+import {
+  Watch,
+  Keyboard,
+  Bike,
+  Guitar,
+  Box,
+  type LucideIcon,
+} from "lucide-react";
 import { assetPaths } from "@/lib/utils";
 
 const iconMap: Record<string, LucideIcon> = {
-  laFerrari: Car,
   watch: Watch,
   keyboard: Keyboard,
   mtBike: Bike,
@@ -42,7 +48,7 @@ export default function ModelGrid() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {models.map(({ key, brand, modelName, year }) => {
         const Icon = iconMap[key] || Box;
-        
+
         return (
           <Link key={key} href={`/configurator?model=${key}`} className="group">
             <div className="w-full aspect-video rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex flex-col items-center justify-center p-8 transition-all duration-300 hover:ring-2 hover:ring-gray-900 dark:hover:ring-white hover:-translate-y-1 hover:shadow-xl relative overflow-hidden">
