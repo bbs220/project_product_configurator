@@ -27,27 +27,23 @@ type GlobalFolderConfig = {
   expanded?: boolean;
 };
 
-type ConfigType<T> = {
-  [K in keyof T]: T[K] extends { value: infer V } ? TweakpaneOptions<V> : T[K];
-};
-
 let sharedPane: Pane | null = null;
 let sharedFolders: Record<string, FolderApi> = {};
 let activeHooksCount = 0;
 
 export function useTweakpane<T extends Record<string, unknown>>(
-  config: ConfigType<T>,
-): TweakpaneState<T>;
+  config: T,
+): { [K in keyof T]: ExtractValue<T[K]> };
 
 export function useTweakpane<T extends Record<string, unknown>>(
   folderConfig: string | GlobalFolderConfig,
-  config: ConfigType<T>,
-): TweakpaneState<T>;
+  config: T,
+): { [K in keyof T]: ExtractValue<T[K]> };
 
 export function useTweakpane<T extends Record<string, unknown>>(
-  arg1: string | GlobalFolderConfig | ConfigType<T>,
-  arg2?: ConfigType<T>,
-): TweakpaneState<T> {
+  arg1: string | GlobalFolderConfig | T,
+  arg2?: T,
+): { [K in keyof T]: ExtractValue<T[K]> } {
   const hasFolderConfig = arg2 !== undefined;
   const folderOptions = hasFolderConfig
     ? typeof arg1 === "string"
@@ -55,7 +51,7 @@ export function useTweakpane<T extends Record<string, unknown>>(
       : (arg1 as GlobalFolderConfig)
     : undefined;
 
-  const config = (hasFolderConfig ? arg2 : arg1) as ConfigType<T>;
+  const config = (hasFolderConfig ? arg2 : arg1) as T;
 
   const [params, setParams] = useState<TweakpaneState<T>>(() => {
     const initialState = {} as TweakpaneState<T>;
