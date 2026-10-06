@@ -10,60 +10,9 @@ import { GLTF } from "three-stdlib";
 type GLTFResult = GLTF & {
   nodes: {
     chassis: THREE.Mesh;
-    ['body"']: THREE.Mesh;
-    ['key"']: THREE.Mesh;
-    ['key"001']: THREE.Mesh;
-    ["body-"]: THREE.Mesh;
-    ["key-"]: THREE.Mesh;
-    ["key-001"]: THREE.Mesh;
-    body0: THREE.Mesh;
-    key0: THREE.Mesh;
-    key0001: THREE.Mesh;
-    body1: THREE.Mesh;
-    key1: THREE.Mesh;
-    key1001: THREE.Mesh;
-    body2: THREE.Mesh;
-    key2: THREE.Mesh;
-    key2001: THREE.Mesh;
-    body3: THREE.Mesh;
-    key3: THREE.Mesh;
-    key3001: THREE.Mesh;
-    body4: THREE.Mesh;
-    key4: THREE.Mesh;
-    key4001: THREE.Mesh;
-    body5: THREE.Mesh;
-    key5: THREE.Mesh;
-    key5001: THREE.Mesh;
-    body6: THREE.Mesh;
-    key6: THREE.Mesh;
-    key6001: THREE.Mesh;
-    body7: THREE.Mesh;
-    key7: THREE.Mesh;
-    key7001: THREE.Mesh;
-    body8: THREE.Mesh;
-    key8: THREE.Mesh;
-    key8001: THREE.Mesh;
-    body9: THREE.Mesh;
-    key9: THREE.Mesh;
-    key9001: THREE.Mesh;
-    ["body;"]: THREE.Mesh;
-    ["key;"]: THREE.Mesh;
-    ["key;001"]: THREE.Mesh;
-    ["body<"]: THREE.Mesh;
-    ["key<"]: THREE.Mesh;
-    ["key<001"]: THREE.Mesh;
-    ["body="]: THREE.Mesh;
-    ["key="]: THREE.Mesh;
-    ["key=001"]: THREE.Mesh;
-    ["body>"]: THREE.Mesh;
-    ["key>"]: THREE.Mesh;
-    ["key>001"]: THREE.Mesh;
-    ["body?"]: THREE.Mesh;
-    ["key?"]: THREE.Mesh;
-    ["key?001"]: THREE.Mesh;
     bodyA: THREE.Mesh;
     keyA: THREE.Mesh;
-    keyA001: THREE.Mesh;
+    keyACap: THREE.Mesh;
     bodyArrowDown: THREE.Mesh;
     keyArrowDown: THREE.Mesh;
     bodyArrowLeft: THREE.Mesh;
@@ -74,172 +23,223 @@ type GLTFResult = GLTF & {
     keyArrowUp: THREE.Mesh;
     bodyB: THREE.Mesh;
     keyB: THREE.Mesh;
-    keyB001: THREE.Mesh;
+    keyBCap: THREE.Mesh;
     bodyBackspace: THREE.Mesh;
     keyBackspace: THREE.Mesh;
-    keyBackspace001: THREE.Mesh;
+    keyBackspaceCap: THREE.Mesh;
     bodyC: THREE.Mesh;
     keyC: THREE.Mesh;
-    keyC001: THREE.Mesh;
-    bodyCaps: THREE.Mesh;
-    keyCaps: THREE.Mesh;
-    keyCaps001: THREE.Mesh;
+    keyCCap: THREE.Mesh;
+    bodyCapsLock: THREE.Mesh;
+    keyCapsLock: THREE.Mesh;
+    keyCapsLockCap: THREE.Mesh;
+    bodyCloseCurlyBracket: THREE.Mesh;
+    keyCloseCurlyBracket: THREE.Mesh;
+    keyCloseCurlyBracketCap: THREE.Mesh;
     bodyD: THREE.Mesh;
     keyD: THREE.Mesh;
-    keyD001: THREE.Mesh;
+    keyDCap: THREE.Mesh;
     bodyDelete: THREE.Mesh;
     keyDelete: THREE.Mesh;
-    keyDelete001: THREE.Mesh;
+    keyDeleteCap: THREE.Mesh;
+    bodyDoubleQuotes: THREE.Mesh;
+    keyDoubleQuotes: THREE.Mesh;
+    keyDoubleQuotesCap: THREE.Mesh;
     bodyE: THREE.Mesh;
     keyE: THREE.Mesh;
-    keyE001: THREE.Mesh;
+    keyECap: THREE.Mesh;
+    bodyEight: THREE.Mesh;
+    keyEight: THREE.Mesh;
+    keyEightCap: THREE.Mesh;
     bodyEnter: THREE.Mesh;
     keyEnter: THREE.Mesh;
-    keyEnter001: THREE.Mesh;
+    keyEnterCap: THREE.Mesh;
+    bodyEqualsTo: THREE.Mesh;
+    keyEqualsTo: THREE.Mesh;
+    keyEqualsToCap: THREE.Mesh;
     bodyEscape: THREE.Mesh;
     keyEscape: THREE.Mesh;
-    keyEscape001: THREE.Mesh;
+    keyEscapeCap: THREE.Mesh;
     bodyF: THREE.Mesh;
     keyF: THREE.Mesh;
-    keyF001: THREE.Mesh;
+    keyFCap: THREE.Mesh;
     bodyF1: THREE.Mesh;
     keyF1: THREE.Mesh;
-    keyF1001: THREE.Mesh;
+    keyF1Cap: THREE.Mesh;
     bodyF10: THREE.Mesh;
     keyF10: THREE.Mesh;
-    keyF10001: THREE.Mesh;
+    keyF10Cap: THREE.Mesh;
     bodyF11: THREE.Mesh;
     keyF11: THREE.Mesh;
-    keyF11001: THREE.Mesh;
+    keyF11Cap: THREE.Mesh;
     bodyF12: THREE.Mesh;
     keyF12: THREE.Mesh;
-    keyF12001: THREE.Mesh;
+    keyF12Cap: THREE.Mesh;
     bodyF2: THREE.Mesh;
     keyF2: THREE.Mesh;
-    keyF2001: THREE.Mesh;
+    keyF2Cap: THREE.Mesh;
     bodyF3: THREE.Mesh;
     keyF3: THREE.Mesh;
-    keyF3001: THREE.Mesh;
+    keyF3Cap: THREE.Mesh;
     bodyF4: THREE.Mesh;
     keyF4: THREE.Mesh;
-    keyF4001: THREE.Mesh;
+    keyF4Cap: THREE.Mesh;
     bodyF5: THREE.Mesh;
     keyF5: THREE.Mesh;
-    keyF5001: THREE.Mesh;
+    keyF5Cap: THREE.Mesh;
     bodyF6: THREE.Mesh;
     keyF6: THREE.Mesh;
-    keyF6001: THREE.Mesh;
+    keyF6Cap: THREE.Mesh;
     bodyF7: THREE.Mesh;
     keyF7: THREE.Mesh;
-    keyF7001: THREE.Mesh;
+    keyF7Cap: THREE.Mesh;
     bodyF8: THREE.Mesh;
     keyF8: THREE.Mesh;
-    keyF8001: THREE.Mesh;
+    keyF8Cap: THREE.Mesh;
     bodyF9: THREE.Mesh;
     keyF9: THREE.Mesh;
-    keyF9001: THREE.Mesh;
+    keyF9Cap: THREE.Mesh;
+    bodyFive: THREE.Mesh;
+    keyFive: THREE.Mesh;
+    keyFiveCap: THREE.Mesh;
     bodyFn: THREE.Mesh;
     keyFn: THREE.Mesh;
-    keyFn001: THREE.Mesh;
+    keyFnCap: THREE.Mesh;
+    bodyFour: THREE.Mesh;
+    keyFour: THREE.Mesh;
+    keyFourCap: THREE.Mesh;
     bodyG: THREE.Mesh;
     keyG: THREE.Mesh;
-    keyG001: THREE.Mesh;
+    keyGCap: THREE.Mesh;
+    bodyGreaterThan: THREE.Mesh;
+    keyGreaterThan: THREE.Mesh;
+    keyGreaterThanCap: THREE.Mesh;
     bodyH: THREE.Mesh;
     keyH: THREE.Mesh;
-    keyH001: THREE.Mesh;
+    keyHCap: THREE.Mesh;
     bodyI: THREE.Mesh;
     keyI: THREE.Mesh;
-    keyI001: THREE.Mesh;
+    keyICap: THREE.Mesh;
     bodyJ: THREE.Mesh;
     keyJ: THREE.Mesh;
-    keyJ001: THREE.Mesh;
+    keyJCap: THREE.Mesh;
     bodyK: THREE.Mesh;
     keyK: THREE.Mesh;
-    keyK001: THREE.Mesh;
+    keyKCap: THREE.Mesh;
     bodyL: THREE.Mesh;
     keyL: THREE.Mesh;
-    keyL001: THREE.Mesh;
+    keyLCap: THREE.Mesh;
     bodyLeftAlt: THREE.Mesh;
     keyLeftAlt: THREE.Mesh;
-    keyLeftAlt001: THREE.Mesh;
+    keyLeftAltCap: THREE.Mesh;
     bodyLeftCtrl: THREE.Mesh;
     keyLeftCtrl: THREE.Mesh;
-    keyLeftCtrl001: THREE.Mesh;
+    keyLeftCtrlCap: THREE.Mesh;
     bodyLeftShift: THREE.Mesh;
     keyLeftShift: THREE.Mesh;
-    keyLeftShift001: THREE.Mesh;
+    keyLeftShiftCap: THREE.Mesh;
+    bodyLessThan: THREE.Mesh;
+    keyLessThan: THREE.Mesh;
+    keyLessThanCap: THREE.Mesh;
     bodyM: THREE.Mesh;
     keyM: THREE.Mesh;
-    keyM001: THREE.Mesh;
+    keyMCap: THREE.Mesh;
     bodyN: THREE.Mesh;
     keyN: THREE.Mesh;
-    keyN001: THREE.Mesh;
+    keyNCap: THREE.Mesh;
+    bodyNine: THREE.Mesh;
+    keyNine: THREE.Mesh;
+    keyNineCap: THREE.Mesh;
     bodyO: THREE.Mesh;
     keyO: THREE.Mesh;
-    keyO001: THREE.Mesh;
+    keyOCap: THREE.Mesh;
+    bodyOne: THREE.Mesh;
+    keyOne: THREE.Mesh;
+    keyOneCap: THREE.Mesh;
+    bodyOpenCurlyBracket: THREE.Mesh;
+    keyOpenCurlyBracket: THREE.Mesh;
+    keyOpenCurlyBracketCap: THREE.Mesh;
     bodyP: THREE.Mesh;
     keyP: THREE.Mesh;
-    keyP001: THREE.Mesh;
+    keyPCap: THREE.Mesh;
+    bodyPipe: THREE.Mesh;
+    keyPipe: THREE.Mesh;
+    keyPipeCap: THREE.Mesh;
     bodyQ: THREE.Mesh;
     keyQ: THREE.Mesh;
-    keyQ001: THREE.Mesh;
+    keyQCap: THREE.Mesh;
+    bodyQuestion: THREE.Mesh;
+    keyQuestion: THREE.Mesh;
+    keyQuestionCap: THREE.Mesh;
     bodyR: THREE.Mesh;
     keyR: THREE.Mesh;
-    keyR001: THREE.Mesh;
+    keyRCap: THREE.Mesh;
     bodyRightAlt: THREE.Mesh;
     keyRightAlt: THREE.Mesh;
-    keyRightAlt001: THREE.Mesh;
+    keyRightAltCap: THREE.Mesh;
     bodyRightCtrl: THREE.Mesh;
     keyRightCtrl: THREE.Mesh;
-    keyRightCtrl001: THREE.Mesh;
+    keyRightCtrlCap: THREE.Mesh;
     bodyRightShift: THREE.Mesh;
     keyRightShift: THREE.Mesh;
-    keyRightShift001: THREE.Mesh;
+    keyRightShiftCap: THREE.Mesh;
     bodyS: THREE.Mesh;
     keyS: THREE.Mesh;
-    keyS001: THREE.Mesh;
+    keySCap: THREE.Mesh;
+    bodySemicolon: THREE.Mesh;
+    keySemicolon: THREE.Mesh;
+    keySemicolonCap: THREE.Mesh;
+    bodySeven: THREE.Mesh;
+    keySeven: THREE.Mesh;
+    keySevenCap: THREE.Mesh;
+    bodySix: THREE.Mesh;
+    keySix: THREE.Mesh;
+    keySixCap: THREE.Mesh;
     bodySpace: THREE.Mesh;
     keySpace: THREE.Mesh;
     bodyT: THREE.Mesh;
     keyT: THREE.Mesh;
-    keyT001: THREE.Mesh;
+    keyTCap: THREE.Mesh;
     bodyTab: THREE.Mesh;
     keyTab: THREE.Mesh;
-    keyTab001: THREE.Mesh;
+    keyTabCap: THREE.Mesh;
+    bodyThree: THREE.Mesh;
+    keyThree: THREE.Mesh;
+    keyThreeCap: THREE.Mesh;
     bodyTilde: THREE.Mesh;
     keyTilde: THREE.Mesh;
-    keyTilde001: THREE.Mesh;
+    keyTildeCap: THREE.Mesh;
+    bodyTwo: THREE.Mesh;
+    keyTwo: THREE.Mesh;
+    keyTwoCap: THREE.Mesh;
     bodyU: THREE.Mesh;
     keyU: THREE.Mesh;
-    keyU001: THREE.Mesh;
+    keyUCap: THREE.Mesh;
     bodyUnderPlate: THREE.Mesh;
+    bodyUnderscore: THREE.Mesh;
+    keyUnderscore: THREE.Mesh;
+    keyUnderscoreCap: THREE.Mesh;
     bodyV: THREE.Mesh;
     keyV: THREE.Mesh;
-    keyV001: THREE.Mesh;
+    keyVCap: THREE.Mesh;
     bodyW: THREE.Mesh;
     keyW: THREE.Mesh;
-    keyW001: THREE.Mesh;
+    keyWCap: THREE.Mesh;
     bodyWin: THREE.Mesh;
     keyWin: THREE.Mesh;
-    keyWin001: THREE.Mesh;
+    keyWinCap: THREE.Mesh;
     bodyX: THREE.Mesh;
     keyX: THREE.Mesh;
-    keyX001: THREE.Mesh;
+    keyXCap: THREE.Mesh;
     bodyY: THREE.Mesh;
     keyY: THREE.Mesh;
-    keyY001: THREE.Mesh;
+    keyYCap: THREE.Mesh;
     bodyZ: THREE.Mesh;
     keyZ: THREE.Mesh;
-    keyZ001: THREE.Mesh;
-    ["body{"]: THREE.Mesh;
-    ["key{"]: THREE.Mesh;
-    ["key{001"]: THREE.Mesh;
-    ["body|"]: THREE.Mesh;
-    ["key|"]: THREE.Mesh;
-    ["key|001"]: THREE.Mesh;
-    ["body}"]: THREE.Mesh;
-    ["key}"]: THREE.Mesh;
-    ["key}001"]: THREE.Mesh;
+    keyZCap: THREE.Mesh;
+    bodyZero: THREE.Mesh;
+    keyZero: THREE.Mesh;
+    keyZeroCap: THREE.Mesh;
     infoDisplay: THREE.Mesh;
     keysUnderPlate: THREE.Mesh;
     knobAUnderPlate: THREE.Mesh;
@@ -268,362 +268,45 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
-      <group>
+      <group name="Scene">
         <mesh
+          name="chassis"
           castShadow
           receiveShadow
           geometry={nodes.chassis.geometry}
           material={materials.Metal_1}
         >
           <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes['body"'].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes['key"'].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes['key"001'].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body-"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key-"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key-001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body0.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key0.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key0001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body1.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key1.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key1001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body2.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key2.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key2001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body3.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key3.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key3001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body4.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key4.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key4001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body5.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key5.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key5001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body6.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key6.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key6001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body7.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key7.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key7001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body8.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key8.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key8001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.body9.geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key9.geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.key9001.geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body;"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key;"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key;001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body<"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key<"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key<001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body="].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key="].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key=001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body>"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key>"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key>001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body?"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key?"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key?001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
+            name="bodyA"
             castShadow
             receiveShadow
             geometry={nodes.bodyA.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyA"
               castShadow
               receiveShadow
               geometry={nodes.keyA.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyACap"
               castShadow
               receiveShadow
-              geometry={nodes.keyA001.geometry}
+              geometry={nodes.keyACap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyArrowDown"
             castShadow
             receiveShadow
             geometry={nodes.bodyArrowDown.geometry}
             material={materials.Plastic_2}
           >
             <mesh
+              name="keyArrowDown"
               castShadow
               receiveShadow
               geometry={nodes.keyArrowDown.geometry}
@@ -631,12 +314,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="bodyArrowLeft"
             castShadow
             receiveShadow
             geometry={nodes.bodyArrowLeft.geometry}
             material={materials.Plastic_2}
           >
             <mesh
+              name="keyArrowLeft"
               castShadow
               receiveShadow
               geometry={nodes.keyArrowLeft.geometry}
@@ -644,12 +329,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="bodyArrowRight"
             castShadow
             receiveShadow
             geometry={nodes.bodyArrowRight.geometry}
             material={materials.Plastic_2}
           >
             <mesh
+              name="keyArrowRight"
               castShadow
               receiveShadow
               geometry={nodes.keyArrowRight.geometry}
@@ -657,12 +344,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="bodyArrowUp"
             castShadow
             receiveShadow
             geometry={nodes.bodyArrowUp.geometry}
             material={materials.Plastic_2}
           >
             <mesh
+              name="keyArrowUp"
               castShadow
               receiveShadow
               geometry={nodes.keyArrowUp.geometry}
@@ -670,810 +359,1290 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="bodyB"
             castShadow
             receiveShadow
             geometry={nodes.bodyB.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyB"
               castShadow
               receiveShadow
               geometry={nodes.keyB.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyBCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyB001.geometry}
+              geometry={nodes.keyBCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyBackspace"
             castShadow
             receiveShadow
             geometry={nodes.bodyBackspace.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyBackspace"
               castShadow
               receiveShadow
               geometry={nodes.keyBackspace.geometry}
               material={materials.Plastic_5}
             />
             <mesh
+              name="keyBackspaceCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyBackspace001.geometry}
+              geometry={nodes.keyBackspaceCap.geometry}
               material={materials.Plastic_1}
             />
           </mesh>
           <mesh
+            name="bodyC"
             castShadow
             receiveShadow
             geometry={nodes.bodyC.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyC"
               castShadow
               receiveShadow
               geometry={nodes.keyC.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyCCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyC001.geometry}
+              geometry={nodes.keyCCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyCapsLock"
             castShadow
             receiveShadow
-            geometry={nodes.bodyCaps.geometry}
+            geometry={nodes.bodyCapsLock.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyCapsLock"
               castShadow
               receiveShadow
-              geometry={nodes.keyCaps.geometry}
+              geometry={nodes.keyCapsLock.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyCapsLockCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyCaps001.geometry}
+              geometry={nodes.keyCapsLockCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyCloseCurlyBracket"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyCloseCurlyBracket.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyCloseCurlyBracket"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyCloseCurlyBracket.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyCloseCurlyBracketCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyCloseCurlyBracketCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyD"
             castShadow
             receiveShadow
             geometry={nodes.bodyD.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyD"
               castShadow
               receiveShadow
               geometry={nodes.keyD.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyDCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyD001.geometry}
+              geometry={nodes.keyDCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyDelete"
             castShadow
             receiveShadow
             geometry={nodes.bodyDelete.geometry}
             material={materials.Plastic_3}
           >
             <mesh
+              name="keyDelete"
               castShadow
               receiveShadow
               geometry={nodes.keyDelete.geometry}
               material={materials.Plastic_4}
             />
             <mesh
+              name="keyDeleteCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyDelete001.geometry}
+              geometry={nodes.keyDeleteCap.geometry}
               material={materials.Plastic_3}
             />
           </mesh>
           <mesh
+            name="bodyDoubleQuotes"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyDoubleQuotes.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyDoubleQuotes"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyDoubleQuotes.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyDoubleQuotesCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyDoubleQuotesCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyE"
             castShadow
             receiveShadow
             geometry={nodes.bodyE.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyE"
               castShadow
               receiveShadow
               geometry={nodes.keyE.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyECap"
               castShadow
               receiveShadow
-              geometry={nodes.keyE001.geometry}
+              geometry={nodes.keyECap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyEight"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyEight.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyEight"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEight.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyEightCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEightCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyEnter"
             castShadow
             receiveShadow
             geometry={nodes.bodyEnter.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyEnter"
               castShadow
               receiveShadow
               geometry={nodes.keyEnter.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyEnterCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyEnter001.geometry}
+              geometry={nodes.keyEnterCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyEqualsTo"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyEqualsTo.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyEqualsTo"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEqualsTo.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyEqualsToCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyEqualsToCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyEscape"
             castShadow
             receiveShadow
             geometry={nodes.bodyEscape.geometry}
             material={materials.Plastic_2}
           >
             <mesh
+              name="keyEscape"
               castShadow
               receiveShadow
               geometry={nodes.keyEscape.geometry}
               material={materials.Plastic_4}
             />
             <mesh
+              name="keyEscapeCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyEscape001.geometry}
+              geometry={nodes.keyEscapeCap.geometry}
               material={materials.Plastic_2}
             />
           </mesh>
           <mesh
+            name="bodyF"
             castShadow
             receiveShadow
             geometry={nodes.bodyF.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF"
               castShadow
               receiveShadow
               geometry={nodes.keyF.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyFCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF001.geometry}
+              geometry={nodes.keyFCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF1"
             castShadow
             receiveShadow
             geometry={nodes.bodyF1.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF1"
               castShadow
               receiveShadow
               geometry={nodes.keyF1.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF1Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF1001.geometry}
+              geometry={nodes.keyF1Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF10"
             castShadow
             receiveShadow
             geometry={nodes.bodyF10.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF10"
               castShadow
               receiveShadow
               geometry={nodes.keyF10.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF10Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF10001.geometry}
+              geometry={nodes.keyF10Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF11"
             castShadow
             receiveShadow
             geometry={nodes.bodyF11.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF11"
               castShadow
               receiveShadow
               geometry={nodes.keyF11.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF11Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF11001.geometry}
+              geometry={nodes.keyF11Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF12"
             castShadow
             receiveShadow
             geometry={nodes.bodyF12.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF12"
               castShadow
               receiveShadow
               geometry={nodes.keyF12.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF12Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF12001.geometry}
+              geometry={nodes.keyF12Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF2"
             castShadow
             receiveShadow
             geometry={nodes.bodyF2.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF2"
               castShadow
               receiveShadow
               geometry={nodes.keyF2.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF2Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF2001.geometry}
+              geometry={nodes.keyF2Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF3"
             castShadow
             receiveShadow
             geometry={nodes.bodyF3.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF3"
               castShadow
               receiveShadow
               geometry={nodes.keyF3.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF3Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF3001.geometry}
+              geometry={nodes.keyF3Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF4"
             castShadow
             receiveShadow
             geometry={nodes.bodyF4.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF4"
               castShadow
               receiveShadow
               geometry={nodes.keyF4.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF4Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF4001.geometry}
+              geometry={nodes.keyF4Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF5"
             castShadow
             receiveShadow
             geometry={nodes.bodyF5.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF5"
               castShadow
               receiveShadow
               geometry={nodes.keyF5.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF5Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF5001.geometry}
+              geometry={nodes.keyF5Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF6"
             castShadow
             receiveShadow
             geometry={nodes.bodyF6.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF6"
               castShadow
               receiveShadow
               geometry={nodes.keyF6.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF6Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF6001.geometry}
+              geometry={nodes.keyF6Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF7"
             castShadow
             receiveShadow
             geometry={nodes.bodyF7.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF7"
               castShadow
               receiveShadow
               geometry={nodes.keyF7.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF7Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF7001.geometry}
+              geometry={nodes.keyF7Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF8"
             castShadow
             receiveShadow
             geometry={nodes.bodyF8.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF8"
               castShadow
               receiveShadow
               geometry={nodes.keyF8.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF8Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF8001.geometry}
+              geometry={nodes.keyF8Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyF9"
             castShadow
             receiveShadow
             geometry={nodes.bodyF9.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyF9"
               castShadow
               receiveShadow
               geometry={nodes.keyF9.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyF9Cap"
               castShadow
               receiveShadow
-              geometry={nodes.keyF9001.geometry}
+              geometry={nodes.keyF9Cap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyFive"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyFive.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyFive"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFive.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyFiveCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFiveCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyFn"
             castShadow
             receiveShadow
             geometry={nodes.bodyFn.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyFn"
               castShadow
               receiveShadow
               geometry={nodes.keyFn.geometry}
               material={materials.Plastic_5}
             />
             <mesh
+              name="keyFnCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyFn001.geometry}
+              geometry={nodes.keyFnCap.geometry}
               material={materials.Plastic_1}
             />
           </mesh>
           <mesh
+            name="bodyFour"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyFour.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyFour"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFour.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyFourCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyFourCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyG"
             castShadow
             receiveShadow
             geometry={nodes.bodyG.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyG"
               castShadow
               receiveShadow
               geometry={nodes.keyG.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyGCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyG001.geometry}
+              geometry={nodes.keyGCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyGreaterThan"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyGreaterThan.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyGreaterThan"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyGreaterThan.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyGreaterThanCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyGreaterThanCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyH"
             castShadow
             receiveShadow
             geometry={nodes.bodyH.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyH"
               castShadow
               receiveShadow
               geometry={nodes.keyH.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyHCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyH001.geometry}
+              geometry={nodes.keyHCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyI"
             castShadow
             receiveShadow
             geometry={nodes.bodyI.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyI"
               castShadow
               receiveShadow
               geometry={nodes.keyI.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyICap"
               castShadow
               receiveShadow
-              geometry={nodes.keyI001.geometry}
+              geometry={nodes.keyICap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyJ"
             castShadow
             receiveShadow
             geometry={nodes.bodyJ.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyJ"
               castShadow
               receiveShadow
               geometry={nodes.keyJ.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyJCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyJ001.geometry}
+              geometry={nodes.keyJCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyK"
             castShadow
             receiveShadow
             geometry={nodes.bodyK.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyK"
               castShadow
               receiveShadow
               geometry={nodes.keyK.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyKCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyK001.geometry}
+              geometry={nodes.keyKCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyL"
             castShadow
             receiveShadow
             geometry={nodes.bodyL.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyL"
               castShadow
               receiveShadow
               geometry={nodes.keyL.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyLCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyL001.geometry}
+              geometry={nodes.keyLCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyLeftAlt"
             castShadow
             receiveShadow
             geometry={nodes.bodyLeftAlt.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyLeftAlt"
               castShadow
               receiveShadow
               geometry={nodes.keyLeftAlt.geometry}
               material={materials.Plastic_5}
             />
             <mesh
+              name="keyLeftAltCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyLeftAlt001.geometry}
+              geometry={nodes.keyLeftAltCap.geometry}
               material={materials.Plastic_1}
             />
           </mesh>
           <mesh
+            name="bodyLeftCtrl"
             castShadow
             receiveShadow
             geometry={nodes.bodyLeftCtrl.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyLeftCtrl"
               castShadow
               receiveShadow
               geometry={nodes.keyLeftCtrl.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyLeftCtrlCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyLeftCtrl001.geometry}
+              geometry={nodes.keyLeftCtrlCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyLeftShift"
             castShadow
             receiveShadow
             geometry={nodes.bodyLeftShift.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyLeftShift"
               castShadow
               receiveShadow
               geometry={nodes.keyLeftShift.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyLeftShiftCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyLeftShift001.geometry}
+              geometry={nodes.keyLeftShiftCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyLessThan"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyLessThan.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyLessThan"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLessThan.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyLessThanCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyLessThanCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyM"
             castShadow
             receiveShadow
             geometry={nodes.bodyM.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyM"
               castShadow
               receiveShadow
               geometry={nodes.keyM.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyMCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyM001.geometry}
+              geometry={nodes.keyMCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyN"
             castShadow
             receiveShadow
             geometry={nodes.bodyN.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyN"
               castShadow
               receiveShadow
               geometry={nodes.keyN.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyNCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyN001.geometry}
+              geometry={nodes.keyNCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyNine"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyNine.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyNine"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyNine.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyNineCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyNineCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyO"
             castShadow
             receiveShadow
             geometry={nodes.bodyO.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyO"
               castShadow
               receiveShadow
               geometry={nodes.keyO.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyOCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyO001.geometry}
+              geometry={nodes.keyOCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyOne"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyOne.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyOne"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyOne.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyOneCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyOneCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyOpenCurlyBracket"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyOpenCurlyBracket.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyOpenCurlyBracket"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyOpenCurlyBracket.geometry}
+              material={materials.Plastic_5}
+            />
+            <mesh
+              name="keyOpenCurlyBracketCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyOpenCurlyBracketCap.geometry}
+              material={materials.Plastic_1}
+            />
+          </mesh>
+          <mesh
+            name="bodyP"
             castShadow
             receiveShadow
             geometry={nodes.bodyP.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyP"
               castShadow
               receiveShadow
               geometry={nodes.keyP.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyPCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyP001.geometry}
+              geometry={nodes.keyPCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyPipe"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyPipe.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyPipe"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyPipe.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyPipeCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyPipeCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyQ"
             castShadow
             receiveShadow
             geometry={nodes.bodyQ.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyQ"
               castShadow
               receiveShadow
               geometry={nodes.keyQ.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyQCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyQ001.geometry}
+              geometry={nodes.keyQCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyQuestion"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyQuestion.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyQuestion"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyQuestion.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyQuestionCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyQuestionCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyR"
             castShadow
             receiveShadow
             geometry={nodes.bodyR.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyR"
               castShadow
               receiveShadow
               geometry={nodes.keyR.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyRCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyR001.geometry}
+              geometry={nodes.keyRCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyRightAlt"
             castShadow
             receiveShadow
             geometry={nodes.bodyRightAlt.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyRightAlt"
               castShadow
               receiveShadow
               geometry={nodes.keyRightAlt.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyRightAltCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyRightAlt001.geometry}
+              geometry={nodes.keyRightAltCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyRightCtrl"
             castShadow
             receiveShadow
             geometry={nodes.bodyRightCtrl.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyRightCtrl"
               castShadow
               receiveShadow
               geometry={nodes.keyRightCtrl.geometry}
               material={materials.Plastic_5}
             />
             <mesh
+              name="keyRightCtrlCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyRightCtrl001.geometry}
+              geometry={nodes.keyRightCtrlCap.geometry}
               material={materials.Plastic_1}
             />
           </mesh>
           <mesh
+            name="bodyRightShift"
             castShadow
             receiveShadow
             geometry={nodes.bodyRightShift.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyRightShift"
               castShadow
               receiveShadow
               geometry={nodes.keyRightShift.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyRightShiftCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyRightShift001.geometry}
+              geometry={nodes.keyRightShiftCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyS"
             castShadow
             receiveShadow
             geometry={nodes.bodyS.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyS"
               castShadow
               receiveShadow
               geometry={nodes.keyS.geometry}
               material={materials.Plastic_5}
             />
             <mesh
+              name="keySCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyS001.geometry}
+              geometry={nodes.keySCap.geometry}
               material={materials.Plastic_1}
             />
           </mesh>
           <mesh
+            name="bodySemicolon"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodySemicolon.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keySemicolon"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySemicolon.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keySemicolonCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySemicolonCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodySeven"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodySeven.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keySeven"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySeven.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keySevenCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySevenCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodySix"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodySix.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keySix"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySix.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keySixCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keySixCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodySpace"
             castShadow
             receiveShadow
             geometry={nodes.bodySpace.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keySpace"
               castShadow
               receiveShadow
               geometry={nodes.keySpace.geometry}
@@ -1481,277 +1650,343 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="bodyT"
             castShadow
             receiveShadow
             geometry={nodes.bodyT.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyT"
               castShadow
               receiveShadow
               geometry={nodes.keyT.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyTCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyT001.geometry}
+              geometry={nodes.keyTCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyTab"
             castShadow
             receiveShadow
             geometry={nodes.bodyTab.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyTab"
               castShadow
               receiveShadow
               geometry={nodes.keyTab.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyTabCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyTab001.geometry}
+              geometry={nodes.keyTabCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyThree"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyThree.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyThree"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyThree.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyThreeCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyThreeCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyTilde"
             castShadow
             receiveShadow
             geometry={nodes.bodyTilde.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyTilde"
               castShadow
               receiveShadow
               geometry={nodes.keyTilde.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyTildeCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyTilde001.geometry}
+              geometry={nodes.keyTildeCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyTwo"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyTwo.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyTwo"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTwo.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyTwoCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyTwoCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyU"
             castShadow
             receiveShadow
             geometry={nodes.bodyU.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyU"
               castShadow
               receiveShadow
               geometry={nodes.keyU.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyUCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyU001.geometry}
+              geometry={nodes.keyUCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyUnderPlate"
             castShadow
             receiveShadow
             geometry={nodes.bodyUnderPlate.geometry}
             material={materials.Metal_2}
           />
           <mesh
+            name="bodyUnderscore"
+            castShadow
+            receiveShadow
+            geometry={nodes.bodyUnderscore.geometry}
+            material={materials.Plastic_5}
+          >
+            <mesh
+              name="keyUnderscore"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyUnderscore.geometry}
+              material={materials.Plastic_1}
+            />
+            <mesh
+              name="keyUnderscoreCap"
+              castShadow
+              receiveShadow
+              geometry={nodes.keyUnderscoreCap.geometry}
+              material={materials.Plastic_5}
+            />
+          </mesh>
+          <mesh
+            name="bodyV"
             castShadow
             receiveShadow
             geometry={nodes.bodyV.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyV"
               castShadow
               receiveShadow
               geometry={nodes.keyV.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyVCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyV001.geometry}
+              geometry={nodes.keyVCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyW"
             castShadow
             receiveShadow
             geometry={nodes.bodyW.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyW"
               castShadow
               receiveShadow
               geometry={nodes.keyW.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyWCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyW001.geometry}
+              geometry={nodes.keyWCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyWin"
             castShadow
             receiveShadow
             geometry={nodes.bodyWin.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyWin"
               castShadow
               receiveShadow
               geometry={nodes.keyWin.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyWinCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyWin001.geometry}
+              geometry={nodes.keyWinCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyX"
             castShadow
             receiveShadow
             geometry={nodes.bodyX.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyX"
               castShadow
               receiveShadow
               geometry={nodes.keyX.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyXCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyX001.geometry}
+              geometry={nodes.keyXCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyY"
             castShadow
             receiveShadow
             geometry={nodes.bodyY.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyY"
               castShadow
               receiveShadow
               geometry={nodes.keyY.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyYCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyY001.geometry}
+              geometry={nodes.keyYCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyZ"
             castShadow
             receiveShadow
             geometry={nodes.bodyZ.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyZ"
               castShadow
               receiveShadow
               geometry={nodes.keyZ.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyZCap"
               castShadow
               receiveShadow
-              geometry={nodes.keyZ001.geometry}
+              geometry={nodes.keyZCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
+            name="bodyZero"
             castShadow
             receiveShadow
-            geometry={nodes["body{"].geometry}
+            geometry={nodes.bodyZero.geometry}
             material={materials.Plastic_5}
           >
             <mesh
+              name="keyZero"
               castShadow
               receiveShadow
-              geometry={nodes["key{"].geometry}
-              material={materials.Plastic_5}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key{001"].geometry}
-              material={materials.Plastic_1}
-            />
-          </mesh>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body|"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key|"].geometry}
+              geometry={nodes.keyZero.geometry}
               material={materials.Plastic_1}
             />
             <mesh
+              name="keyZeroCap"
               castShadow
               receiveShadow
-              geometry={nodes["key|001"].geometry}
+              geometry={nodes.keyZeroCap.geometry}
               material={materials.Plastic_5}
             />
           </mesh>
           <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["body}"].geometry}
-            material={materials.Plastic_5}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key}"].geometry}
-              material={materials.Plastic_1}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes["key}001"].geometry}
-              material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
+            name="infoDisplay"
             castShadow
             receiveShadow
             geometry={nodes.infoDisplay.geometry}
             material={materials.Custom_1}
           />
           <mesh
+            name="keysUnderPlate"
             castShadow
             receiveShadow
             geometry={nodes.keysUnderPlate.geometry}
             material={materials.Plastic_3}
           />
           <mesh
+            name="knobAUnderPlate"
             castShadow
             receiveShadow
             geometry={nodes.knobAUnderPlate.geometry}
             material={materials.Plastic_3}
           >
             <mesh
+              name="knobA"
               castShadow
               receiveShadow
               geometry={nodes.knobA.geometry}
@@ -1759,12 +1994,14 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="knobBUnderPlate"
             castShadow
             receiveShadow
             geometry={nodes.knobBUnderPlate.geometry}
             material={materials.Plastic_3}
           >
             <mesh
+              name="knobB"
               castShadow
               receiveShadow
               geometry={nodes.knobB.geometry}
@@ -1772,18 +2009,21 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <mesh
+            name="onOffSwitch"
             castShadow
             receiveShadow
             geometry={nodes.onOffSwitch.geometry}
             material={materials.Plastic_2}
           />
           <mesh
+            name="underLegA"
             castShadow
             receiveShadow
             geometry={nodes.underLegA.geometry}
             material={materials.Plastic_3}
           />
           <mesh
+            name="underLegB"
             castShadow
             receiveShadow
             geometry={nodes.underLegB.geometry}
