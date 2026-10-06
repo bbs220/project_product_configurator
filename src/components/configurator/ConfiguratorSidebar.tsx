@@ -1,33 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import {
-  PanelLeftClose,
-  PanelLeftOpen,
-  Palette,
-  Disc,
-  Layers,
-  Settings2,
-} from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { PanelLeftClose, PanelLeftOpen, Settings2, type LucideIcon } from "lucide-react";
 import { useSidebarStore } from "@/stores/useSidebarStore";
 
-// sidebar tab definitions
-const tabs = [
-  { id: "body", label: "Body", icon: Palette },
-  { id: "wheels", label: "Wheels", icon: Disc },
-  { id: "interior", label: "Interior", icon: Layers },
-  { id: "extras", label: "Extras", icon: Settings2 },
-] as const;
+import WatchPanel, { watchTabs } from "./panels/WatchPanel";
+import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
+import BikePanel, { bikeTabs } from "./panels/BikePanel";
+import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 
-type TabId = (typeof tabs)[number]["id"];
+type TabDef = {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+// Define specific configuration tabs mapping for each 3D model
+const modelTabsConfig: Record<string, TabDef[]> = {
+  watch: watchTabs,
+  keyboard: keyboardTabs,
+  mtBike: bikeTabs,
+  guitar: guitarTabs,
+};
+
+const fallbackTabs: TabDef[] = [
+  { id: "general", label: "General", icon: Settings2 },
+];
 
 const ConfiguratorSidebar = () => {
+  const searchParams = useSearchParams();
+  const modelKey = searchParams.get("model") || "watch";
+  const tabs = modelTabsConfig[modelKey] || fallbackTabs;
+
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
-  const [activeTab, setActiveTab] = useState<TabId>("body");
+  const [activeTab, setActiveTab] = useState<string>(tabs[0]?.id || "general");
+  const [prevModelKey, setPrevModelKey] = useState<string>(modelKey);
+
+  // Reset active tab during render when model changes (avoids useEffect cascading renders)
+  if (modelKey !== prevModelKey) {
+    setPrevModelKey(modelKey);
+    setActiveTab(tabs[0]?.id || "general");
+  }
+
+  // Determine which panel to render
+  const renderPanel = () => {
+    switch (modelKey) {
+      case "watch": return <WatchPanel activeTab={activeTab} />;
+      case "keyboard": return <KeyboardPanel activeTab={activeTab} />;
+      case "mtBike": return <BikePanel activeTab={activeTab} />;
+      case "guitar": return <GuitarPanel activeTab={activeTab} />;
+      default: return <div className="p-4 text-gray-500">Select a valid model.</div>;
+    }
+  };
 
   return (
     <aside
-      className={`absolute top-0 left-0 bottom-0 z-10 flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ${
+      className={`absolute top-0 left-0 bottom-0 z-10 flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 ${
         isSidebarOpen ? "w-72" : "w-14"
       }`}
     >
@@ -86,12 +115,7 @@ const ConfiguratorSidebar = () => {
       {/* panel content */}
       {isSidebarOpen && (
         <div className="flex-1 overflow-y-auto p-4">
-          <p className="text-xs text-gray-400 uppercase tracking-widest font-medium">
-            {activeTab}
-          </p>
-          <p className="mt-6 text-sm text-gray-500 dark:text-gray-500">
-            coming soon
-          </p>
+          {renderPanel()}
         </div>
       )}
     </aside>
