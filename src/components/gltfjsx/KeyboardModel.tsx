@@ -262,9 +262,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/Knob1_Mechanical_Keyboard_2024.glb",
+    "/models/Knob1_Mechanical_Keyboard_2024.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -2035,4 +2035,4 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/Knob1_Mechanical_Keyboard_2024.glb");
+useGLTF.preload("/models/Knob1_Mechanical_Keyboard_2024.glb");

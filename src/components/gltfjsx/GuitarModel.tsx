@@ -40,9 +40,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/Fender_Stratocaster_1954r.glb",
+    "/models/Fender_Stratocaster_1954r.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -203,4 +203,4 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/Fender_Stratocaster_1954r.glb");
+useGLTF.preload("/models/Fender_Stratocaster_1954r.glb");

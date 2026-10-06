@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { PanelLeftClose, PanelLeftOpen, Settings2, type LucideIcon } from "lucide-react";
+import {
+  PanelLeftClose,
+  PanelLeftOpen,
+  Settings2,
+  type LucideIcon,
+} from "lucide-react";
 import { useSidebarStore } from "@/stores/useSidebarStore";
 
 import WatchPanel, { watchTabs } from "./panels/WatchPanel";
@@ -46,17 +51,22 @@ const ConfiguratorSidebar = () => {
   // Determine which panel to render
   const renderPanel = () => {
     switch (modelKey) {
-      case "watch": return <WatchPanel activeTab={activeTab} />;
-      case "keyboard": return <KeyboardPanel activeTab={activeTab} />;
-      case "mtBike": return <BikePanel activeTab={activeTab} />;
-      case "guitar": return <GuitarPanel activeTab={activeTab} />;
-      default: return <div className="p-4 text-gray-500">Select a valid model.</div>;
+      case "watch":
+        return <WatchPanel activeTab={activeTab} />;
+      case "keyboard":
+        return <KeyboardPanel activeTab={activeTab} />;
+      case "mtBike":
+        return <BikePanel activeTab={activeTab} />;
+      case "guitar":
+        return <GuitarPanel activeTab={activeTab} />;
+      default:
+        return <div className="p-4 text-gray-500">Select a valid model.</div>;
     }
   };
 
   return (
     <aside
-      className={`absolute top-0 left-0 bottom-0 z-10 flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 ${
+      className={`absolute top-0 left-0 bottom-0 z-10 flex flex-col h-full bg-white/90 dark:bg-black/90 backdrop-blur-md border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ${
         isSidebarOpen ? "w-72" : "w-14"
       }`}
     >
@@ -64,7 +74,7 @@ const ConfiguratorSidebar = () => {
       <div className="flex items-center justify-between px-2 py-3 border-b border-gray-200 dark:border-gray-800">
         {isSidebarOpen && (
           <span className="pl-2 text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
-            Configure
+            Inspector
           </span>
         )}
         <button
@@ -114,9 +124,7 @@ const ConfiguratorSidebar = () => {
 
       {/* panel content */}
       {isSidebarOpen && (
-        <div className="flex-1 overflow-y-auto p-4">
-          {renderPanel()}
-        </div>
+        <div className="flex-1 overflow-y-auto p-4">{renderPanel()}</div>
       )}
     </aside>
   );

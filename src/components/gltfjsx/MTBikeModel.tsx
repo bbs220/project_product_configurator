@@ -160,9 +160,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/SantaCruz_v10_2026.glb",
+    "/models/SantaCruz_v10_2026.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -1048,4 +1048,4 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/SantaCruz_v10_2026.glb");
+useGLTF.preload("/models/SantaCruz_v10_2026.glb");

@@ -88,9 +88,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export function WatchModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/Apple_Watch_Ultra_2_2023.glb",
+    "/models/Apple_Watch_Ultra_2_2023.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -395,4 +395,4 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/Apple_Watch_Ultra_2_2023.glb");
+useGLTF.preload("/models/Apple_Watch_Ultra_2_2023.glb");
