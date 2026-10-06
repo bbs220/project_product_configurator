@@ -35,6 +35,10 @@ type ConfiguratorState = {
 
   cameraMinDistance: number;
   cameraMaxDistance: number;
+
+  showLabels: boolean;
+  toggleLabels: () => void;
+  setLabels: (val: boolean) => void;
 };
 
 export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
@@ -46,11 +50,16 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       cameraMinDistance: MODEL_CAMERA_DISTANCES[model].min,
       cameraMaxDistance: MODEL_CAMERA_DISTANCES[model].max,
       isExploded: false, // Reset explosion state on model change
+      showLabels: false,
     }),
 
   isExploded: false,
   toggleExploded: () => set((state) => ({ isExploded: !state.isExploded })),
   setExploded: (val) => set({ isExploded: val }),
+
+  showLabels: false,
+  toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
+  setLabels: (val) => set({ showLabels: val }),
 
   cameraPosition: MODEL_CAMERA_POSITIONS["watch"],
   setCameraPosition: (pos) => set({ cameraPosition: pos }),
