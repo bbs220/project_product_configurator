@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { JSX } from "react";
 import { GLTF } from "three-stdlib";
+import { assetPaths } from "@/lib/utils";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -162,7 +163,7 @@ type GLTFResult = GLTF & {
 
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/models/SantaCruz_v10_2026.glb",
+    assetPaths.mtBike,
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -1048,4 +1049,4 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/SantaCruz_v10_2026.glb");
+useGLTF.preload(assetPaths.mtBike);

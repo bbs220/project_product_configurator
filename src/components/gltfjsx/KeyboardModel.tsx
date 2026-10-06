@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { JSX } from "react";
 import { GLTF } from "three-stdlib";
+import { assetPaths } from "@/lib/utils";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -264,7 +265,7 @@ type GLTFResult = GLTF & {
 
 export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/models/Knob1_Mechanical_Keyboard_2024.glb",
+    assetPaths.keyboard,
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -2035,4 +2036,4 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/Knob1_Mechanical_Keyboard_2024.glb");
+useGLTF.preload(assetPaths.keyboard);

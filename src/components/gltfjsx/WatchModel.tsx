@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { JSX } from "react";
+import { assetPaths } from "@/lib/utils";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -90,7 +91,7 @@ type GLTFResult = GLTF & {
 
 export function WatchModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/models/Apple_Watch_Ultra_2_2023.glb",
+    assetPaths.watch,
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -395,4 +396,4 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/Apple_Watch_Ultra_2_2023.glb");
+useGLTF.preload(assetPaths.watch);

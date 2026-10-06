@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { JSX } from "react";
 import { GLTF } from "three-stdlib";
+import { assetPaths } from "@/lib/utils";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -42,7 +43,7 @@ type GLTFResult = GLTF & {
 
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "/models/Fender_Stratocaster_1954r.glb",
+    assetPaths.guitar,
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -203,4 +204,4 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/Fender_Stratocaster_1954r.glb");
+useGLTF.preload(assetPaths.guitar);

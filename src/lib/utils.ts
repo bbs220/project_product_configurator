@@ -5,7 +5,7 @@ export const assetPaths = {
   watch: "/models/Apple_Watch_Ultra_2_2023.glb",
   keyboard: "/models/Knob1_Mechanical_Keyboard_2024.glb",
   mtBike: "/models/SantaCruz_v10_2026.glb",
-  guitar: "/models/Fender_Stratocaster_1954r.glb",
+  guitar: "/models/Fender_Stratocaster_1954.glb",
 };
 
 export const hdrSet = {
