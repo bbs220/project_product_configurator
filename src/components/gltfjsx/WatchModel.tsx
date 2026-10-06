@@ -116,7 +116,7 @@ function PartLabel({
   }, [geometry, position]);
 
   const targetPos = useMemo(() => {
-    return center.clone().add(new THREE.Vector3(...offset));
+    return center.clone().add(new THREE.Vector3(offset[0], offset[1], 0));
   }, [center, offset]);
 
   const points = useMemo(() => [
@@ -203,7 +203,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           geometry={nodes.watchChassis.geometry}
           material={materials.edhWAPEBZsqCLTg}
         >
-          <PartLabel show={showLabels && isExploded} title="watchChassis" offset={[-3.5, 0.5, 0]} geometry={nodes.watchChassis.geometry} />
+          <PartLabel show={showLabels && isExploded} title="watchChassis" offset={[-4, 1.5, 0]} geometry={nodes.watchChassis.geometry} />
           <mesh
             ref={backPlateRef}
             name="watchBackPlate"
@@ -212,7 +212,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchBackPlate.geometry}
             material={materials.YtajTVWccmKRZBL}
           >
-            <PartLabel show={showLabels && isExploded} title="watchBackPlate" offset={[3.5, -0.5, 0]} geometry={nodes.watchBackPlate.geometry} />
+            <PartLabel show={showLabels && isExploded} title="watchBackPlate" offset={[4, 0, 0]} geometry={nodes.watchBackPlate.geometry} />
             <mesh
               name="watchBackPlateAccents"
               castShadow
@@ -300,7 +300,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchBand.geometry}
             material={materials.FsJfKVbzNLXJeBa}
           >
-            <PartLabel show={showLabels && isExploded} title="watchBand" offset={[-3.5, -1.5, 0]} geometry={nodes.watchBand.geometry} />
+            <PartLabel show={showLabels && isExploded} title="watchBand" offset={[-4, 0, 0]} geometry={nodes.watchBand.geometry} />
             <mesh
               name="watchBandExtraStitch"
               castShadow
@@ -359,7 +359,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchCrown.geometry}
             material={materials.GvXrALMIeaGmIJo}
           >
-            <PartLabel show={showLabels && isExploded} title="watchCrown" offset={[3.5, 0.5, 0]} geometry={nodes.watchCrown.geometry} />
+            <PartLabel show={showLabels && isExploded} title="watchCrown" offset={[4, 1.5, 0]} geometry={nodes.watchCrown.geometry} />
             <mesh
               name="watchCrownAccentRing"
               castShadow
@@ -413,7 +413,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <group ref={internalsRef}>
-            <PartLabel show={showLabels && isExploded} title="watchInternals" offset={[-3.5, 1, 0]} geometry={nodes.watchInternalsA.geometry} />
+            <PartLabel show={showLabels && isExploded} title="watchInternals" offset={[-3, 3, 0]} geometry={nodes.watchInternalsA.geometry} />
           <mesh
               name="watchInternalsA"
               castShadow
@@ -479,7 +479,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchScreenBezel.geometry}
             material={materials.EbFYvXZFEOELnji}
           >
-            <PartLabel show={showLabels && isExploded} title="watchScreenBezel" offset={[3.5, 1.5, 0]} geometry={nodes.watchScreenBezel.geometry} />
+            <PartLabel show={showLabels && isExploded} title="watchScreenBezel" offset={[3, 3, 0]} geometry={nodes.watchScreenBezel.geometry} />
             <mesh
               name="watchScreen"
               castShadow

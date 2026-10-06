@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, startTransition } from "react";
 import { WatchModel } from "../gltfjsx/WatchModel";
 import { KeyboardModel } from "../gltfjsx/KeyboardModel";
 import { MTBikeModel } from "../gltfjsx/MTBikeModel";
@@ -12,20 +12,23 @@ const ProductModelLoader = () => {
   const searchParams = useSearchParams();
   const modelName = (searchParams.get("model") as ConfiguratorModel) || "watch";
   
+  const activeModel = useConfiguratorStore((state) => state.activeModel);
   const setActiveModel = useConfiguratorStore((state) => state.setActiveModel);
 
   useEffect(() => {
-    if (["watch", "keyboard", "mtBike", "guitar"].includes(modelName)) {
-      setActiveModel(modelName);
+    if (["watch", "keyboard", "mtBike", "guitar"].includes(modelName) && modelName !== activeModel) {
+      startTransition(() => {
+        setActiveModel(modelName);
+      });
     }
-  }, [modelName, setActiveModel]);
+  }, [modelName, activeModel, setActiveModel]);
 
   return (
     <group position={[0, 0, 0]} scale={[1, 1, 1]}>
-      {modelName === "watch" && <WatchModel />}
-      {modelName === "keyboard" && <KeyboardModel />}
-      {modelName === "mtBike" && <MTBikeModel />}
-      {modelName === "guitar" && <GuitarModel />}
+      {activeModel === "watch" && <WatchModel />}
+      {activeModel === "keyboard" && <KeyboardModel />}
+      {activeModel === "mtBike" && <MTBikeModel />}
+      {activeModel === "guitar" && <GuitarModel />}
     </group>
   );
 };

@@ -22,9 +22,18 @@ export default function CameraRig() {
       if (activeModel === "watch") {
         targetPos.current.set(0, 4, -9);
         targetLook.current.set(0, 2.5, 0);
+      } else if (activeModel === "guitar") {
+        targetPos.current.set(0, 3, -6);
+        targetLook.current.set(0, 2, 0);
+      } else if (activeModel === "keyboard") {
+        targetPos.current.set(0, 5, -8);
+        targetLook.current.set(0, 2, 0);
+      } else if (activeModel === "mtBike") {
+        targetPos.current.set(0, 6, -10);
+        targetLook.current.set(0, 2, 0);
       }
     } else {
-      if (activeModel === "watch") {
+      if (["watch", "guitar", "keyboard", "mtBike"].includes(activeModel)) {
         targetPos.current.set(...cameraPosition);
         targetLook.current.set(0, 1, 0);
       }
