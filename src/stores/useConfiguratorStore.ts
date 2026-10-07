@@ -22,6 +22,43 @@ export const MODEL_CAMERA_DISTANCES: Record<
   guitar: { min: 1.5, max: 10 },
 };
 
+export const MODEL_CAMERA_TARGETS: Record<
+  ConfiguratorModel,
+  [number, number, number]
+> = {
+  watch: [0, 1, 0],
+  keyboard: [0, 0, 0],
+  mtBike: [0, 1, 0],
+  guitar: [0, 0, 0],
+};
+
+export const MODEL_CAMERA_FOV: Record<ConfiguratorModel, number> = {
+  watch: 60,
+  keyboard: 40,
+  mtBike: 40,
+  guitar: 40,
+};
+
+export const MODEL_EXPLODED_CAMERA_POSITIONS: Record<
+  ConfiguratorModel,
+  [number, number, number]
+> = {
+  watch: [0, 4, -9],
+  keyboard: [0, 5, -8],
+  mtBike: [0, 6, -10],
+  guitar: [0, 3, -6],
+};
+
+export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
+  ConfiguratorModel,
+  [number, number, number]
+> = {
+  watch: [0, 2.5, 0],
+  keyboard: [0, 2.5, 0],
+  mtBike: [0, 2.5, 0],
+  guitar: [0, 2.5, 0],
+};
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -36,6 +73,12 @@ type ConfiguratorState = {
   cameraMinDistance: number;
   cameraMaxDistance: number;
 
+  cameraTarget: [number, number, number];
+  setCameraTarget: (pos: [number, number, number]) => void;
+
+  cameraFov: number;
+  setCameraFov: (fov: number) => void;
+
   showLabels: boolean;
   toggleLabels: () => void;
   setLabels: (val: boolean) => void;
@@ -47,9 +90,11 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
     set({
       activeModel: model,
       cameraPosition: MODEL_CAMERA_POSITIONS[model],
+      cameraTarget: MODEL_CAMERA_TARGETS[model],
+      cameraFov: MODEL_CAMERA_FOV[model],
       cameraMinDistance: MODEL_CAMERA_DISTANCES[model].min,
       cameraMaxDistance: MODEL_CAMERA_DISTANCES[model].max,
-      isExploded: false, // Reset explosion state on model change
+      isExploded: false,
       showLabels: false,
     }),
 
@@ -57,9 +102,15 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
   toggleExploded: () => set((state) => ({ isExploded: !state.isExploded })),
   setExploded: (val) => set({ isExploded: val }),
 
-  showLabels: true,
+  showLabels: false,
   toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
   setLabels: (val) => set({ showLabels: val }),
+
+  cameraTarget: MODEL_CAMERA_TARGETS["watch"],
+  setCameraTarget: (target) => set({ cameraTarget: target }),
+
+  cameraFov: MODEL_CAMERA_FOV["watch"],
+  setCameraFov: (fov) => set({ cameraFov: fov }),
 
   cameraPosition: MODEL_CAMERA_POSITIONS["watch"],
   setCameraPosition: (pos) => set({ cameraPosition: pos }),

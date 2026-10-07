@@ -4,46 +4,46 @@ import { useRef, useEffect } from "react";
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
+import {
+  useConfiguratorStore,
+  MODEL_EXPLODED_CAMERA_POSITIONS,
+  MODEL_EXPLODED_CAMERA_TARGETS,
+} from "@/stores/useConfiguratorStore";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
 export default function CameraRig() {
-  const { cameraPosition, cameraMinDistance, cameraMaxDistance, isExploded, activeModel } =
-    useConfiguratorStore();
+  const {
+    cameraPosition,
+    cameraTarget,
+    cameraFov,
+    cameraMinDistance,
+    cameraMaxDistance,
+    isExploded,
+    activeModel,
+  } = useConfiguratorStore();
   const controlsRef = useRef<OrbitControlsImpl>(null);
 
   const targetPos = useRef(new THREE.Vector3(...cameraPosition));
-  const targetLook = useRef(new THREE.Vector3(0, 1, 0));
+  const targetLook = useRef(new THREE.Vector3(...cameraTarget));
   const isLerping = useRef(false);
 
   useEffect(() => {
     // Determine the desired camera state based on activeModel and isExploded
     if (isExploded) {
-      if (activeModel === "watch") {
-        targetPos.current.set(0, 4, -9);
-        targetLook.current.set(0, 2.5, 0);
-      } else if (activeModel === "guitar") {
-        targetPos.current.set(0, 3, -6);
-        targetLook.current.set(0, 2, 0);
-      } else if (activeModel === "keyboard") {
-        targetPos.current.set(0, 5, -8);
-        targetLook.current.set(0, 2, 0);
-      } else if (activeModel === "mtBike") {
-        targetPos.current.set(0, 6, -10);
-        targetLook.current.set(0, 2, 0);
-      }
+      targetPos.current.set(...MODEL_EXPLODED_CAMERA_POSITIONS[activeModel]);
+      targetLook.current.set(...MODEL_EXPLODED_CAMERA_TARGETS[activeModel]);
     } else {
       if (["watch", "guitar", "keyboard", "mtBike"].includes(activeModel)) {
         targetPos.current.set(...cameraPosition);
-        targetLook.current.set(0, 1, 0);
+        targetLook.current.set(...cameraTarget);
       }
     }
     isLerping.current = true;
-  }, [isExploded, activeModel, cameraPosition]);
+  }, [isExploded, activeModel, cameraPosition, cameraTarget]);
 
   useFrame((state, delta) => {
     if (!isLerping.current || !controlsRef.current) return;
-    
+
     const speed = 4 * delta;
     state.camera.position.lerp(targetPos.current, speed);
     controlsRef.current.target.lerp(targetLook.current, speed);
@@ -62,8 +62,7 @@ export default function CameraRig() {
       <PerspectiveCamera
         makeDefault
         position={cameraPosition}
-        fov={60}
-        focus={10}
+        fov={cameraFov}
       />
       <OrbitControls
         ref={controlsRef}
@@ -71,9 +70,8 @@ export default function CameraRig() {
         maxPolarAngle={1.5}
         maxDistance={cameraMaxDistance}
         minDistance={cameraMinDistance}
-        target={[0, 1, 0]}
+        target={cameraTarget}
         onStart={() => {
-          // Allow user interaction to interrupt the animation
           isLerping.current = false;
         }}
       />
