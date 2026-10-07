@@ -92,18 +92,18 @@ type GLTFResult = GLTF & {
   };
 };
 
-function PartLabel({ 
-  show, 
-  title, 
+function PartLabel({
+  show,
+  title,
   geometry,
-  position = [0,0,0],
-  offset = [2, 0, 0]
-}: { 
-  show: boolean, 
-  title: string, 
-  geometry?: THREE.BufferGeometry,
-  position?: [number, number, number],
-  offset?: [number, number, number]
+  position = [0, 0, 0],
+  offset = [2, 0, 0],
+}: {
+  show: boolean;
+  title: string;
+  geometry?: THREE.BufferGeometry;
+  position?: [number, number, number];
+  offset?: [number, number, number];
 }) {
   const center = useMemo(() => {
     if (geometry) {
@@ -119,19 +119,16 @@ function PartLabel({
     return center.clone().add(new THREE.Vector3(offset[0], offset[1], 0));
   }, [center, offset]);
 
-  const points = useMemo(() => [
-    center,
-    targetPos
-  ], [center, targetPos]);
-  
+  const points = useMemo(() => [center, targetPos], [center, targetPos]);
+
   return (
     <group>
-      <Line 
-        points={points} 
-        color="#888888" 
-        lineWidth={2} 
-        transparent 
-        opacity={show ? 0.8 : 0} 
+      <Line
+        points={points}
+        color="#888888"
+        lineWidth={2}
+        transparent
+        opacity={show ? 0.8 : 0}
         visible={show}
       />
       <Html
@@ -148,9 +145,37 @@ function PartLabel({
   );
 }
 
+// EDIT THESE VALUES TO PERFECTLY POSITION PARTS AND LABELS IN THE EXPLODED VIEW
+export const WATCH_EXPLODED_CONFIG = {
+  chassis: {
+    part: new THREE.Vector3(0, 0, 0),
+    label: [0, 2, 0] as [number, number, number],
+  },
+  band: {
+    part: new THREE.Vector3(-4, 0, 0),
+    label: [-0.6, 2, 0] as [number, number, number],
+  },
+  backPlate: {
+    part: new THREE.Vector3(4, 0, 0),
+    label: [0.2, 1, 0] as [number, number, number],
+  },
+  screen: {
+    part: new THREE.Vector3(-2, 0, 0),
+    label: [0, 2, 0] as [number, number, number],
+  },
+  internals: {
+    part: new THREE.Vector3(2, 0, 0),
+    label: [0.2, 1, 0] as [number, number, number],
+  },
+  crown: {
+    part: new THREE.Vector3(-2.5, 0, 0),
+    label: [-0.2, 1, 0] as [number, number, number],
+  },
+};
+
 export function WatchModel(props: JSX.IntrinsicElements["group"]) {
-  
   const { isExploded, showLabels } = useConfiguratorStore();
+  const sceneRef = useRef<THREE.Group>(null);
   const chassisRef = useRef<THREE.Mesh>(null);
   const bandRef = useRef<THREE.Mesh>(null);
   const backPlateRef = useRef<THREE.Mesh>(null);
@@ -158,43 +183,73 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
   const internalsRef = useRef<THREE.Group>(null);
   const crownRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
-    const speed = 4 * delta;
-    
-    // Lift the entire watch chassis up when exploded so parts don't clip the floor
-    if (chassisRef.current) {
-      chassisRef.current.position.lerp(new THREE.Vector3(0, isExploded ? 2.5 : 0, 0), speed);
-    }
-    
-    // Explode animations relative to chassis
-    // Band goes down and back
-    if (bandRef.current) {
-      bandRef.current.position.lerp(new THREE.Vector3(0, isExploded ? -1.2 : 0, isExploded ? -1.5 : 0), speed);
-    }
-    // BackPlate goes down, left, and forward
-    if (backPlateRef.current) {
-      backPlateRef.current.position.lerp(new THREE.Vector3(isExploded ? -1.0 : 0, isExploded ? -1.0 : 0, isExploded ? 1.0 : 0), speed);
-    }
-    // Screen goes up, right, and forward
-    if (screenRef.current) {
-      screenRef.current.position.lerp(new THREE.Vector3(isExploded ? 1.0 : 0, isExploded ? 1.5 : 0, isExploded ? 1.0 : 0), speed);
-    }
-    // Internals go up, left, and back
-    if (internalsRef.current) {
-      internalsRef.current.position.lerp(new THREE.Vector3(isExploded ? -1.2 : 0, isExploded ? 0.8 : 0, isExploded ? -1.0 : 0), speed);
-    }
-    // Crown goes right and back
-    if (crownRef.current) {
-      crownRef.current.position.lerp(new THREE.Vector3(isExploded ? 1.5 : 0, 0, isExploded ? -1.0 : 0), speed);
-    }
-  });
-
   const { nodes, materials } = useGLTF(
     assetPaths.watch,
   ) as unknown as GLTFResult;
+
+  useFrame((state, delta) => {
+    const speed = 4 * delta;
+
+    if (sceneRef.current) {
+      sceneRef.current.position.lerp(
+        new THREE.Vector3(0, isExploded ? 2.5 : 0, 0),
+        speed,
+      );
+    }
+
+    if (chassisRef.current) {
+      chassisRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.chassis.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+    if (bandRef.current) {
+      bandRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.band.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+    if (backPlateRef.current) {
+      backPlateRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.backPlate.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+    if (screenRef.current) {
+      screenRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.screen.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+    if (internalsRef.current) {
+      internalsRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.internals.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+    if (crownRef.current) {
+      crownRef.current.position.lerp(
+        isExploded
+          ? WATCH_EXPLODED_CONFIG.crown.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+  });
+
   return (
     <group {...props} dispose={null}>
-      <group name="Scene">
+      <group name="Scene" ref={sceneRef}>
         <mesh
           ref={chassisRef}
           name="watchChassis"
@@ -203,7 +258,12 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           geometry={nodes.watchChassis.geometry}
           material={materials.edhWAPEBZsqCLTg}
         >
-          <PartLabel show={showLabels && isExploded} title="watchChassis" offset={[-4, 1.5, 0]} geometry={nodes.watchChassis.geometry} />
+          <PartLabel
+            show={showLabels && isExploded}
+            title="watchChassis"
+            offset={WATCH_EXPLODED_CONFIG.chassis.label}
+            geometry={nodes.watchChassis.geometry}
+          />
           <mesh
             ref={backPlateRef}
             name="watchBackPlate"
@@ -212,7 +272,12 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchBackPlate.geometry}
             material={materials.YtajTVWccmKRZBL}
           >
-            <PartLabel show={showLabels && isExploded} title="watchBackPlate" offset={[4, 0, 0]} geometry={nodes.watchBackPlate.geometry} />
+            <PartLabel
+              show={showLabels && isExploded}
+              title="watchBackPlate"
+              offset={WATCH_EXPLODED_CONFIG.backPlate.label}
+              geometry={nodes.watchBackPlate.geometry}
+            />
             <mesh
               name="watchBackPlateAccents"
               castShadow
@@ -300,7 +365,12 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchBand.geometry}
             material={materials.FsJfKVbzNLXJeBa}
           >
-            <PartLabel show={showLabels && isExploded} title="watchBand" offset={[-4, 0, 0]} geometry={nodes.watchBand.geometry} />
+            <PartLabel
+              show={showLabels && isExploded}
+              title="watchBand"
+              offset={WATCH_EXPLODED_CONFIG.band.label}
+              geometry={nodes.watchBand.geometry}
+            />
             <mesh
               name="watchBandExtraStitch"
               castShadow
@@ -359,7 +429,12 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchCrown.geometry}
             material={materials.GvXrALMIeaGmIJo}
           >
-            <PartLabel show={showLabels && isExploded} title="watchCrown" offset={[4, 1.5, 0]} geometry={nodes.watchCrown.geometry} />
+            <PartLabel
+              show={showLabels && isExploded}
+              title="watchCrown"
+              offset={WATCH_EXPLODED_CONFIG.crown.label}
+              geometry={nodes.watchCrown.geometry}
+            />
             <mesh
               name="watchCrownAccentRing"
               castShadow
@@ -413,8 +488,13 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             />
           </mesh>
           <group ref={internalsRef}>
-            <PartLabel show={showLabels && isExploded} title="watchInternals" offset={[-3, 3, 0]} geometry={nodes.watchInternalsA.geometry} />
-          <mesh
+            <PartLabel
+              show={showLabels && isExploded}
+              title="watchInternals"
+              offset={WATCH_EXPLODED_CONFIG.internals.label}
+              geometry={nodes.watchInternalsA.geometry}
+            />
+            <mesh
               name="watchInternalsA"
               castShadow
               receiveShadow
@@ -479,7 +559,12 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.watchScreenBezel.geometry}
             material={materials.EbFYvXZFEOELnji}
           >
-            <PartLabel show={showLabels && isExploded} title="watchScreenBezel" offset={[3, 3, 0]} geometry={nodes.watchScreenBezel.geometry} />
+            <PartLabel
+              show={showLabels && isExploded}
+              title="watchScreenBezel"
+              offset={WATCH_EXPLODED_CONFIG.screen.label}
+              geometry={nodes.watchScreenBezel.geometry}
+            />
             <mesh
               name="watchScreen"
               castShadow
