@@ -1,11 +1,25 @@
 "use client";
 
+import { useEffect } from "react";
 import { BoxSelect, Tag } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 export default function CanvasControls() {
-  const { isExploded, toggleExploded, showLabels, toggleLabels } =
-    useConfiguratorStore();
+  const {
+    isExploded,
+    toggleExploded,
+    showLabels,
+    toggleLabels,
+    setExploded,
+    setLabels,
+  } = useConfiguratorStore();
+
+  useEffect(() => {
+    return () => {
+      setExploded(false);
+      setLabels(false);
+    };
+  }, [setExploded, setLabels]);
 
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-800 z-10 transition-all">
