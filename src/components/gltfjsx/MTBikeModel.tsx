@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { JSX, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-
 import { assetPaths } from "@/lib/utils";
 import { MTBikeGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";

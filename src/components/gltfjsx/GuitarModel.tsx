@@ -2,14 +2,41 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { JSX, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-
 import { assetPaths } from "@/lib/utils";
 import { GuitarGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { PartLabel } from "@/lib/PartLabel";
 
+export const GUITAR_EXPLODED_CONFIG = {
+  body: {
+    part: new THREE.Vector3(0, 0, 0),
+    label: [0, 1, 0] as [number, number, number],
+  },
+  cover: {
+    part: new THREE.Vector3(2, 0.5, 0),
+    label: [0.1, 1, 0] as [number, number, number],
+  },
+  neck: {
+    part: new THREE.Vector3(1, 0, 0),
+    label: [0, -1.8, 0] as [number, number, number],
+  },
+  pickups: {
+    part: new THREE.Vector3(-2, 0, 0),
+    label: [-0.1, 1.5, 0] as [number, number, number],
+  },
+  bridge: {
+    part: new THREE.Vector3(3, 0, 0),
+    label: [0.1, 1, 0] as [number, number, number],
+  },
+  outputJack: {
+    part: new THREE.Vector3(-1, 0, 0),
+    label: [-0.1, 1, 0] as [number, number, number],
+  },
+};
+
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
+  const sceneRef = useRef<THREE.Group>(null);
   const bodyRef = useRef<THREE.Mesh>(null);
   const coverRef = useRef<THREE.Mesh>(null);
   const neckRef = useRef<THREE.Mesh>(null);
@@ -20,62 +47,63 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   useFrame((state, delta) => {
     const speed = 4 * delta;
 
-    // Lift the entire guitar up slightly when exploded
+    if (sceneRef.current) {
+      sceneRef.current.position.lerp(
+        new THREE.Vector3(0, isExploded ? 2.5 : 0, 0),
+        speed,
+      );
+    }
+
     if (bodyRef.current) {
       bodyRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 1 : 0, 0),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.body.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
 
-    // Cover goes forward and up
     if (coverRef.current) {
       coverRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 0.5 : 0, isExploded ? 1.5 : 0),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.cover.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
 
-    // Neck goes left and back
     if (neckRef.current) {
       neckRef.current.position.lerp(
-        new THREE.Vector3(
-          isExploded ? -1 : 0,
-          isExploded ? 0.5 : 0,
-          isExploded ? -0.5 : 0,
-        ),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.neck.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
 
-    // Pickups go right and forward
     if (pickupsRef.current) {
       pickupsRef.current.position.lerp(
-        new THREE.Vector3(
-          isExploded ? 0.5 : 0,
-          isExploded ? -0.5 : 0,
-          isExploded ? 1 : 0,
-        ),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.pickups.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
 
-    // Bridge goes right and back
     if (bridgeRef.current) {
       bridgeRef.current.position.lerp(
-        new THREE.Vector3(
-          isExploded ? 1 : 0,
-          isExploded ? -1 : 0,
-          isExploded ? -1 : 0,
-        ),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.bridge.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
 
-    // Output jack goes down and right
     if (outputJackRef.current) {
       outputJackRef.current.position.lerp(
-        new THREE.Vector3(isExploded ? 1.5 : 0, isExploded ? -1.5 : 0, 0),
+        isExploded
+          ? GUITAR_EXPLODED_CONFIG.outputJack.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
@@ -86,7 +114,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   ) as unknown as GuitarGLTFResult;
   return (
     <group {...props} dispose={null}>
-      <group name="Scene">
+      <group name="Scene" ref={sceneRef}>
         <mesh
           ref={bodyRef}
           name="body"
@@ -98,7 +126,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           <PartLabel
             show={showLabels && isExploded}
             title="Body"
-            offset={[-4, 0, 0]}
+            offset={GUITAR_EXPLODED_CONFIG.body.label}
             geometry={nodes.body.geometry}
           />
           <mesh
@@ -112,7 +140,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Pickguard"
-              offset={[4, 0, 0]}
+              offset={GUITAR_EXPLODED_CONFIG.cover.label}
               geometry={nodes.bodyCover.geometry}
             />
             <mesh
@@ -169,7 +197,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Neck & Head"
-              offset={[-3, 3, 0]}
+              offset={GUITAR_EXPLODED_CONFIG.neck.label}
               geometry={nodes.neakHead.geometry}
             />
             <mesh
@@ -226,7 +254,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Output Jack"
-              offset={[4, 1.5, 0]}
+              offset={GUITAR_EXPLODED_CONFIG.outputJack.label}
               geometry={nodes.outputJack.geometry}
             />
           </mesh>
@@ -241,7 +269,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Pickups"
-              offset={[-4, 1.5, 0]}
+              offset={GUITAR_EXPLODED_CONFIG.pickups.label}
               geometry={nodes.pickups.geometry}
             />
           </mesh>
@@ -278,7 +306,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Tremolo & Bridge"
-              offset={[3, 3, 0]}
+              offset={GUITAR_EXPLODED_CONFIG.bridge.label}
               geometry={nodes.termoloArmAndBridge.geometry}
             />
           </mesh>
