@@ -57,7 +57,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
   toggleExploded: () => set((state) => ({ isExploded: !state.isExploded })),
   setExploded: (val) => set({ isExploded: val }),
 
-  showLabels: false,
+  showLabels: true,
   toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
   setLabels: (val) => set({ showLabels: val }),
 
