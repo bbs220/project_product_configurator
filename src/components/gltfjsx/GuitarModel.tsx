@@ -1,96 +1,12 @@
 import * as THREE from "three";
-import { useGLTF, Html, Line } from "@react-three/drei";
-import { JSX, useRef, useMemo } from "react";
+import { useGLTF } from "@react-three/drei";
+import { JSX, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { GLTF } from "three-stdlib";
+
 import { assetPaths } from "@/lib/utils";
+import { GuitarGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
-
-function PartLabel({
-  show,
-  title,
-  geometry,
-  position = [0, 0, 0],
-  offset = [2, 0, 0],
-}: {
-  show: boolean;
-  title: string;
-  geometry?: THREE.BufferGeometry;
-  position?: [number, number, number];
-  offset?: [number, number, number];
-}) {
-  const center = useMemo(() => {
-    if (geometry) {
-      if (!geometry.boundingBox) geometry.computeBoundingBox();
-      const c = new THREE.Vector3();
-      geometry.boundingBox?.getCenter(c);
-      return c;
-    }
-    return new THREE.Vector3(...position);
-  }, [geometry, position]);
-
-  const targetPos = useMemo(() => {
-    return center.clone().add(new THREE.Vector3(offset[0], offset[1], 0));
-  }, [center, offset]);
-
-  const points = useMemo(() => [center, targetPos], [center, targetPos]);
-
-  return (
-    <group>
-      <Line
-        points={points}
-        color="#888888"
-        lineWidth={2}
-        transparent
-        opacity={show ? 0.8 : 0}
-        visible={show}
-      />
-      <Html
-        position={targetPos}
-        center
-        className={`select-none transition-opacity duration-500 ease-in-out ${show ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      >
-        <div className="px-3 py-1.5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-lg border border-gray-200/50 dark:border-gray-800/50 whitespace-nowrap text-xs font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-          {title}
-        </div>
-      </Html>
-    </group>
-  );
-}
-
-type GLTFResult = GLTF & {
-  nodes: {
-    body: THREE.Mesh;
-    bodyCover: THREE.Mesh;
-    bodyCoverAccentRing: THREE.Mesh;
-    coverScrewsA: THREE.Mesh;
-    coverScrewsB: THREE.Mesh;
-    toneControlA: THREE.Mesh;
-    toneControlB: THREE.Mesh;
-    volumeControl: THREE.Mesh;
-    neakHead: THREE.Mesh;
-    frets: THREE.Mesh;
-    pickupBridge: THREE.Mesh;
-    strings6to1: THREE.Mesh;
-    stringTrees: THREE.Mesh;
-    tuningKeys: THREE.Mesh;
-    neckHeadSupport: THREE.Mesh;
-    outputJack: THREE.Mesh;
-    pickups: THREE.Mesh;
-    pickupSelectorBox: THREE.Mesh;
-    pickupSelector: THREE.Mesh;
-    strapButton: THREE.Mesh;
-    termoloArmAndBridge: THREE.Mesh;
-  };
-  materials: {
-    BodyMaterial: THREE.MeshPhysicalMaterial;
-    NeckMaterial: THREE.MeshPhysicalMaterial;
-    white: THREE.MeshStandardMaterial;
-    MetalPartsMaterial: THREE.MeshStandardMaterial;
-    StringMaterial: THREE.MeshStandardMaterial;
-  };
-};
+import { PartLabel } from "@/lib/PartLabel";
 
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
@@ -167,7 +83,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
 
   const { nodes, materials } = useGLTF(
     assetPaths.guitar,
-  ) as unknown as GLTFResult;
+  ) as unknown as GuitarGLTFResult;
   return (
     <group {...props} dispose={null}>
       <group name="Scene">
