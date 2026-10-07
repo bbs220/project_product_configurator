@@ -4,7 +4,8 @@ import { BoxSelect, Tag } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 export default function CanvasControls() {
-  const { isExploded, toggleExploded, showLabels, toggleLabels } = useConfiguratorStore();
+  const { isExploded, toggleExploded, showLabels, toggleLabels } =
+    useConfiguratorStore();
 
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-800 z-10 transition-all">
@@ -18,7 +19,9 @@ export default function CanvasControls() {
         title="Explode View"
       >
         <BoxSelect className="w-4 h-4" />
-        <span className="hidden sm:inline">{isExploded ? "Implode" : "Explode"}</span>
+        <span className="hidden sm:inline">
+          {isExploded ? "Implode" : "Explode"}
+        </span>
       </button>
 
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
@@ -33,9 +36,10 @@ export default function CanvasControls() {
         title="Toggle Info Labels"
       >
         <Tag className="w-4 h-4" />
-        <span className="hidden sm:inline">{showLabels ? "Hide Labels" : "Info Labels"}</span>
+        <span className="hidden sm:inline">
+          {showLabels ? "Labels" : "Labels"}
+        </span>
       </button>
     </div>
   );
 }
-

@@ -7,8 +7,37 @@ import { MTBikeGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { PartLabel } from "@/lib/PartLabel";
 
+export const MTBIKE_EXPLODED_CONFIG = {
+  midFrame: {
+    part: new THREE.Vector3(0, 0, 0),
+    label: [0, -1, 0] as [number, number, number],
+  },
+  frontFrame: {
+    part: new THREE.Vector3(2, 0, 0),
+    label: [0.2, 1.5, 0] as [number, number, number],
+  },
+  handleBarRod: {
+    part: new THREE.Vector3(4, 0, 0),
+    label: [0.1, -1, 0] as [number, number, number],
+  },
+  pedalShaft: {
+    part: new THREE.Vector3(-3, 0, 0),
+    label: [-2, 0, 0] as [number, number, number],
+  },
+  rearFrame: {
+    part: new THREE.Vector3(-2, 0, 0),
+    label: [-1, 1, 0] as [number, number, number],
+  },
+  seatSuspension: {
+    part: new THREE.Vector3(3, 0, 0),
+    label: [1, 1, 0] as [number, number, number],
+  },
+};
+
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
+  const sceneRef = useRef<THREE.Group>(null);
+  const midFrameRef = useRef<THREE.Mesh>(null);
   const frontFrameRef = useRef<THREE.Mesh>(null);
   const rearFrameRef = useRef<THREE.Mesh>(null);
   const pedalShaftRef = useRef<THREE.Mesh>(null);
@@ -17,33 +46,64 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
+
+    if (sceneRef.current) {
+      sceneRef.current.position.lerp(
+        new THREE.Vector3(0, isExploded ? 2.5 : 0, 0),
+        speed,
+      );
+    }
+
+    if (midFrameRef.current) {
+      midFrameRef.current.position.lerp(
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.midFrame.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+
     if (frontFrameRef.current) {
       frontFrameRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 0.5 : 0, isExploded ? 1.5 : 0),
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.frontFrame.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
+
     if (rearFrameRef.current) {
       rearFrameRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 0.5 : 0, isExploded ? -1.5 : 0),
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.rearFrame.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
+
     if (pedalShaftRef.current) {
       pedalShaftRef.current.position.lerp(
-        new THREE.Vector3(isExploded ? 1 : 0, isExploded ? -0.5 : 0, 0),
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.pedalShaft.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
+
     if (seatSuspensionRef.current) {
       seatSuspensionRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 1 : 0, 0),
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.seatSuspension.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
+
     if (handleBarRodRef.current) {
       handleBarRodRef.current.position.lerp(
-        new THREE.Vector3(0, isExploded ? 1 : 0, isExploded ? 0.5 : 0),
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.handleBarRod.part
+          : new THREE.Vector3(0, 0, 0),
         speed,
       );
     }
@@ -54,8 +114,9 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   ) as unknown as MTBikeGLTFResult;
   return (
     <group {...props} dispose={null}>
-      <group name="Scene">
+      <group name="Scene" ref={sceneRef}>
         <mesh
+          ref={midFrameRef}
           name="midFrame"
           castShadow
           receiveShadow
@@ -65,7 +126,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           <PartLabel
             show={showLabels && isExploded}
             title="Base Frame"
-            offset={[-4, 0, 0]}
+            offset={MTBIKE_EXPLODED_CONFIG.midFrame.label}
             geometry={nodes.midFrame.geometry}
           />
           <mesh
@@ -79,7 +140,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Front Fork"
-              offset={[4, 1.5, 0]}
+              offset={MTBIKE_EXPLODED_CONFIG.frontFrame.label}
               geometry={nodes.frontFrame.geometry}
             />
             <mesh
@@ -544,7 +605,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Handlebars"
-              offset={[-3, 3, 0]}
+              offset={MTBIKE_EXPLODED_CONFIG.handleBarRod.label}
               geometry={nodes.midFrameHandleBarRod.geometry}
             />
             <mesh
@@ -603,7 +664,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Pedals & Crank"
-              offset={[4, 0, 0]}
+              offset={MTBIKE_EXPLODED_CONFIG.pedalShaft.label}
               geometry={nodes.pedalShaft.geometry}
             />
             <mesh
@@ -664,7 +725,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Rear Assembly"
-              offset={[-4, 1.5, 0]}
+              offset={MTBIKE_EXPLODED_CONFIG.rearFrame.label}
               geometry={nodes.rearFrame.geometry}
             />
             <mesh
@@ -922,7 +983,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             <PartLabel
               show={showLabels && isExploded}
               title="Seat"
-              offset={[3, 3, 0]}
+              offset={MTBIKE_EXPLODED_CONFIG.seatSuspension.label}
               geometry={nodes.seatSuspension.geometry}
             />
             <mesh
