@@ -9,7 +9,7 @@ export const MODEL_CAMERA_POSITIONS: Record<
   watch: [0, 2, -5],
   keyboard: [0, 2, -0.1], // Placeholders that we can tune later
   mtBike: [4, 2, -4],
-  guitar: [0, 2, -3],
+  guitar: [0, 2, -4],
 };
 
 export const MODEL_CAMERA_DISTANCES: Record<
@@ -29,7 +29,7 @@ export const MODEL_CAMERA_TARGETS: Record<
   watch: [0, 1, 0],
   keyboard: [0, 0, 0],
   mtBike: [0, 1, 0],
-  guitar: [0, 0, 0],
+  guitar: [0, 1, 0],
 };
 
 export const MODEL_CAMERA_FOV: Record<ConfiguratorModel, number> = {
