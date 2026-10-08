@@ -1,0 +1,40 @@
+# Product Configurator - Full Documentation
+
+> A highly interactive 3D product configurator built with React Three Fiber, Next.js, and Zustand.
+
+## Architecture & Tech Stack
+- **Framework:** Next.js (App Router)
+- **3D Rendering:** React Three Fiber, three.js
+- **3D Helpers:** @react-three/drei (OrbitControls, Environment, Stage, ContactShadows)
+- **State Management:** Zustand
+- **Styling:** Tailwind CSS
+
+## Core Features
+1. **Model Selection:** Users can switch between different 3D models (Watch, Mountain Bike, Guitar, Keyboard).
+2. **Exploded View:** Models can be "exploded" to show their individual components spreading out along predefined axes.
+3. **Part Labeling:** In exploded view, each part gets an interactive HTML label positioned in 3D space.
+4. **Color Customization:** Users can select individual parts and change their colors or materials.
+
+## State Management (Zustand)
+The `useConfiguratorStore` manages the global state:
+- `currentModel`: The currently active 3D model.
+- `isExploded`: Boolean tracking if the model is currently in exploded view.
+- `showLabels`: Boolean tracking if part labels are visible.
+- `cameraTarget`: The target vector `[x, y, z]` for OrbitControls.
+- `cameraFov`: The perspective camera field of view.
+
+## Model Components
+Each 3D model is a React component (e.g., `WatchModel.tsx`, `MTBikeModel.tsx`) that:
+- Uses `useGLTF` to load the `.glb` model.
+- Defines an `_EXPLODED_CONFIG` object mapping each mesh to its resting and exploded positions.
+- Uses `useFrame` or `useSpring` to smoothly interpolate positions when `isExploded` changes.
+- Conditionally renders a `PartLabel` component for each mesh when `showLabels` is true.
+
+## Shared Utilities
+- `PartLabel`: A reusable component using Drei's `Html` to render floating UI labels tied to specific meshes.
+- `types/models.ts`: Shared TypeScript types for configurations, mesh definitions, and store state.
+
+## Routing
+- `/`: Home/Landing page.
+- `/dashboard`: The main configurator interface containing the 3D Canvas and UI controls.
+

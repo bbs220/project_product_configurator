@@ -1,0 +1,18 @@
+# Product Configurator
+
+> 3D Product Configurator built with React Three Fiber, Next.js, and Zustand.
+
+## Overview
+This application provides a highly interactive 3D configurator for various products like watches, mountain bikes, guitars, and keyboards. 
+
+## Key Features
+- 3D model visualization
+- Exploded view and part labeling
+- Customizable colors and textures
+
+## Technical Stack
+- Next.js (App Router)
+- React Three Fiber (@react-three/fiber, @react-three/drei)
+- Zustand (State management)
+- Tailwind CSS
+

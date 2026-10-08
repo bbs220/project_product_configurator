@@ -53,7 +53,7 @@ The HTML, head, and document basics every page needs.
 
 Search visibility — robots.txt, sitemaps, canonicals, structured data.
 
-- [ ] [robots.txt](https://specification.website/spec/seo/robots-txt/) — Recommended
+- [x] [robots.txt](https://specification.website/spec/seo/robots-txt/) — Recommended
       A plain-text file at the site root that tells crawlers which paths they may or may not fetch. Standardised in RFC 9309 and supported by every major search engine.
 - [ ] [XML sitemaps](https://specification.website/spec/seo/xml-sitemaps/) — Recommended
       An XML file listing the canonical URLs of a site, with optional metadata about when each was last changed. The fastest way to tell a search engine what exists.
@@ -229,9 +229,9 @@ Things that make a site legible to AI agents and crawlers.
 
 - [ ] [Agent readiness](https://specification.website/spec/agent-readiness/agent-readiness-overview/) — Recommended
       Agent readiness is the set of choices that make a site legible to AI agents and LLMs: stable URLs, structured data, clean semantics, robots controls, and machine-readable endpoints.
-- [ ] [/llms.txt](https://specification.website/spec/agent-readiness/llms-txt/) — Recommended
+- [x] [/llms.txt](https://specification.website/spec/agent-readiness/llms-txt/) — Recommended
       A markdown file at the site root that gives LLMs a curated index of your most important content. Now at v2, which makes it discoverable by link relation instead of by guessing the path. Still a convention, not a ratified standard.
-- [ ] [/llms-full.txt](https://specification.website/spec/agent-readiness/llms-full-txt/) — Optional
+- [x] [/llms-full.txt](https://specification.website/spec/agent-readiness/llms-full-txt/) — Optional
       An extended companion to /llms.txt that concatenates the full markdown content of your key pages into a single file. Useful for small sites, costly for large ones.
 - [ ] [Per-page Markdown source endpoints](https://specification.website/spec/agent-readiness/markdown-source-endpoints/) — Recommended
       Expose every documentation page's raw Markdown source at a predictable URL — via a .md suffix on the canonical URL, content negotiation, or both. Agents pull source instead of parsing HTML.
