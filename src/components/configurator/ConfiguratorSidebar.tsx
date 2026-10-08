@@ -71,15 +71,19 @@ const ConfiguratorSidebar = () => {
       }`}
     >
       {/* header row with collapse toggle */}
-      <div className="flex items-center justify-between px-2 py-3 border-b border-gray-200 dark:border-gray-800">
-        {isSidebarOpen && (
-          <span className="pl-2 text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+      <div className="flex items-center px-2 py-3 border-b border-gray-200 dark:border-gray-800">
+        <div
+          className={`overflow-hidden transition-all duration-300 flex items-center ${
+            isSidebarOpen ? "w-32 opacity-100" : "w-0 opacity-0"
+          }`}
+        >
+          <span className="pl-2 text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 whitespace-nowrap">
             Inspector
           </span>
-        )}
+        </div>
         <button
           onClick={toggleSidebar}
-          className="ml-auto w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+          className="ml-auto shrink-0 w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
         >
           {isSidebarOpen ? (
             <PanelLeftClose className="w-4 h-4 text-gray-600 dark:text-gray-400" />
@@ -98,14 +102,20 @@ const ConfiguratorSidebar = () => {
                 setActiveTab(id);
                 if (!isSidebarOpen) toggleSidebar();
               }}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              className={`w-full flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                 activeTab === id && isSidebarOpen
                   ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
                   : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
-              {isSidebarOpen && <span>{label}</span>}
+              <div
+                className={`overflow-hidden transition-all duration-300 text-left flex items-center ${
+                  isSidebarOpen ? "w-40 opacity-100 ml-3" : "w-0 opacity-0 ml-0"
+                }`}
+              >
+                <span className="whitespace-nowrap">{label}</span>
+              </div>
             </button>
 
             {/* discord-style tooltip — only visible when sidebar is collapsed */}
@@ -123,9 +133,17 @@ const ConfiguratorSidebar = () => {
       </nav>
 
       {/* panel content */}
-      {isSidebarOpen && (
-        <div className="flex-1 overflow-y-auto p-4">{renderPanel()}</div>
-      )}
+      <div
+        className={`flex-1 overflow-hidden transition-opacity duration-300 ${
+          isSidebarOpen
+            ? "opacity-100 delay-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-71.75 p-4 h-full overflow-y-auto">
+          {renderPanel()}
+        </div>
+      </div>
     </aside>
   );
 };
