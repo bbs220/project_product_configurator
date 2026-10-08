@@ -24,11 +24,11 @@ The HTML, head, and document basics every page needs.
       Declare the preferred URL for a page so search engines and crawlers consolidate ranking signals on one address, even when several URLs serve the same content.
 - [ ] [Favicons and app icons](https://specification.website/spec/foundations/favicons/) — Recommended
       Ship an SVG favicon, an ICO fallback at /favicon.ico, an apple-touch-icon, and a maskable PWA icon. Five files cover every browser and home-screen surface.
-- [ ] [\<meta name="theme-color"\>](https://specification.website/spec/foundations/theme-color/) — Recommended
+- [x] [\<meta name="theme-color"\>](https://specification.website/spec/foundations/theme-color/) — Recommended
       Tints the browser chrome and OS surfaces to match your brand. Use the media attribute to ship one colour for light mode and another for dark mode.
-- [ ] [\<meta name="color-scheme"\>](https://specification.website/spec/foundations/color-scheme/) — Recommended
+- [x] [\<meta name="color-scheme"\>](https://specification.website/spec/foundations/color-scheme/) — Recommended
       Tells the browser which colour schemes your page is designed for. Prevents the white flash that dark-mode users see before your CSS loads, and lets the browser style scrollbars, form controls, and the page background to match.
-- [ ] [Open Graph protocol](https://specification.website/spec/foundations/open-graph/) — Recommended
+- [x] [Open Graph protocol](https://specification.website/spec/foundations/open-graph/) — Recommended
       Open Graph tags control how pages look when shared on social platforms and chat apps. Set og:title, og:description, og:image, og:url, and og:type on every page.
 - [ ] [Feed discovery with rel="alternate"](https://specification.website/spec/foundations/feed-discovery/) — Recommended
       If your site publishes a feed — RSS, Atom, or JSON Feed — announce it in \<head\> with \<link rel="alternate"\>. Feed readers, agents, and browsers discover it without guessing the URL.
@@ -161,7 +161,7 @@ Headers, transport, and policies that keep visitors safe.
       A CSP tells browsers which sources of script, style, image, and frame content to trust. A good policy stops most XSS and data-exfiltration attacks dead.
 - [ ] [Reporting API (Reporting-Endpoints)](https://specification.website/spec/security/reporting-endpoints/) — Recommended
       A response header that names HTTP endpoints to which the browser POSTs structured violation reports — CSP and COOP breaches, permissions-policy violations, deprecations, interventions, and crashes — so you learn what is breaking in the field.
-- [ ] [/.well-known/security.txt](https://specification.website/spec/security/security-txt/) — Recommended
+- [x] [/.well-known/security.txt](https://specification.website/spec/security/security-txt/) — Recommended
       A standard text file at /.well-known/security.txt tells security researchers how to report vulnerabilities. It is cheap to publish and dramatically lowers the bar for responsible disclosure.
 - [ ] [X-Content-Type-Options: nosniff](https://specification.website/spec/security/x-content-type-options/) — Required
       The nosniff header stops browsers from guessing a response's content type. It blocks a class of attacks where a benign-looking file is interpreted as script or stylesheet.
@@ -399,3 +399,4 @@ Language, locale, direction, and translated content.
       Most languages don't pluralise like English. Use CLDR plural categories — zero, one, two, few, many, other — via Intl.PluralRules instead of hard-coded 'item' vs 'items' logic.
 - [ ] [Internationalised Domain Names (IDN)](https://specification.website/spec/i18n/idn-support/) — Optional
       IDNs let domain names contain non-ASCII characters. They are encoded as Punycode on the wire and rendered as Unicode in the browser, subject to anti-spoofing rules.
+
