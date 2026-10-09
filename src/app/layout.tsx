@@ -30,10 +30,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "forma",
     description: "shape your product",
-    url: "https://forma.example.com", // update this to your actual production URL
+    url: "https://forma.example.com",
     siteName: "forma",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/thumbnails/thumbnail_1200x630.png",
+        width: 1200,
+        height: 630,
+        alt: "forma product configurator thumbnail",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "forma",
+    description: "shape your product",
+    images: ["/images/thumbnails/thumbnail_1200x630.png"],
   },
 };
 
