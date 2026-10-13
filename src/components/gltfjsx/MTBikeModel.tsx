@@ -8,47 +8,37 @@ import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { PartLabel } from "@/lib/PartLabel";
 
 export const MTBIKE_EXPLODED_CONFIG = {
-  midFrame: {
+  frame: {
     part: new THREE.Vector3(0, 0, 0),
-    label: [0, -1, 0] as [number, number, number],
-  },
-  frontFrame: {
-    part: new THREE.Vector3(2, 0, 0),
-    label: [0.2, 1.5, 0] as [number, number, number],
+    label: [0, 1, 0] as [number, number, number],
   },
   handleBarRod: {
-    part: new THREE.Vector3(4, 0, 0),
-    label: [0.1, -1, 0] as [number, number, number],
+    part: new THREE.Vector3(-3, 0.4, 0),
+    label: [0.1, 0.5, 0] as [number, number, number],
   },
   pedalShaft: {
-    part: new THREE.Vector3(-3, 0, 0),
-    label: [-2, 0, 0] as [number, number, number],
-  },
-  rearFrame: {
-    part: new THREE.Vector3(-2, 0, 0),
-    label: [-1, 1, 0] as [number, number, number],
+    part: new THREE.Vector3(-1.5, 0, 0),
+    label: [-0.1, -0.5, 0] as [number, number, number],
   },
   seatSuspension: {
-    part: new THREE.Vector3(3, 0, 0),
-    label: [1, 1, 0] as [number, number, number],
+    part: new THREE.Vector3(2, 0, 0),
+    label: [0.1, 0.8, 0] as [number, number, number],
   },
   frontWheelTyre: {
-    part: new THREE.Vector3(4.5, 0, 0),
-    label: [0.5, 1.5, 0] as [number, number, number],
+    part: new THREE.Vector3(3, 0, 1.3),
+    label: [0.1, -1, 0] as [number, number, number],
   },
   rearWheelTyre: {
-    part: new THREE.Vector3(-4.5, 0, 0),
-    label: [-0.5, 1.5, 0] as [number, number, number],
+    part: new THREE.Vector3(-3, 0, -1.3),
+    label: [-0.1, -1, 0] as [number, number, number],
   },
 };
 
 // display labels mapped to mesh names
 export const MTBIKE_LABELS = {
-  midFrame: "Mid Frame",
-  frontFrame: "Front Frame",
-  handleBarRod: "Handlebars",
+  frame: "Frame",
+  handleBarRod: "Handle Bar Rod",
   pedalShaft: "Pedals & Crank",
-  rearFrame: "Rear Frame",
   seatSuspension: "Seat",
   frontWheelTyre: "Front Tyre",
   rearWheelTyre: "Rear Tyre",
@@ -57,9 +47,7 @@ export const MTBIKE_LABELS = {
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
-  const midFrameRef = useRef<THREE.Mesh>(null);
-  const frontFrameRef = useRef<THREE.Mesh>(null);
-  const rearFrameRef = useRef<THREE.Mesh>(null);
+  const frameRef = useRef<THREE.Mesh>(null);
   const pedalShaftRef = useRef<THREE.Mesh>(null);
   const seatSuspensionRef = useRef<THREE.Mesh>(null);
   const handleBarRodRef = useRef<THREE.Mesh>(null);
@@ -76,28 +64,10 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
       );
     }
 
-    if (midFrameRef.current) {
-      midFrameRef.current.position.lerp(
+    if (frameRef.current) {
+      frameRef.current.position.lerp(
         isExploded
-          ? MTBIKE_EXPLODED_CONFIG.midFrame.part
-          : new THREE.Vector3(0, 0, 0),
-        speed,
-      );
-    }
-
-    if (frontFrameRef.current) {
-      frontFrameRef.current.position.lerp(
-        isExploded
-          ? MTBIKE_EXPLODED_CONFIG.frontFrame.part
-          : new THREE.Vector3(0, 0, 0),
-        speed,
-      );
-    }
-
-    if (rearFrameRef.current) {
-      rearFrameRef.current.position.lerp(
-        isExploded
-          ? MTBIKE_EXPLODED_CONFIG.rearFrame.part
+          ? MTBIKE_EXPLODED_CONFIG.frame.part
           : new THREE.Vector3(0, 0, 0),
         speed,
       );
@@ -156,7 +126,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
     <group {...props} dispose={null}>
       <group name="Scene" ref={sceneRef}>
         <mesh
-          ref={midFrameRef}
+          ref={frameRef}
           name="midFrame"
           castShadow
           receiveShadow
@@ -165,24 +135,17 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
         >
           <PartLabel
             show={showLabels && isExploded}
-            title={MTBIKE_LABELS.midFrame}
-            offset={MTBIKE_EXPLODED_CONFIG.midFrame.label}
+            title={MTBIKE_LABELS.frame}
+            offset={MTBIKE_EXPLODED_CONFIG.frame.label}
             geometry={nodes.midFrame.geometry}
           />
           <mesh
-            ref={frontFrameRef}
             name="frontFrame"
             castShadow
             receiveShadow
             geometry={nodes.frontFrame.geometry}
             material={materials.M_Fox40_1}
           >
-            <PartLabel
-              show={showLabels && isExploded}
-              title={MTBIKE_LABELS.frontFrame}
-              offset={MTBIKE_EXPLODED_CONFIG.frontFrame.label}
-              geometry={nodes.frontFrame.geometry}
-            />
             <mesh
               name="decorRing"
               castShadow
@@ -675,19 +638,12 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             </mesh>
           </mesh>
           <mesh
-            ref={rearFrameRef}
             name="rearFrame"
             castShadow
             receiveShadow
             geometry={nodes.rearFrame.geometry}
             material={materials.M_Frame}
           >
-            <PartLabel
-              show={showLabels && isExploded}
-              title={MTBIKE_LABELS.rearFrame}
-              offset={MTBIKE_EXPLODED_CONFIG.rearFrame.label}
-              geometry={nodes.rearFrame.geometry}
-            />
             <mesh
               name="rearBrakeGearLineExitHole"
               castShadow
