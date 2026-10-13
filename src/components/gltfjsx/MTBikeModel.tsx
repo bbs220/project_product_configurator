@@ -32,6 +32,14 @@ export const MTBIKE_EXPLODED_CONFIG = {
     part: new THREE.Vector3(3, 0, 0),
     label: [1, 1, 0] as [number, number, number],
   },
+  frontWheelTyre: {
+    part: new THREE.Vector3(4.5, 0, 0),
+    label: [0.5, 1.5, 0] as [number, number, number],
+  },
+  rearWheelTyre: {
+    part: new THREE.Vector3(-4.5, 0, 0),
+    label: [-0.5, 1.5, 0] as [number, number, number],
+  },
 };
 
 // display labels mapped to mesh names
@@ -42,6 +50,8 @@ export const MTBIKE_LABELS = {
   pedalShaft: "Pedals & Crank",
   rearFrame: "Rear Frame",
   seatSuspension: "Seat",
+  frontWheelTyre: "Front Tyre",
+  rearWheelTyre: "Rear Tyre",
 } as const;
 
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
@@ -53,6 +63,8 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const pedalShaftRef = useRef<THREE.Mesh>(null);
   const seatSuspensionRef = useRef<THREE.Mesh>(null);
   const handleBarRodRef = useRef<THREE.Mesh>(null);
+  const frontWheelTyreRef = useRef<THREE.Mesh>(null);
+  const rearWheelTyreRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
@@ -113,6 +125,24 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
       handleBarRodRef.current.position.lerp(
         isExploded
           ? MTBIKE_EXPLODED_CONFIG.handleBarRod.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+
+    if (frontWheelTyreRef.current) {
+      frontWheelTyreRef.current.position.lerp(
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.frontWheelTyre.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+
+    if (rearWheelTyreRef.current) {
+      rearWheelTyreRef.current.position.lerp(
+        isExploded
+          ? MTBIKE_EXPLODED_CONFIG.rearWheelTyre.part
           : new THREE.Vector3(0, 0, 0),
         speed,
       );
@@ -189,119 +219,39 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
                 material={materials.M_Fox40_2}
               >
                 <mesh
-                  name="frontWheelAxel"
+                  name="frontWheelBrake"
                   castShadow
                   receiveShadow
-                  geometry={nodes.frontWheelAxel.geometry}
-                  material={materials.M_Wheel_1}
-                />
-                <mesh
-                  name="frontWheelDiscBrakeSupport"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.frontWheelDiscBrakeSupport.geometry}
-                  material={materials.M_ShimanoBrake_2}
+                  geometry={nodes.frontWheelBrake.geometry}
+                  material={materials.M_BrakeCaliper_1}
                 >
                   <mesh
-                    name="frontWheelDiscBrake"
+                    name="frontWheelBrakeLineConnector"
                     castShadow
                     receiveShadow
-                    geometry={nodes.frontWheelDiscBrake.geometry}
-                    material={materials.M_ShimanoBrake_1}
-                  >
-                    <mesh
-                      name="frontWheelBrake"
-                      castShadow
-                      receiveShadow
-                      geometry={nodes.frontWheelBrake.geometry}
-                      material={materials.M_BrakeCaliper_1}
-                    >
-                      <mesh
-                        name="frontWheelBrakeLineConnector"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.frontWheelBrakeLineConnector.geometry}
-                        material={materials.M_BrakeCaliper_2}
-                      />
-                      <mesh
-                        name="frontWheelBrakeScrewA"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.frontWheelBrakeScrewA.geometry}
-                        material={materials.M_BrakeCaliper_2}
-                      />
-                      <mesh
-                        name="frontWheelBrakeScrews"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.frontWheelBrakeScrews.geometry}
-                        material={materials.M_BrakeCaliper_2}
-                      />
-                      <mesh
-                        name="frontWheelBrakeScrewSupport"
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.frontWheelBrakeScrewSupport.geometry}
-                        material={materials.M_BrakeCaliper_1}
-                      />
-                    </mesh>
-                  </mesh>
-                  <mesh
-                    name="frontWheelDiscBrakeScrews"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.frontWheelDiscBrakeScrews.geometry}
-                    material={materials.M_ShimanoBrake_2}
-                  />
-                </mesh>
-                <mesh
-                  name="frontWheelTyre"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.frontWheelTyre.geometry}
-                  material={materials.M_Wheel_2}
-                >
-                  <mesh
-                    name="frontWheelCenterTreads"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.frontWheelCenterTreads.geometry}
-                    material={materials.M_Wheel_2}
+                    geometry={nodes.frontWheelBrakeLineConnector.geometry}
+                    material={materials.M_BrakeCaliper_2}
                   />
                   <mesh
-                    name="frontWheelHalfTreads"
+                    name="frontWheelBrakeScrewA"
                     castShadow
                     receiveShadow
-                    geometry={nodes.frontWheelHalfTreads.geometry}
-                    material={materials.M_Wheel_2}
+                    geometry={nodes.frontWheelBrakeScrewA.geometry}
+                    material={materials.M_BrakeCaliper_2}
                   />
                   <mesh
-                    name="frontWheelMidTreads"
+                    name="frontWheelBrakeScrews"
                     castShadow
                     receiveShadow
-                    geometry={nodes.frontWheelMidTreads.geometry}
-                    material={materials.M_Wheel_2}
+                    geometry={nodes.frontWheelBrakeScrews.geometry}
+                    material={materials.M_BrakeCaliper_2}
                   />
                   <mesh
-                    name="frontWheelSideTreads"
+                    name="frontWheelBrakeScrewSupport"
                     castShadow
                     receiveShadow
-                    geometry={nodes.frontWheelSideTreads.geometry}
-                    material={materials.M_Wheel_2}
-                  />
-                  <mesh
-                    name="frontWheelSpokesA"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.frontWheelSpokesA.geometry}
-                    material={materials.M_Wheel_1}
-                  />
-                  <mesh
-                    name="frontWheelSpokesB"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.frontWheelSpokesB.geometry}
-                    material={materials.M_Wheel_1}
+                    geometry={nodes.frontWheelBrakeScrewSupport.geometry}
+                    material={materials.M_BrakeCaliper_1}
                   />
                 </mesh>
               </mesh>
@@ -872,115 +822,6 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
                 </mesh>
               </mesh>
             </mesh>
-            <mesh
-              name="rearWheelTyre"
-              castShadow
-              receiveShadow
-              geometry={nodes.rearWheelTyre.geometry}
-              material={materials.M_Wheel_2}
-            >
-              <mesh
-                name="rearWheelAxle"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelAxle.geometry}
-                material={materials.M_Cassette_1}
-              >
-                <mesh
-                  name="rearGears"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.rearGears.geometry}
-                  material={materials.M_Cassette}
-                >
-                  <mesh
-                    name="rearGearShaft"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.rearGearShaft.geometry}
-                    material={materials.M_Cassette_1}
-                  />
-                </mesh>
-                <mesh
-                  name="rearGears001"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.rearGears001.geometry}
-                  material={materials.M_Cassette_1}
-                />
-                <mesh
-                  name="rearWheelDiscBrakeSupport"
-                  castShadow
-                  receiveShadow
-                  geometry={nodes.rearWheelDiscBrakeSupport.geometry}
-                  material={materials.M_ShimanoBrake_2}
-                >
-                  <mesh
-                    name="rearWheelDiscBrake"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.rearWheelDiscBrake.geometry}
-                    material={materials.M_ShimanoBrake_1}
-                  />
-                  <mesh
-                    name="rearWheelDiscBrakeScrews"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.rearWheelDiscBrakeScrews.geometry}
-                    material={materials.M_ShimanoBrake_2}
-                  />
-                </mesh>
-              </mesh>
-              <mesh
-                name="rearWheelAxle001"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelAxle001.geometry}
-                material={materials.M_Wheel_1}
-              />
-              <mesh
-                name="rearWheelCenterTreads"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelCenterTreads.geometry}
-                material={materials.M_Wheel_2}
-              />
-              <mesh
-                name="rearWheelHalfTreads"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelHalfTreads.geometry}
-                material={materials.M_Wheel_2}
-              />
-              <mesh
-                name="rearWheelMidTreads"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelMidTreads.geometry}
-                material={materials.M_Wheel_2}
-              />
-              <mesh
-                name="rearWheelSideTreads"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelSideTreads.geometry}
-                material={materials.M_Wheel_2}
-              />
-              <mesh
-                name="rearWheelSpokesA"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelSpokesA.geometry}
-                material={materials.M_Wheel_1}
-              />
-              <mesh
-                name="rearWheelSpokesB"
-                castShadow
-                receiveShadow
-                geometry={nodes.rearWheelSpokesB.geometry}
-                material={materials.M_Wheel_1}
-              />
-            </mesh>
           </mesh>
           <mesh
             ref={seatSuspensionRef}
@@ -1042,6 +883,208 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
               material={materials.M_Seat}
             />
           </mesh>
+        </mesh>
+        <mesh
+          ref={frontWheelTyreRef}
+          name="frontWheelTyre"
+          castShadow
+          receiveShadow
+          geometry={nodes.frontWheelTyre.geometry}
+          material={materials.M_Wheel_2}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={MTBIKE_LABELS.frontWheelTyre}
+            offset={MTBIKE_EXPLODED_CONFIG.frontWheelTyre.label}
+            geometry={nodes.frontWheelTyre.geometry}
+          />
+          <mesh
+            name="frontWheelAxel"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelAxel.geometry}
+            material={materials.M_Wheel_1}
+          />
+          <mesh
+            name="frontWheelDiscBrakeSupport"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelDiscBrakeSupport.geometry}
+            material={materials.M_ShimanoBrake_2}
+          >
+            <mesh
+              name="frontWheelDiscBrake"
+              castShadow
+              receiveShadow
+              geometry={nodes.frontWheelDiscBrake.geometry}
+              material={materials.M_ShimanoBrake_1}
+            />
+            <mesh
+              name="frontWheelDiscBrakeScrews"
+              castShadow
+              receiveShadow
+              geometry={nodes.frontWheelDiscBrakeScrews.geometry}
+              material={materials.M_ShimanoBrake_2}
+            />
+          </mesh>
+          <mesh
+            name="frontWheelCenterTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelCenterTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="frontWheelHalfTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelHalfTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="frontWheelMidTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelMidTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="frontWheelSideTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelSideTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="frontWheelSpokesA"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelSpokesA.geometry}
+            material={materials.M_Wheel_1}
+          />
+          <mesh
+            name="frontWheelSpokesB"
+            castShadow
+            receiveShadow
+            geometry={nodes.frontWheelSpokesB.geometry}
+            material={materials.M_Wheel_1}
+          />
+        </mesh>
+        <mesh
+          ref={rearWheelTyreRef}
+          name="rearWheelTyre"
+          castShadow
+          receiveShadow
+          geometry={nodes.rearWheelTyre.geometry}
+          material={materials.M_Wheel_2}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={MTBIKE_LABELS.rearWheelTyre}
+            offset={MTBIKE_EXPLODED_CONFIG.rearWheelTyre.label}
+            geometry={nodes.rearWheelTyre.geometry}
+          />
+          <mesh
+            name="rearWheelAxle"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelAxle.geometry}
+            material={materials.M_Cassette_1}
+          >
+            <mesh
+              name="rearGears"
+              castShadow
+              receiveShadow
+              geometry={nodes.rearGears.geometry}
+              material={materials.M_Cassette}
+            >
+              <mesh
+                name="rearGearShaft"
+                castShadow
+                receiveShadow
+                geometry={nodes.rearGearShaft.geometry}
+                material={materials.M_Cassette_1}
+              />
+            </mesh>
+            <mesh
+              name="rearGears001"
+              castShadow
+              receiveShadow
+              geometry={nodes.rearGears001.geometry}
+              material={materials.M_Cassette_1}
+            />
+            <mesh
+              name="rearWheelDiscBrakeSupport"
+              castShadow
+              receiveShadow
+              geometry={nodes.rearWheelDiscBrakeSupport.geometry}
+              material={materials.M_ShimanoBrake_2}
+            >
+              <mesh
+                name="rearWheelDiscBrake"
+                castShadow
+                receiveShadow
+                geometry={nodes.rearWheelDiscBrake.geometry}
+                material={materials.M_ShimanoBrake_1}
+              />
+              <mesh
+                name="rearWheelDiscBrakeScrews"
+                castShadow
+                receiveShadow
+                geometry={nodes.rearWheelDiscBrakeScrews.geometry}
+                material={materials.M_ShimanoBrake_2}
+              />
+            </mesh>
+          </mesh>
+          <mesh
+            name="rearWheelAxle001"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelAxle001.geometry}
+            material={materials.M_Wheel_1}
+          />
+          <mesh
+            name="rearWheelCenterTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelCenterTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="rearWheelHalfTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelHalfTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="rearWheelMidTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelMidTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="rearWheelSideTreads"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelSideTreads.geometry}
+            material={materials.M_Wheel_2}
+          />
+          <mesh
+            name="rearWheelSpokesA"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelSpokesA.geometry}
+            material={materials.M_Wheel_1}
+          />
+          <mesh
+            name="rearWheelSpokesB"
+            castShadow
+            receiveShadow
+            geometry={nodes.rearWheelSpokesB.geometry}
+            material={materials.M_Wheel_1}
+          />
         </mesh>
       </group>
     </group>
