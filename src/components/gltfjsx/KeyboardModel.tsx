@@ -10,34 +10,66 @@ import { PartLabel } from "@/lib/PartLabel";
 export const KEYBOARD_EXPLODED_CONFIG = {
   chassis: {
     part: new THREE.Vector3(0, 0, 0),
-    label: [0, 0.5, 0] as [number, number, number],
+    label: [0, 0.3, 0] as [number, number, number],
+  },
+  keysBody: {
+    part: new THREE.Vector3(1.2, 0.6, 0),
+    label: [0, 0.3, 0] as [number, number, number],
   },
   keysPlate: {
     part: new THREE.Vector3(2.6, 0, 0),
-    label: [0.1, 0.5, 0] as [number, number, number],
+    label: [0, -0.4, 0] as [number, number, number],
   },
   knobA: {
     part: new THREE.Vector3(-1, 0, 0.2),
-    label: [-0.6, 0.2, 0] as [number, number, number],
+    label: [-0.4, 0.2, 0] as [number, number, number],
   },
   knobB: {
     part: new THREE.Vector3(-1, 0, -0.6),
-    label: [-0.6, -0.2, 0] as [number, number, number],
+    label: [-0.4, -0.2, 0] as [number, number, number],
   },
   infoDisplay: {
-    part: new THREE.Vector3(-0.5, 1.0, 0),
-    label: [-0.2, 0.5, 0] as [number, number, number],
+    part: new THREE.Vector3(-0.5, 0.6, 0),
+    label: [-0.2, 0.3, 0] as [number, number, number],
+  },
+  underLegA: {
+    part: new THREE.Vector3(0, -0.6, -0.5),
+    label: [0, -0.3, 0] as [number, number, number],
+  },
+  underLegB: {
+    part: new THREE.Vector3(0, -0.6, -0.5),
+    label: [0, -0.3, 0] as [number, number, number],
+  },
+  underPlate: {
+    part: new THREE.Vector3(0, 0.4, 0),
+    label: [0, -0.2, 0] as [number, number, number],
   },
 };
+
+// display labels mapped to mesh names
+export const KEYBOARD_LABELS = {
+  chassis: "Chassis",
+  keysBody: "Keys",
+  keysUnderPlate: "Key Plate",
+  bodyUnderPlate: "Under Plate",
+  knobA: "Display Brightness Knob",
+  knobB: "Display Mode Knob",
+  infoDisplay: "Display Screen",
+  underLegA: "Support Leg A",
+  underLegB: "Support Leg B",
+} as const;
 
 export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
   const chassisRef = useRef<THREE.Mesh>(null);
+  const keysBodyRef = useRef<THREE.Group>(null);
   const keysPlateRef = useRef<THREE.Mesh>(null);
   const knobARef = useRef<THREE.Mesh>(null);
   const knobBRef = useRef<THREE.Mesh>(null);
   const infoDisplayRef = useRef<THREE.Mesh>(null);
+  const underLegARef = useRef<THREE.Mesh>(null);
+  const underLegBRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
@@ -53,6 +85,15 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
       chassisRef.current.position.lerp(
         isExploded
           ? KEYBOARD_EXPLODED_CONFIG.chassis.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+
+    if (keysBodyRef.current) {
+      keysBodyRef.current.position.lerp(
+        isExploded
+          ? KEYBOARD_EXPLODED_CONFIG.keysBody.part
           : new THREE.Vector3(0, 0, 0),
         speed,
       );
@@ -93,6 +134,24 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
         speed,
       );
     }
+
+    if (underLegARef.current) {
+      underLegARef.current.position.lerp(
+        isExploded
+          ? KEYBOARD_EXPLODED_CONFIG.underLegA.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
+
+    if (underLegBRef.current) {
+      underLegBRef.current.position.lerp(
+        isExploded
+          ? KEYBOARD_EXPLODED_CONFIG.underLegB.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
   });
 
   const { nodes, materials } = useGLTF(
@@ -111,9 +170,54 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
         >
           <PartLabel
             show={showLabels && isExploded}
-            title="Chassis"
+            title={KEYBOARD_LABELS.chassis}
             offset={KEYBOARD_EXPLODED_CONFIG.chassis.label}
             geometry={nodes.chassis.geometry}
+          />
+          <mesh
+            name="onOffSwitch"
+            castShadow
+            receiveShadow
+            geometry={nodes.onOffSwitch.geometry}
+            material={materials.Plastic_2}
+          />
+        </mesh>
+        <mesh
+          ref={underLegARef}
+          name="underLegA"
+          castShadow
+          receiveShadow
+          geometry={nodes.underLegA.geometry}
+          material={materials.Plastic_3}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.underLegA}
+            offset={KEYBOARD_EXPLODED_CONFIG.underLegA.label}
+            geometry={nodes.underLegA.geometry}
+          />
+        </mesh>
+        <mesh
+          ref={underLegBRef}
+          name="underLegB"
+          castShadow
+          receiveShadow
+          geometry={nodes.underLegB.geometry}
+          material={materials.Plastic_3}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.underLegB}
+            offset={KEYBOARD_EXPLODED_CONFIG.underLegB.label}
+            geometry={nodes.underLegB.geometry}
+          />
+        </mesh>
+        <group ref={keysBodyRef} name="keysBody">
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.keysBody}
+            offset={KEYBOARD_EXPLODED_CONFIG.keysBody.label}
+            geometry={nodes.bodySpace.geometry}
           />
           <mesh
             name="bodyA"
@@ -1626,7 +1730,14 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
             receiveShadow
             geometry={nodes.bodyUnderPlate.geometry}
             material={materials.Metal_2}
-          />
+          >
+            <PartLabel
+              show={showLabels && isExploded}
+              title={KEYBOARD_LABELS.bodyUnderPlate}
+              offset={KEYBOARD_EXPLODED_CONFIG.underPlate.label}
+              geometry={nodes.bodyUnderPlate.geometry}
+            />
+          </mesh>
           <mesh
             name="bodyUnderscore"
             castShadow
@@ -1803,99 +1914,78 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
               material={materials.Plastic_5}
             />
           </mesh>
-          <mesh
-            ref={infoDisplayRef}
-            name="infoDisplay"
-            castShadow
-            receiveShadow
+        </group>
+        <mesh
+          ref={infoDisplayRef}
+          name="infoDisplay"
+          castShadow
+          receiveShadow
+          geometry={nodes.infoDisplay.geometry}
+          material={materials.Custom_1}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.infoDisplay}
+            offset={KEYBOARD_EXPLODED_CONFIG.infoDisplay.label}
             geometry={nodes.infoDisplay.geometry}
-            material={materials.Custom_1}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title="Display Screen"
-              offset={KEYBOARD_EXPLODED_CONFIG.infoDisplay.label}
-              geometry={nodes.infoDisplay.geometry}
-            />
-          </mesh>
-          <mesh
-            ref={keysPlateRef}
-            name="keysUnderPlate"
-            castShadow
-            receiveShadow
+          />
+        </mesh>
+        <mesh
+          ref={keysPlateRef}
+          name="keysUnderPlate"
+          castShadow
+          receiveShadow
+          geometry={nodes.keysUnderPlate.geometry}
+          material={materials.Plastic_3}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.keysUnderPlate}
+            offset={KEYBOARD_EXPLODED_CONFIG.keysPlate.label}
             geometry={nodes.keysUnderPlate.geometry}
-            material={materials.Plastic_3}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title="Key Plate"
-              offset={KEYBOARD_EXPLODED_CONFIG.keysPlate.label}
-              geometry={nodes.keysUnderPlate.geometry}
-            />
-          </mesh>
-          <mesh
-            ref={knobARef}
-            name="knobAUnderPlate"
-            castShadow
-            receiveShadow
+          />
+        </mesh>
+        <mesh
+          ref={knobARef}
+          name="knobAUnderPlate"
+          castShadow
+          receiveShadow
+          geometry={nodes.knobAUnderPlate.geometry}
+          material={materials.Plastic_3}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.knobA}
+            offset={KEYBOARD_EXPLODED_CONFIG.knobA.label}
             geometry={nodes.knobAUnderPlate.geometry}
-            material={materials.Plastic_3}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title="Knob A"
-              offset={KEYBOARD_EXPLODED_CONFIG.knobA.label}
-              geometry={nodes.knobAUnderPlate.geometry}
-            />
-            <mesh
-              name="knobA"
-              castShadow
-              receiveShadow
-              geometry={nodes.knobA.geometry}
-              material={materials.Plastic_3}
-            />
-          </mesh>
+          />
           <mesh
-            ref={knobBRef}
-            name="knobBUnderPlate"
+            name="knobA"
             castShadow
             receiveShadow
+            geometry={nodes.knobA.geometry}
+            material={materials.Plastic_3}
+          />
+        </mesh>
+        <mesh
+          ref={knobBRef}
+          name="knobBUnderPlate"
+          castShadow
+          receiveShadow
+          geometry={nodes.knobBUnderPlate.geometry}
+          material={materials.Plastic_3}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.knobB}
+            offset={KEYBOARD_EXPLODED_CONFIG.knobB.label}
             geometry={nodes.knobBUnderPlate.geometry}
-            material={materials.Plastic_3}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title="Knob B"
-              offset={KEYBOARD_EXPLODED_CONFIG.knobB.label}
-              geometry={nodes.knobBUnderPlate.geometry}
-            />
-            <mesh
-              name="knobB"
-              castShadow
-              receiveShadow
-              geometry={nodes.knobB.geometry}
-              material={materials.Plastic_3}
-            />
-          </mesh>
-          <mesh
-            name="onOffSwitch"
-            castShadow
-            receiveShadow
-            geometry={nodes.onOffSwitch.geometry}
-            material={materials.Plastic_2}
           />
           <mesh
-            name="underLegA"
+            name="knobB"
             castShadow
             receiveShadow
-            geometry={nodes.underLegA.geometry}
-            material={materials.Plastic_3}
-          />
-          <mesh
-            name="underLegB"
-            castShadow
-            receiveShadow
-            geometry={nodes.underLegB.geometry}
+            geometry={nodes.knobB.geometry}
             material={materials.Plastic_3}
           />
         </mesh>
