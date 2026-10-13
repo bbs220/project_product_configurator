@@ -36,6 +36,16 @@ export const WATCH_EXPLODED_CONFIG = {
   },
 };
 
+// display labels mapped to mesh names
+export const WATCH_LABELS = {
+  watchChassis: "Case",
+  watchBackPlate: "Back Plate",
+  watchBand: "Band",
+  watchCrown: "Digital Crown",
+  watchInternals: "Internals",
+  watchScreenBezel: "Display",
+} as const;
+
 export function WatchModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
@@ -123,7 +133,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
         >
           <PartLabel
             show={showLabels && isExploded}
-            title="watchChassis"
+            title={WATCH_LABELS.watchChassis}
             offset={WATCH_EXPLODED_CONFIG.chassis.label}
             geometry={nodes.watchChassis.geometry}
           />
@@ -137,7 +147,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="watchBackPlate"
+              title={WATCH_LABELS.watchBackPlate}
               offset={WATCH_EXPLODED_CONFIG.backPlate.label}
               geometry={nodes.watchBackPlate.geometry}
             />
@@ -230,7 +240,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="watchBand"
+              title={WATCH_LABELS.watchBand}
               offset={WATCH_EXPLODED_CONFIG.band.label}
               geometry={nodes.watchBand.geometry}
             />
@@ -294,7 +304,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="watchCrown"
+              title={WATCH_LABELS.watchCrown}
               offset={WATCH_EXPLODED_CONFIG.crown.label}
               geometry={nodes.watchCrown.geometry}
             />
@@ -353,7 +363,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           <group ref={internalsRef}>
             <PartLabel
               show={showLabels && isExploded}
-              title="watchInternals"
+              title={WATCH_LABELS.watchInternals}
               offset={WATCH_EXPLODED_CONFIG.internals.label}
               geometry={nodes.watchInternalsA.geometry}
             />
@@ -424,7 +434,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="watchScreenBezel"
+              title={WATCH_LABELS.watchScreenBezel}
               offset={WATCH_EXPLODED_CONFIG.screen.label}
               geometry={nodes.watchScreenBezel.geometry}
             />
