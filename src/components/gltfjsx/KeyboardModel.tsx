@@ -13,12 +13,12 @@ export const KEYBOARD_EXPLODED_CONFIG = {
     label: [0, 0.3, 0] as [number, number, number],
   },
   keysBody: {
-    part: new THREE.Vector3(1.2, 0.6, 0),
-    label: [0.2, 0.3, 0] as [number, number, number],
+    part: new THREE.Vector3(0, 0.6, 0),
+    label: [0, 0.2, 0] as [number, number, number],
   },
   keysPlate: {
-    part: new THREE.Vector3(2.6, 0, 0),
-    label: [0.2, -0.4, 0] as [number, number, number],
+    part: new THREE.Vector3(2.6, 0.1, 0),
+    label: [0.2, 0.4, 0] as [number, number, number],
   },
   knobA: {
     part: new THREE.Vector3(-1, 0, 0.2),
@@ -41,12 +41,12 @@ export const KEYBOARD_EXPLODED_CONFIG = {
     label: [-0.2, -0.3, 0] as [number, number, number],
   },
   underPlate: {
-    part: new THREE.Vector3(0, 0.4, 0),
-    label: [0.2, -0.2, 0] as [number, number, number],
+    part: new THREE.Vector3(2.6, -0.3, 0),
+    label: [0.1, -0.4, 0] as [number, number, number],
   },
   onOffSwitch: {
     part: new THREE.Vector3(0.5, -0.2, 0),
-    label: [0.2, -0.3, 0] as [number, number, number],
+    label: [0.1, -0.3, 0] as [number, number, number],
   },
 };
 
@@ -76,6 +76,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const underLegARef = useRef<THREE.Mesh>(null);
   const underLegBRef = useRef<THREE.Mesh>(null);
   const onOffSwitchRef = useRef<THREE.Mesh>(null);
+  const underPlateRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
@@ -167,6 +168,15 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
         speed,
       );
     }
+
+    if (underPlateRef.current) {
+      underPlateRef.current.position.lerp(
+        isExploded
+          ? KEYBOARD_EXPLODED_CONFIG.underPlate.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
   });
 
   const { nodes, materials } = useGLTF(
@@ -233,6 +243,21 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
             title={KEYBOARD_LABELS.underLegB}
             offset={KEYBOARD_EXPLODED_CONFIG.underLegB.label}
             geometry={nodes.underLegB.geometry}
+          />
+        </mesh>
+        <mesh
+          ref={underPlateRef}
+          name="bodyUnderPlate"
+          castShadow
+          receiveShadow
+          geometry={nodes.bodyUnderPlate.geometry}
+          material={materials.Metal_2}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.bodyUnderPlate}
+            offset={KEYBOARD_EXPLODED_CONFIG.underPlate.label}
+            geometry={nodes.bodyUnderPlate.geometry}
           />
         </mesh>
         <group ref={keysBodyRef} name="keysBody">
@@ -1745,20 +1770,6 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
               receiveShadow
               geometry={nodes.keyUCap.geometry}
               material={materials.Plastic_5}
-            />
-          </mesh>
-          <mesh
-            name="bodyUnderPlate"
-            castShadow
-            receiveShadow
-            geometry={nodes.bodyUnderPlate.geometry}
-            material={materials.Metal_2}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title={KEYBOARD_LABELS.bodyUnderPlate}
-              offset={KEYBOARD_EXPLODED_CONFIG.underPlate.label}
-              geometry={nodes.bodyUnderPlate.geometry}
             />
           </mesh>
           <mesh
