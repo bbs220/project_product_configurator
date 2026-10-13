@@ -34,6 +34,16 @@ export const MTBIKE_EXPLODED_CONFIG = {
   },
 };
 
+// display labels mapped to mesh names
+export const MTBIKE_LABELS = {
+  midFrame: "Mid Frame",
+  frontFrame: "Front Frame",
+  handleBarRod: "Handlebars",
+  pedalShaft: "Pedals & Crank",
+  rearFrame: "Rear Frame",
+  seatSuspension: "Seat",
+} as const;
+
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
@@ -125,7 +135,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
         >
           <PartLabel
             show={showLabels && isExploded}
-            title="Base Frame"
+            title={MTBIKE_LABELS.midFrame}
             offset={MTBIKE_EXPLODED_CONFIG.midFrame.label}
             geometry={nodes.midFrame.geometry}
           />
@@ -139,7 +149,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Front Fork"
+              title={MTBIKE_LABELS.frontFrame}
               offset={MTBIKE_EXPLODED_CONFIG.frontFrame.label}
               geometry={nodes.frontFrame.geometry}
             />
@@ -604,7 +614,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Handlebars"
+              title={MTBIKE_LABELS.handleBarRod}
               offset={MTBIKE_EXPLODED_CONFIG.handleBarRod.label}
               geometry={nodes.midFrameHandleBarRod.geometry}
             />
@@ -663,7 +673,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Pedals & Crank"
+              title={MTBIKE_LABELS.pedalShaft}
               offset={MTBIKE_EXPLODED_CONFIG.pedalShaft.label}
               geometry={nodes.pedalShaft.geometry}
             />
@@ -724,7 +734,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Rear Assembly"
+              title={MTBIKE_LABELS.rearFrame}
               offset={MTBIKE_EXPLODED_CONFIG.rearFrame.label}
               geometry={nodes.rearFrame.geometry}
             />
@@ -982,7 +992,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Seat"
+              title={MTBIKE_LABELS.seatSuspension}
               offset={MTBIKE_EXPLODED_CONFIG.seatSuspension.label}
               geometry={nodes.seatSuspension.geometry}
             />
