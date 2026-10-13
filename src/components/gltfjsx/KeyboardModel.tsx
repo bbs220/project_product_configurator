@@ -14,11 +14,11 @@ export const KEYBOARD_EXPLODED_CONFIG = {
   },
   keysBody: {
     part: new THREE.Vector3(1.2, 0.6, 0),
-    label: [0, 0.3, 0] as [number, number, number],
+    label: [0.2, 0.3, 0] as [number, number, number],
   },
   keysPlate: {
     part: new THREE.Vector3(2.6, 0, 0),
-    label: [0, -0.4, 0] as [number, number, number],
+    label: [0.2, -0.4, 0] as [number, number, number],
   },
   knobA: {
     part: new THREE.Vector3(-1, 0, 0.2),
@@ -34,15 +34,19 @@ export const KEYBOARD_EXPLODED_CONFIG = {
   },
   underLegA: {
     part: new THREE.Vector3(0, -0.6, -0.5),
-    label: [0, -0.3, 0] as [number, number, number],
+    label: [0.2, -0.3, 0] as [number, number, number],
   },
   underLegB: {
     part: new THREE.Vector3(0, -0.6, -0.5),
-    label: [0, -0.3, 0] as [number, number, number],
+    label: [-0.2, -0.3, 0] as [number, number, number],
   },
   underPlate: {
     part: new THREE.Vector3(0, 0.4, 0),
-    label: [0, -0.2, 0] as [number, number, number],
+    label: [0.2, -0.2, 0] as [number, number, number],
+  },
+  onOffSwitch: {
+    part: new THREE.Vector3(0.5, -0.2, 0),
+    label: [0.2, -0.3, 0] as [number, number, number],
   },
 };
 
@@ -57,6 +61,7 @@ export const KEYBOARD_LABELS = {
   infoDisplay: "Display Screen",
   underLegA: "Support Leg A",
   underLegB: "Support Leg B",
+  onOffSwitch: "Power Switch",
 } as const;
 
 export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
@@ -70,6 +75,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const infoDisplayRef = useRef<THREE.Mesh>(null);
   const underLegARef = useRef<THREE.Mesh>(null);
   const underLegBRef = useRef<THREE.Mesh>(null);
+  const onOffSwitchRef = useRef<THREE.Mesh>(null);
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
@@ -152,6 +158,15 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
         speed,
       );
     }
+
+    if (onOffSwitchRef.current) {
+      onOffSwitchRef.current.position.lerp(
+        isExploded
+          ? KEYBOARD_EXPLODED_CONFIG.onOffSwitch.part
+          : new THREE.Vector3(0, 0, 0),
+        speed,
+      );
+    }
   });
 
   const { nodes, materials } = useGLTF(
@@ -174,12 +189,20 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
             offset={KEYBOARD_EXPLODED_CONFIG.chassis.label}
             geometry={nodes.chassis.geometry}
           />
-          <mesh
-            name="onOffSwitch"
-            castShadow
-            receiveShadow
+        </mesh>
+        <mesh
+          ref={onOffSwitchRef}
+          name="onOffSwitch"
+          castShadow
+          receiveShadow
+          geometry={nodes.onOffSwitch.geometry}
+          material={materials.Plastic_2}
+        >
+          <PartLabel
+            show={showLabels && isExploded}
+            title={KEYBOARD_LABELS.onOffSwitch}
+            offset={KEYBOARD_EXPLODED_CONFIG.onOffSwitch.label}
             geometry={nodes.onOffSwitch.geometry}
-            material={materials.Plastic_2}
           />
         </mesh>
         <mesh
