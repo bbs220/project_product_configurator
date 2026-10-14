@@ -15,7 +15,7 @@ const Navbar = () => {
           className="flex items-center gap-3 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-md"
         >
           <Image
-            src="/favicon.ico"
+            src="/images/icons/appIcon.png"
             alt="forma logo"
             width={24}
             height={24}
