@@ -12,7 +12,7 @@ export const MTBIKE_EXPLODED_CONFIG = {
     part: new THREE.Vector3(0, 0, 0),
     label: [0, 1, 0] as [number, number, number],
   },
-  handleBarRod: {
+  handleBar: {
     part: new THREE.Vector3(-3, 0.4, 0),
     label: [0.1, 0.5, 0] as [number, number, number],
   },
@@ -37,7 +37,7 @@ export const MTBIKE_EXPLODED_CONFIG = {
 // display labels mapped to mesh names
 export const MTBIKE_LABELS = {
   frame: "Frame",
-  handleBarRod: "Handle Bar Rod",
+  handleBar: "Handlebars",
   pedalShaft: "Pedals & Crank",
   seatSuspension: "Seat",
   frontWheelTyre: "Front Tyre",
@@ -50,7 +50,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const frameRef = useRef<THREE.Mesh>(null);
   const pedalShaftRef = useRef<THREE.Mesh>(null);
   const seatSuspensionRef = useRef<THREE.Mesh>(null);
-  const handleBarRodRef = useRef<THREE.Mesh>(null);
+  const handleBarRef = useRef<THREE.Mesh>(null);
   const frontWheelTyreRef = useRef<THREE.Mesh>(null);
   const rearWheelTyreRef = useRef<THREE.Mesh>(null);
 
@@ -91,10 +91,10 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
       );
     }
 
-    if (handleBarRodRef.current) {
-      handleBarRodRef.current.position.lerp(
+    if (handleBarRef.current) {
+      handleBarRef.current.position.lerp(
         isExploded
-          ? MTBIKE_EXPLODED_CONFIG.handleBarRod.part
+          ? MTBIKE_EXPLODED_CONFIG.handleBar.part
           : new THREE.Vector3(0, 0, 0),
         speed,
       );
@@ -265,12 +265,57 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
               material={materials.Cable}
             />
             <mesh
+              ref={handleBarRef}
               name="handleBar"
               castShadow
               receiveShadow
               geometry={nodes.handleBar.geometry}
               material={materials.M_HandleBars}
             >
+              <PartLabel
+                show={showLabels && isExploded}
+                title={MTBIKE_LABELS.handleBar}
+                offset={MTBIKE_EXPLODED_CONFIG.handleBar.label}
+                geometry={nodes.handleBar.geometry}
+              />
+              <mesh
+                name="midFrameHandleBarRod"
+                castShadow
+                receiveShadow
+                geometry={nodes.midFrameHandleBarRod.geometry}
+                material={materials.M_Fox40_2}
+              >
+                <mesh
+                  name="handleBarSupportA"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.handleBarSupportA.geometry}
+                  material={materials.M_Stem}
+                >
+                  <mesh
+                    name="handleBarSupportAScrews"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.handleBarSupportAScrews.geometry}
+                    material={materials.M_Stem}
+                  />
+                </mesh>
+                <mesh
+                  name="handleBarSupportB"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.handleBarSupportB.geometry}
+                  material={materials.M_Stem}
+                >
+                  <mesh
+                    name="handleBarSupportBScrews"
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.handleBarSupportBScrews.geometry}
+                    material={materials.M_Stem}
+                  />
+                </mesh>
+              </mesh>
               <mesh
                 name="gearShifterStrap"
                 castShadow
@@ -517,51 +562,6 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             geometry={nodes.midFrameFrontLogo.geometry}
             material={materials.M_SantaCruzBadge}
           />
-          <mesh
-            ref={handleBarRodRef}
-            name="midFrameHandleBarRod"
-            castShadow
-            receiveShadow
-            geometry={nodes.midFrameHandleBarRod.geometry}
-            material={materials.M_Fox40_2}
-          >
-            <PartLabel
-              show={showLabels && isExploded}
-              title={MTBIKE_LABELS.handleBarRod}
-              offset={MTBIKE_EXPLODED_CONFIG.handleBarRod.label}
-              geometry={nodes.midFrameHandleBarRod.geometry}
-            />
-            <mesh
-              name="handleBarSupportA"
-              castShadow
-              receiveShadow
-              geometry={nodes.handleBarSupportA.geometry}
-              material={materials.M_Stem}
-            >
-              <mesh
-                name="handleBarSupportAScrews"
-                castShadow
-                receiveShadow
-                geometry={nodes.handleBarSupportAScrews.geometry}
-                material={materials.M_Stem}
-              />
-            </mesh>
-            <mesh
-              name="handleBarSupportB"
-              castShadow
-              receiveShadow
-              geometry={nodes.handleBarSupportB.geometry}
-              material={materials.M_Stem}
-            >
-              <mesh
-                name="handleBarSupportBScrews"
-                castShadow
-                receiveShadow
-                geometry={nodes.handleBarSupportBScrews.geometry}
-                material={materials.M_Stem}
-              />
-            </mesh>
-          </mesh>
           <mesh
             name="midFrameSuspensionSupportA"
             castShadow
