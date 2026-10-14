@@ -34,6 +34,16 @@ export const GUITAR_EXPLODED_CONFIG = {
   },
 };
 
+// display labels mapped to mesh names
+export const GUITAR_LABELS = {
+  body: "Body",
+  cover: "Pickguard",
+  neck: "Neck & Head",
+  pickups: "Pickups",
+  bridge: "Tremolo & Bridge",
+  outputJack: "Output Jack",
+} as const;
+
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { isExploded, showLabels } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
@@ -125,7 +135,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
         >
           <PartLabel
             show={showLabels && isExploded}
-            title="Body"
+            title={GUITAR_LABELS.body}
             offset={GUITAR_EXPLODED_CONFIG.body.label}
             geometry={nodes.body.geometry}
           />
@@ -139,7 +149,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Pickguard"
+              title={GUITAR_LABELS.cover}
               offset={GUITAR_EXPLODED_CONFIG.cover.label}
               geometry={nodes.bodyCover.geometry}
             />
@@ -196,7 +206,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Neck & Head"
+              title={GUITAR_LABELS.neck}
               offset={GUITAR_EXPLODED_CONFIG.neck.label}
               geometry={nodes.neakHead.geometry}
             />
@@ -253,7 +263,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Output Jack"
+              title={GUITAR_LABELS.outputJack}
               offset={GUITAR_EXPLODED_CONFIG.outputJack.label}
               geometry={nodes.outputJack.geometry}
             />
@@ -268,7 +278,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Pickups"
+              title={GUITAR_LABELS.pickups}
               offset={GUITAR_EXPLODED_CONFIG.pickups.label}
               geometry={nodes.pickups.geometry}
             />
@@ -305,7 +315,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
           >
             <PartLabel
               show={showLabels && isExploded}
-              title="Tremolo & Bridge"
+              title={GUITAR_LABELS.bridge}
               offset={GUITAR_EXPLODED_CONFIG.bridge.label}
               geometry={nodes.termoloArmAndBridge.geometry}
             />
