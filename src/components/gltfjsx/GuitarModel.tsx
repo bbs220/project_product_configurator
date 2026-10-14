@@ -10,27 +10,27 @@ import { PartLabel } from "@/lib/PartLabel";
 export const GUITAR_EXPLODED_CONFIG = {
   body: {
     part: new THREE.Vector3(0, 0, 0),
-    label: [0, 1, 0] as [number, number, number],
+    label: [0, 0.8, 0] as [number, number, number],
   },
   cover: {
     part: new THREE.Vector3(2, 0.5, 0),
-    label: [0.1, 1, 0] as [number, number, number],
+    label: [0.1, 0.6, 0] as [number, number, number],
   },
   neck: {
     part: new THREE.Vector3(1, 0, 0),
-    label: [0, -1.8, 0] as [number, number, number],
+    label: [0, -1.6, 0] as [number, number, number],
   },
   pickups: {
     part: new THREE.Vector3(-2, 0, 0),
-    label: [-0.1, 1.5, 0] as [number, number, number],
+    label: [-0.1, 0.5, 0] as [number, number, number],
   },
   bridge: {
     part: new THREE.Vector3(3, 0, 0),
-    label: [0.1, 1, 0] as [number, number, number],
+    label: [0.1, 0.5, 0] as [number, number, number],
   },
   outputJack: {
     part: new THREE.Vector3(-1, 0, 0),
-    label: [-0.1, 1, 0] as [number, number, number],
+    label: [-0.1, 0.5, 0] as [number, number, number],
   },
 };
 

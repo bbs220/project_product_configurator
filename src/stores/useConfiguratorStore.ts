@@ -56,7 +56,7 @@ export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
   watch: [0, 2.5, 0],
   keyboard: [0, 2.5, 0],
   mtBike: [0, 2.5, 0],
-  guitar: [0, 2.5, 0],
+  guitar: [0, 3, 0],
 };
 
 type ConfiguratorState = {
