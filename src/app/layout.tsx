@@ -25,12 +25,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://forma-config.vercel.app/"),
   title: "forma",
   description: "shape your product",
   openGraph: {
     title: "forma",
     description: "shape your product",
-    url: "https://forma.example.com",
+    url: "https://forma-config.vercel.app/",
     siteName: "forma",
     locale: "en_US",
     type: "website",
