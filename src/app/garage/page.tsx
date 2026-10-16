@@ -42,9 +42,9 @@ export default async function AccountPage() {
       {configs.length === 0 ? (
         <div className="w-full h-64 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center text-center p-6">
           <Car className="w-12 h-12 text-gray-400 mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Your garage is empty
-          </h3>
+          </h2>
           <p className="text-gray-500 dark:text-gray-400 max-w-md">
             {`You haven't saved any configurations yet. Head over to the dashboard to start customizing a new vehicle.`}
           </p>
@@ -71,14 +71,17 @@ export default async function AccountPage() {
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white capitalize">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white capitalize">
                       {config.modelType}
-                    </h3>
+                    </h2>
                     <p className="text-sm text-gray-500">
                       Saved {new Date(config.updatedAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <button className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <button
+                    aria-label="Configuration settings"
+                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  >
                     <Settings className="w-5 h-5" />
                   </button>
                 </div>
