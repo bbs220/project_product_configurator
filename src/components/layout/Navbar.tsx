@@ -31,10 +31,12 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         <ThemeToggle />
         <Show when="signed-out">
-          <Link href="/sign-in">
-            <button className="shrink-0 w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
-              <UserCircle className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-            </button>
+          <Link
+            href="/sign-in"
+            aria-label="Sign in"
+            className="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200"
+          >
+            <UserCircle className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </Link>
         </Show>
         <Show when="signed-in">

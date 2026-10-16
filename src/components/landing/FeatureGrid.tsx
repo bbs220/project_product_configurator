@@ -30,6 +30,9 @@ export function FeatureGrid() {
       id="features"
       className="w-full max-w-7xl px-6 md:px-12 py-24 border-t border-gray-200 dark:border-gray-800"
     >
+      <h2 className="text-3xl font-bold tracking-tight mb-12 text-center md:text-left text-gray-900 dark:text-white">
+        Built for Creators
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {features.map((feature, index) => {
           const Icon = feature.icon;
