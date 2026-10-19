@@ -74,6 +74,7 @@ export default function CameraRig() {
         onStart={() => {
           isLerping.current = false;
         }}
+        enablePan={false}
       />
     </>
   );
