@@ -43,9 +43,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/images/icons/appIcon.png", type: "image/png" },
+      { url: "/appIcon.png", type: "image/png" },
     ],
-    apple: [{ url: "/images/icons/appIcon.png" }],
+    apple: [{ url: "/appIcon.png" }],
   },
   openGraph: {
     title: "forma",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/thumbnails/thumbnail_1200x630.png",
+        url: "/thumbnail_1200x630.png",
         width: 1200,
         height: 630,
         alt: "forma product configurator thumbnail",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "forma",
     description: "shape your product",
-    images: ["/images/thumbnails/thumbnail_1200x630.png"],
+    images: ["/thumbnail_1200x630.png"],
   },
 };
 
