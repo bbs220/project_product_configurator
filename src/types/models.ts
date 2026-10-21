@@ -81,6 +81,7 @@ export type WatchGLTFResult = GLTF & {
     yXTwmSCvToGuMDP: THREE.MeshStandardMaterial;
   };
 };
+
 export type MTBikeGLTFResult = GLTF & {
   nodes: {
     midFrame: THREE.Mesh;
@@ -233,6 +234,7 @@ export type MTBikeGLTFResult = GLTF & {
     M_Seat: THREE.MeshStandardMaterial;
   };
 };
+
 export type GuitarGLTFResult = GLTF & {
   nodes: {
     body: THREE.Mesh;
@@ -265,6 +267,7 @@ export type GuitarGLTFResult = GLTF & {
     StringMaterial: THREE.MeshStandardMaterial;
   };
 };
+
 export type KeyboardGLTFResult = GLTF & {
   nodes: {
     chassis: THREE.Mesh;

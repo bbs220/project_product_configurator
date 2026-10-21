@@ -1,6 +1,6 @@
 export default function TermsOfService() {
   return (
-    <main className="container mx-auto px-6 py-24 max-w-4xl pt-32">
+    <article className="container mx-auto px-6 py-24 max-w-4xl pt-32">
       <h1 className="text-4xl font-bold tracking-tighter mb-4">
         Terms of Service
       </h1>
@@ -67,6 +67,6 @@ export default function TermsOfService() {
           </p>
         </section>
       </div>
-    </main>
+    </article>
   );
 }

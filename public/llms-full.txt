@@ -1,39 +1,87 @@
-Product Configurator - Full Documentation
+# forma — Full Documentation
 
-A highly interactive 3D product configurator built with React Three Fiber, Next.js, and Zustand.
+> Complete architecture, configuration specifications, and technical reference for forma, an interactive 3D product configurator.
 
-Architecture and Tech Stack
-- Framework: Next.js (App Router)
-- 3D Rendering: React Three Fiber, three.js
-- 3D Helpers: @react-three/drei (OrbitControls, Environment, Stage, ContactShadows)
-- State Management: Zustand
-- Styling: Tailwind CSS
+---
 
-Core Features
-- Model Selection: Users can switch between different 3D models (Watch, Mountain Bike, Guitar, Keyboard).
-- Exploded View: Models can be "exploded" to show their individual components spreading out along predefined axes.
-- Part Labeling: In exploded view, each part gets an interactive HTML label positioned in 3D space.
-- Color Customization: Users can select individual parts and change their colors or materials.
+# Overview
 
-State Management (Zustand)
-The useConfiguratorStore manages the global state:
-- currentModel: The currently active 3D model.
-- isExploded: Boolean tracking if the model is currently in exploded view.
-- showLabels: Boolean tracking if part labels are visible.
-- cameraTarget: The target vector [x, y, z] for OrbitControls.
-- cameraFov: The perspective camera field of view.
+forma is a real-time 3D product configurator web application. It delivers a luxury studio experience for exploring and personalizing mechanical and industrial designs, including smartwatches, downhill mountain bikes, electric guitars, and mechanical keyboards.
 
-Model Components
-Each 3D model is a React component (e.g., WatchModel.tsx, MTBikeModel.tsx) that:
-- Uses useGLTF to load the .glb model.
-- Defines an _EXPLODED_CONFIG object mapping each mesh to its resting and exploded positions.
-- Uses useFrame or useSpring to smoothly interpolate positions when isExploded changes.
-- Conditionally renders a PartLabel component for each mesh when showLabels is true.
+- **Production URL**: https://forma-config.vercel.app
+- **Interactive Studio**: https://forma-config.vercel.app/configurator
 
-Shared Utilities
-- PartLabel: A reusable component using Drei's Html to render floating UI labels tied to specific meshes.
-- types/models.ts: Shared TypeScript types for configurations, mesh definitions, and store state.
+---
 
-Routing
-- / : Home/Landing page.
-- /dashboard : The main configurator interface containing the 3D Canvas and UI controls.
+# Architecture & Tech Stack
+
+- **Framework**: Next.js 16 (React 19, App Router with Turbopack)
+- **3D Graphics**: Three.js (`three`) and React Three Fiber (`@react-three/fiber`)
+- **3D Ecosystem**: `@react-three/drei` (OrbitControls, PerspectiveCamera, Environment, Html markers)
+- **State Management**: Zustand (`zustand`)
+- **Animation**: GSAP (`gsap`), Motion (`motion`), and Three.js Vector3/Spherical lerping
+- **Styling**: Tailwind CSS v4 with dark mode and CSS design tokens
+- **Authentication**: Clerk (`@clerk/nextjs`)
+- **Database**: Neon Serverless Postgres with Drizzle ORM
+
+---
+
+# Core Features
+
+## 1. 3D Model Visualization
+High-fidelity PBR rendering with HDR lighting environments, dynamic soft contact shadows, and reflector floor materials:
+- **Apple Watch Ultra 2**: Multi-component smartwatch with titanium chassis, digital crown, display face, alpine band, and biometric sensor backplate.
+- **Santa Cruz V10**: Downhill mountain bike with carbon frame, Fox suspension, chainwheel, pedals, and disc brakes.
+- **Fender Stratocaster 1954**: Classic electric guitar with physical body finish, maple neck, pickups, pickguard, and tremolo system.
+- **Mechanical Keyboard**: Custom mechanical keyboard with individual keycaps, switches, rotary encoder knob, and chassis.
+
+## 2. Part Focus & Camera Framing
+Inspector category selections smoothly glide and frame the camera to specific components:
+- **Case**: Isometric 3/4 chassis angle highlighting titanium bevels, antenna lines, and form factor.
+- **Band**: Elevated loop profile framing strap texture and contrast stitching.
+- **Crown**: Macro perspective focused on digital crown knurling and side buttons.
+- **Display**: Straight-on view framing the sapphire crystal screen and bezel.
+- **Back**: Reverse 180-degree rotation framing the ceramic backplate and optical heart rate sensor array.
+
+## 3. Exploded View & 3D Part Labeling
+- Models can be toggled into an exploded view where components translate smoothly along tuned spatial vectors.
+- Billboarding HTML tags (`PartLabel`) float at anchor points in 3D space, showing component names and configuration details.
+
+---
+
+# State Management (`useConfiguratorStore`)
+
+Global configurator state is managed via Zustand:
+
+- `activeModel`: Currently loaded model (`"watch" | "keyboard" | "mtBike" | "guitar"`).
+- `activeTab`: Selected inspector category tab (`"case" | "band" | "crown" | "face" | "back"`).
+- `isExploded`: Boolean toggle indicating whether parts are exploded or assembled.
+- `showLabels`: Boolean toggle controlling 3D HTML part label overlays.
+- `cameraPosition`: `[x, y, z]` perspective camera position coordinates.
+- `cameraTarget`: `[x, y, z]` look-at focus target vector for OrbitControls.
+- `cameraFov`: Perspective camera field of view in degrees.
+- `WATCH_CATEGORY_CAMERA`: Preset framing configurations mapping each category to `position`, `target`, and `fov`.
+
+---
+
+# Key Component Reference
+
+- `PrimaryCanvas.tsx`: Core R3F canvas mounting lighting, reflector floor, environment maps, and camera rig.
+- `CameraRig.tsx`: Perspective camera with smooth `useFrame` lerping for transitions between default, exploded, and part-focused views.
+- `ConfiguratorSidebar.tsx`: Collapsible inspector sidebar featuring category tabs, tooltips, and customization controls.
+- `WatchModel.tsx`: Component managing the Apple Watch Ultra 2 GLTF hierarchy, materials, and exploded transforms.
+- `PartLabel.tsx`: Drei `Html`-based billboarding UI label pinned to 3D mesh coordinates.
+
+---
+
+# Canonical Routes
+
+- `/`: Landing page with hero section, product selection cards, and feature highlights.
+- `/configurator`: Interactive 3D studio with sidebar inspector and primary canvas.
+- `/dashboard`: Personal product garage and saved configurations.
+- `/garage`: Garage showcase.
+- `/privacypolicy`: Privacy policy documentation.
+- `/terms-of-service`: Terms and conditions.
+- `/sitemap.xml`: Static sitemap generated for search engines and crawlers.
+- `/llms.txt`: Curated markdown index for AI agents and LLMs.
+- `/llms-full.txt`: Full concatenated markdown documentation.
