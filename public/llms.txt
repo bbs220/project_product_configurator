@@ -1,18 +1,29 @@
-# Product Configurator
+# forma
 
-> 3D Product Configurator built with React Three Fiber, Next.js, and Zustand.
+> Interactive 3D product customization studio built with React Three Fiber, Next.js, and Zustand.
 
-## Overview
-This application provides a highly interactive 3D configurator for various products like watches, mountain bikes, guitars, and keyboards. 
+forma allows users to explore, configure, and inspect high-fidelity 3D models in real-time with exploded views, animated part focusing, component labeling, and material customization.
 
-## Key Features
-- 3D model visualization
-- Exploded view and part labeling
-- Customizable colors and textures
+## Core Pages
 
-## Technical Stack
-- Next.js (App Router)
-- React Three Fiber (@react-three/fiber, @react-three/drei)
-- Zustand (State management)
-- Tailwind CSS
+- [Home](https://forma-config.vercel.app/): Interactive landing page and product showcase.
+- [Configurator Studio](https://forma-config.vercel.app/configurator): Real-time 3D product customization workspace with inspector controls.
+- [Full Documentation](https://forma-config.vercel.app/llms-full.txt): Comprehensive technical architecture, components, and state reference.
 
+## Products & Models
+
+- [Apple Watch Ultra 2](https://forma-config.vercel.app/configurator?model=watch): Smartwatch featuring titanium chassis, digital crown, display, band, and sensor backplate.
+- [Santa Cruz V10](https://forma-config.vercel.app/configurator?model=mtBike): Downhill mountain bike featuring carbon frame, suspension, disc brakes, and drivetrain assemblies.
+- [Fender Stratocaster 1954](https://forma-config.vercel.app/configurator?model=guitar): Classic electric guitar with wood body, maple neck, pickups, and hardware.
+- [Mechanical Keyboard](https://forma-config.vercel.app/configurator?model=keyboard): Custom mechanical keyboard with keycaps, switches, chassis, and rotary encoders.
+
+## Features
+
+- [3D Model Visualization](https://forma-config.vercel.app/configurator): Real-time WebGL rendering with PBR materials, contact shadows, and HDR environment lighting.
+- [Part Focus & Inspection](https://forma-config.vercel.app/configurator): Smooth camera framing and orbiting per component category (Case, Band, Crown, Display, Back).
+- [Exploded Assembly](https://forma-config.vercel.app/configurator): Spatial part separation along predefined axes with interactive 3D HTML labels.
+
+## Optional
+
+- [Privacy Policy](https://forma-config.vercel.app/privacypolicy): Privacy and data handling practices.
+- [Terms of Service](https://forma-config.vercel.app/terms-of-service): Terms and conditions for using forma.
