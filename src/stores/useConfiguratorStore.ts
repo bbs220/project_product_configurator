@@ -59,6 +59,45 @@ export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
   guitar: [0, 3, 0],
 };
 
+// material properties configuration
+export type MaterialProperties = {
+  color: string;
+  roughness: number;
+  metalness: number;
+};
+
+// watch material categories mapping
+export type WatchMaterialCategory = "case" | "band" | "crown" | "face" | "back";
+
+// default watch material values
+export const DEFAULT_WATCH_MATERIALS: Record<WatchMaterialCategory, MaterialProperties> = {
+  case: {
+    color: "#b0aba4",
+    roughness: 0.35,
+    metalness: 0.85,
+  },
+  band: {
+    color: "#ff5500",
+    roughness: 0.85,
+    metalness: 0.05,
+  },
+  crown: {
+    color: "#d47144",
+    roughness: 0.3,
+    metalness: 0.9,
+  },
+  face: {
+    color: "#0a0a0a",
+    roughness: 0.1,
+    metalness: 0.1,
+  },
+  back: {
+    color: "#e2ded9",
+    roughness: 0.25,
+    metalness: 0.4,
+  },
+};
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -82,9 +121,33 @@ type ConfiguratorState = {
   showLabels: boolean;
   toggleLabels: () => void;
   setLabels: (val: boolean) => void;
+
+  // watch customization materials state
+  watchMaterials: Record<WatchMaterialCategory, MaterialProperties>;
+  // update watch material property
+  setWatchMaterialProperty: (
+    category: WatchMaterialCategory,
+    property: keyof MaterialProperties,
+    value: string | number
+  ) => void;
+  // reset watch materials to defaults
+  resetWatchMaterials: () => void;
 };
 
 export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
+  watchMaterials: DEFAULT_WATCH_MATERIALS,
+  setWatchMaterialProperty: (category, property, value) =>
+    set((state) => ({
+      watchMaterials: {
+        ...state.watchMaterials,
+        [category]: {
+          ...state.watchMaterials[category],
+          [property]: value,
+        },
+      },
+    })),
+  resetWatchMaterials: () => set({ watchMaterials: DEFAULT_WATCH_MATERIALS }),
+
   activeModel: "watch",
   setActiveModel: (model) =>
     set({
