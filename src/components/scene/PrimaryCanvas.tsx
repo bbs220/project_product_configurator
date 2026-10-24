@@ -51,7 +51,7 @@ const PrimaryScene = () => {
         <ProductModelLoader />
         <Floor />
         <StatsGl
-          className={`${showFPS ? "block" : "hidden"} fixed bottom-0 right-0`}
+          className={`${showFPS ? "block" : "hidden"} fixed top-3/4 left-4`}
           horizontal={false}
         />
         {showFog && <fog attach="fog" args={[fogColor, fogNear, fogFar]} />}
@@ -60,8 +60,8 @@ const PrimaryScene = () => {
         <CameraRig />
         <GizmoHelper
           renderPriority={2}
-          alignment="bottom-right"
-          margin={[80, 80]}
+          alignment="bottom-left"
+          margin={[160, 140]}
           visible={showGizmo}
         >
           <group scale={[0.9, 0.9, 0.9]}>
