@@ -42,15 +42,6 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
   },
 };
 
-// curated color palettes for watch customization
-const colorSwatches: Record<string, string[]> = {
-  case: ["#b0aba4", "#242526", "#d6d6d6", "#c9b097", "#3b3c3d"],
-  band: ["#ff5500", "#3e4738", "#e3ded6", "#1b2430", "#18181b"],
-  crown: ["#d47144", "#9c9792", "#594939", "#b91c1c", "#1f2937"],
-  face: ["#0a0a0a", "#1a140d", "#1c0707", "#0a1120", "#1e293b"],
-  back: ["#e2ded9", "#2a2b2e", "#f5f5f5", "#1e2022", "#475569"],
-};
-
 // watch configuration panel with five categories
 export default function WatchPanel({ activeTab }: WatchPanelProps) {
   const { watchMaterials, setWatchMaterialProperty } = useConfiguratorStore();
@@ -68,8 +59,6 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
     title: `${activeTab} Configuration`,
     description: `Customize the watch ${activeTab} components.`,
   };
-
-  const swatches = colorSwatches[validCategory] || [];
 
   return (
     <div className="flex flex-col h-full">
@@ -92,23 +81,6 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
             <span className="text-xs font-mono px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
               {currentMaterial.color.toUpperCase()}
             </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {swatches.map((hex) => (
-              <button
-                key={hex}
-                type="button"
-                onClick={() => setWatchMaterialProperty(validCategory, "color", hex)}
-                style={{ backgroundColor: hex }}
-                className={`w-7 h-7 rounded-full border border-black/10 dark:border-white/10 transition-transform ${
-                  currentMaterial.color.toLowerCase() === hex.toLowerCase()
-                    ? "ring-2 ring-gray-900 dark:ring-white scale-110"
-                    : "hover:scale-105"
-                }`}
-                title={hex}
-              />
-            ))}
           </div>
 
           <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:!w-full [&_.react-colorful]:!h-36">
