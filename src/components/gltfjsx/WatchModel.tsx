@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { JSX } from "react";
 import { assetPaths } from "@/lib/utils";
@@ -60,72 +60,18 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
     assetPaths.watch,
   ) as unknown as WatchGLTFResult;
 
-  // cloned materials for dynamic customization
-  const caseMaterial = useMemo(
-    () => materials.edhWAPEBZsqCLTg.clone(),
-    [materials.edhWAPEBZsqCLTg],
+  // cloned materials for isolated category customization
+  const customMaterials = useMemo(
+    () => ({
+      case: materials.edhWAPEBZsqCLTg.clone(),
+      bezel: materials.GXPSJdzybTrBefY.clone(),
+      band: materials.FsJfKVbzNLXJeBa.clone(),
+      crown: materials.GvXrALMIeaGmIJo.clone(),
+      face: materials.edYkGGAdRWeopLP.clone(),
+      back: materials.YtajTVWccmKRZBL.clone(),
+    }),
+    [materials],
   );
-  const bezelMaterial = useMemo(
-    () => materials.GXPSJdzybTrBefY.clone(),
-    [materials.GXPSJdzybTrBefY],
-  );
-  const bandMaterial = useMemo(
-    () => materials.FsJfKVbzNLXJeBa.clone(),
-    [materials.FsJfKVbzNLXJeBa],
-  );
-  const crownMaterial = useMemo(
-    () => materials.GvXrALMIeaGmIJo.clone(),
-    [materials.GvXrALMIeaGmIJo],
-  );
-  const faceMaterial = useMemo(
-    () => materials.edYkGGAdRWeopLP.clone(),
-    [materials.edYkGGAdRWeopLP],
-  );
-  const backMaterial = useMemo(
-    () => materials.YtajTVWccmKRZBL.clone(),
-    [materials.YtajTVWccmKRZBL],
-  );
-
-  // synchronize dynamic watch materials with store values
-  useEffect(() => {
-    if (watchMaterials?.case) {
-      caseMaterial.color.set(watchMaterials.case.color);
-      caseMaterial.roughness = watchMaterials.case.roughness;
-      caseMaterial.metalness = watchMaterials.case.metalness;
-
-      bezelMaterial.color.set(watchMaterials.case.color);
-      bezelMaterial.roughness = watchMaterials.case.roughness;
-      bezelMaterial.metalness = watchMaterials.case.metalness;
-    }
-    if (watchMaterials?.band) {
-      bandMaterial.color.set(watchMaterials.band.color);
-      bandMaterial.roughness = watchMaterials.band.roughness;
-      bandMaterial.metalness = watchMaterials.band.metalness;
-    }
-    if (watchMaterials?.crown) {
-      crownMaterial.color.set(watchMaterials.crown.color);
-      crownMaterial.roughness = watchMaterials.crown.roughness;
-      crownMaterial.metalness = watchMaterials.crown.metalness;
-    }
-    if (watchMaterials?.face) {
-      faceMaterial.color.set(watchMaterials.face.color);
-      faceMaterial.roughness = watchMaterials.face.roughness;
-      faceMaterial.metalness = watchMaterials.face.metalness;
-    }
-    if (watchMaterials?.back) {
-      backMaterial.color.set(watchMaterials.back.color);
-      backMaterial.roughness = watchMaterials.back.roughness;
-      backMaterial.metalness = watchMaterials.back.metalness;
-    }
-  }, [
-    watchMaterials,
-    caseMaterial,
-    bezelMaterial,
-    bandMaterial,
-    crownMaterial,
-    faceMaterial,
-    backMaterial,
-  ]);
 
   useFrame((state, delta) => {
     const speed = 4 * delta;
@@ -196,7 +142,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.watchChassis.geometry}
-          material={caseMaterial}
+          material={customMaterials.case}
+          material-color={watchMaterials.case.color}
+          material-roughness={watchMaterials.case.roughness}
+          material-metalness={watchMaterials.case.metalness}
         >
           <PartLabel
             show={showLabels && isExploded}
@@ -210,7 +159,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchBackPlate.geometry}
-            material={backMaterial}
+            material={customMaterials.back}
+            material-color={watchMaterials.back.color}
+            material-roughness={watchMaterials.back.roughness}
+            material-metalness={watchMaterials.back.metalness}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -303,7 +255,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchBand.geometry}
-            material={bandMaterial}
+            material={customMaterials.band}
+            material-color={watchMaterials.band.color}
+            material-roughness={watchMaterials.band.roughness}
+            material-metalness={watchMaterials.band.metalness}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -359,7 +314,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchChassisBezel.geometry}
-            material={bezelMaterial}
+            material={customMaterials.bezel}
+            material-color={watchMaterials.case.color}
+            material-roughness={watchMaterials.case.roughness}
+            material-metalness={watchMaterials.case.metalness}
           />
           <mesh
             ref={crownRef}
@@ -367,7 +325,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchCrown.geometry}
-            material={crownMaterial}
+            material={customMaterials.crown}
+            material-color={watchMaterials.crown.color}
+            material-roughness={watchMaterials.crown.roughness}
+            material-metalness={watchMaterials.crown.metalness}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -402,7 +363,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchCrownHead.geometry}
-              material={crownMaterial}
+              material={customMaterials.crown}
+              material-color={watchMaterials.crown.color}
+              material-roughness={watchMaterials.crown.roughness}
+              material-metalness={watchMaterials.crown.metalness}
             />
           </mesh>
           <mesh
@@ -482,7 +446,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchLowerStrapConnector.geometry}
-            material={caseMaterial}
+            material={customMaterials.case}
+            material-color={watchMaterials.case.color}
+            material-roughness={watchMaterials.case.roughness}
+            material-metalness={watchMaterials.case.metalness}
           />
           <mesh
             name="watchOtherSideButton"
@@ -510,7 +477,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchScreen.geometry}
-              material={faceMaterial}
+              material={customMaterials.face}
+              material-color={watchMaterials.face.color}
+              material-roughness={watchMaterials.face.roughness}
+              material-metalness={watchMaterials.face.metalness}
             />
           </mesh>
           <mesh
@@ -525,7 +495,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchUpperStrapConnector.geometry}
-            material={caseMaterial}
+            material={customMaterials.case}
+            material-color={watchMaterials.case.color}
+            material-roughness={watchMaterials.case.roughness}
+            material-metalness={watchMaterials.case.metalness}
           />
         </mesh>
       </group>
