@@ -33,19 +33,23 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
   },
   band: {
     title: "Band & Stitching",
-    description: "Select strap materials, contrast stitching, and buckle finishes.",
+    description:
+      "Select strap materials, contrast stitching, and buckle finishes.",
   },
   crown: {
     title: "Crown & Buttons",
-    description: "Personalize the digital crown, accent ring, and side buttons.",
+    description:
+      "Personalize the digital crown, accent ring, and side buttons.",
   },
   face: {
     title: "Display & Face",
-    description: "Choose watch face styles, dial color themes, and glass tones.",
+    description:
+      "Choose watch face styles, dial color themes, and glass tones.",
   },
   back: {
     title: "Back Plate & Sensor",
-    description: "Customize the ceramic backplate and optical biometric sensor array.",
+    description:
+      "Customize the ceramic backplate and optical biometric sensor array.",
   },
 };
 
@@ -117,7 +121,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:!w-full [&_.react-colorful]:!h-36">
+          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-36!">
             <HexColorPicker
               color={currentMaterial.color}
               onChange={(hex) =>
@@ -153,7 +157,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
                 setWatchMaterialProperty(
                   validCategory,
                   "roughness",
-                  parseFloat(e.target.value)
+                  parseFloat(e.target.value),
                 )
               }
               className="w-full h-1.5 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"
@@ -184,7 +188,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
                 setWatchMaterialProperty(
                   validCategory,
                   "metalness",
-                  parseFloat(e.target.value)
+                  parseFloat(e.target.value),
                 )
               }
               className="w-full h-1.5 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"

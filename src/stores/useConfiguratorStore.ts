@@ -70,14 +70,17 @@ export type MaterialProperties = {
 export type WatchMaterialCategory = "case" | "band" | "crown" | "face" | "back";
 
 // default watch material values
-export const DEFAULT_WATCH_MATERIALS: Record<WatchMaterialCategory, MaterialProperties> = {
+export const DEFAULT_WATCH_MATERIALS: Record<
+  WatchMaterialCategory,
+  MaterialProperties
+> = {
   case: {
     color: "#b0aba4",
     roughness: 0.35,
     metalness: 0.85,
   },
   band: {
-    color: "#ff5500",
+    color: "#ffffff",
     roughness: 0.85,
     metalness: 0.05,
   },
@@ -128,7 +131,7 @@ type ConfiguratorState = {
   setWatchMaterialProperty: (
     category: WatchMaterialCategory,
     property: keyof MaterialProperties,
-    value: string | number
+    value: string | number,
   ) => void;
   // reset watch materials to defaults
   resetWatchMaterials: () => void;
