@@ -1,4 +1,11 @@
-import { Activity, CircleDot, Layers, Palette, Watch } from "lucide-react";
+import {
+  Activity,
+  CircleDot,
+  Layers,
+  Palette,
+  RotateCcw,
+  Watch,
+} from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
   useConfiguratorStore,
@@ -60,46 +67,77 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
     description: `Customize the watch ${activeTab} components.`,
   };
 
+  // reset category material properties to defaults
+  const handleResetCategory = () => {
+    const defaults = DEFAULT_WATCH_MATERIALS[validCategory];
+    setWatchMaterialProperty(validCategory, "color", defaults.color);
+    setWatchMaterialProperty(validCategory, "roughness", defaults.roughness);
+    setWatchMaterialProperty(validCategory, "metalness", defaults.metalness);
+  };
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 flex flex-col gap-6">
+    <div className="flex flex-col gap-8 pb-12">
+      {/* category header */}
+      <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white capitalize">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white capitalize">
             {currentCategory.title}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {currentCategory.description}
           </p>
         </div>
+        <button
+          type="button"
+          onClick={handleResetCategory}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-gray-100 dark:bg-gray-800 rounded-lg transition-colors shrink-0"
+          title="Reset part to default"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          <span>Reset</span>
+        </button>
+      </div>
 
-        {/* base color picker section */}
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-              Base Color
-            </span>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+      {/* base color picker section */}
+      <div className="flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
+            Base Color
+          </span>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-4 h-4 rounded-full border border-black/10 dark:border-white/10"
+              style={{ backgroundColor: currentMaterial.color }}
+            />
+            <span className="text-xs font-mono font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-200">
               {currentMaterial.color.toUpperCase()}
             </span>
           </div>
-
-          <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:!w-full [&_.react-colorful]:!h-36">
-            <HexColorPicker
-              color={currentMaterial.color}
-              onChange={(hex) =>
-                setWatchMaterialProperty(validCategory, "color", hex)
-              }
-            />
-          </div>
         </div>
+
+        <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:!w-full [&_.react-colorful]:!h-48">
+          <HexColorPicker
+            color={currentMaterial.color}
+            onChange={(hex) =>
+              setWatchMaterialProperty(validCategory, "color", hex)
+            }
+          />
+        </div>
+      </div>
+
+      {/* surface finish sliders card */}
+      <div className="flex flex-col gap-6 p-5 rounded-2xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
+        <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
+          Surface Properties
+        </span>
 
         {/* surface roughness slider control */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Roughness
             </span>
-            <span className="text-xs font-mono text-gray-600 dark:text-gray-400">
+            <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
               {Math.round(currentMaterial.roughness * 100)}%
             </span>
           </div>
@@ -116,21 +154,21 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
                 parseFloat(e.target.value)
               )
             }
-            className="w-full h-1.5 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"
+            className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"
           />
-          <div className="flex justify-between text-[10px] text-gray-400">
-            <span>Glossy</span>
-            <span>Matte</span>
+          <div className="flex justify-between text-[11px] text-gray-400 font-medium">
+            <span>High Gloss (0%)</span>
+            <span>Matte Finish (100%)</span>
           </div>
         </div>
 
         {/* physical metalness slider control */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Metalness
             </span>
-            <span className="text-xs font-mono text-gray-600 dark:text-gray-400">
+            <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
               {Math.round(currentMaterial.metalness * 100)}%
             </span>
           </div>
@@ -147,11 +185,11 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
                 parseFloat(e.target.value)
               )
             }
-            className="w-full h-1.5 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"
+            className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-900 dark:accent-white"
           />
-          <div className="flex justify-between text-[10px] text-gray-400">
-            <span>Dielectric</span>
-            <span>Metallic</span>
+          <div className="flex justify-between text-[11px] text-gray-400 font-medium">
+            <span>Dielectric (0%)</span>
+            <span>Metallic (100%)</span>
           </div>
         </div>
       </div>

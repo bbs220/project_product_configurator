@@ -61,7 +61,7 @@ const PrimaryScene = () => {
         <GizmoHelper
           renderPriority={2}
           alignment="bottom-right"
-          margin={[150, 50]}
+          margin={[80, 80]}
           visible={showGizmo}
         >
           <group scale={[0.9, 0.9, 0.9]}>
