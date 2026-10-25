@@ -90,7 +90,11 @@ const PrimaryCanvas = () => {
   return (
     <>
       <EditorLoader />
-      <Canvas shadows={"soft"} dpr={setDpr}>
+      <Canvas
+        shadows={"soft"}
+        dpr={setDpr}
+        gl={{ alpha: true, antialias: true }}
+      >
         <PrimaryScene />
         <EffectsStack />
       </Canvas>
