@@ -115,12 +115,6 @@ export function createModularUltraBackground(
   const centerX = width / 2;
   const centerY = height / 2;
 
-  // outer display border squircle
-  ctx.lineWidth = 4 * scale;
-  ctx.strokeStyle = nightMode ? "rgba(255, 38, 0, 0.35)" : "#1f1f22";
-  drawSquircle(ctx, 36 * scale, 36 * scale, width - 72 * scale, height - 72 * scale, 130 * scale);
-  ctx.stroke();
-
   // outer static seconds bezel tick marks
   const totalTicks = 60;
   const outerBezelRadius = width / 2 - 58 * scale;
@@ -331,12 +325,6 @@ export function createWayfinderBackground(
   // clear pitch black background
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, width, height);
-
-  // outer display squircle border
-  ctx.lineWidth = 4 * scale;
-  ctx.strokeStyle = nightMode ? "rgba(255, 38, 0, 0.35)" : "#1f1f22";
-  drawSquircle(ctx, 36 * scale, 36 * scale, width - 72 * scale, height - 72 * scale, 130 * scale);
-  ctx.stroke();
 
   const compassRadius = 450 * scale;
   const dialRadius = 350 * scale;
