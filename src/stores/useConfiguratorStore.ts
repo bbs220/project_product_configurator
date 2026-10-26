@@ -69,6 +69,9 @@ export type MaterialProperties = {
 // watch material categories mapping
 export type WatchMaterialCategory = "case" | "band" | "crown" | "face" | "back";
 
+// watch face display style
+export type WatchFaceStyle = "modular" | "wayfinder";
+
 // default watch material values
 export const DEFAULT_WATCH_MATERIALS: Record<
   WatchMaterialCategory,
@@ -139,6 +142,17 @@ type ConfiguratorState = {
   ) => void;
   // reset watch materials to defaults
   resetWatchMaterials: () => void;
+
+  // watch face display style
+  watchFaceStyle: WatchFaceStyle;
+  // update watch face display style
+  setWatchFaceStyle: (style: WatchFaceStyle) => void;
+  // toggle between digital and analog watch face styles
+  toggleWatchFaceStyle: () => void;
+  // watch display night mode state
+  watchNightMode: boolean;
+  // toggle watch display night mode
+  toggleWatchNightMode: () => void;
 };
 
 export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
@@ -154,6 +168,17 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       },
     })),
   resetWatchMaterials: () => set({ watchMaterials: DEFAULT_WATCH_MATERIALS }),
+
+  watchFaceStyle: "modular",
+  setWatchFaceStyle: (style) => set({ watchFaceStyle: style }),
+  toggleWatchFaceStyle: () =>
+    set((state) => ({
+      watchFaceStyle:
+        state.watchFaceStyle === "modular" ? "wayfinder" : "modular",
+    })),
+  watchNightMode: false,
+  toggleWatchNightMode: () =>
+    set((state) => ({ watchNightMode: !state.watchNightMode })),
 
   activeModel: "watch",
   setActiveModel: (model) =>

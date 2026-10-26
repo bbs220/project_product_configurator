@@ -7,6 +7,7 @@ import { JSX } from "react";
 import { assetPaths } from "@/lib/utils";
 import { WatchGLTFResult } from "@/types/models";
 import { PartLabel } from "@/lib/PartLabel";
+import { useWatchCanvasTexture } from "@/hooks/useWatchCanvasTexture";
 
 // EDIT THESE VALUES TO PERFECTLY POSITION PARTS AND LABELS IN THE EXPLODED VIEW
 export const WATCH_EXPLODED_CONFIG = {
@@ -47,7 +48,10 @@ export const WATCH_LABELS = {
 } as const;
 
 export function WatchModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels, watchMaterials } = useConfiguratorStore();
+  const { isExploded, showLabels, watchMaterials, toggleWatchFaceStyle } =
+    useConfiguratorStore();
+  // dynamic live canvas texture for smartwatch face
+  const screenTexture = useWatchCanvasTexture();
   const sceneRef = useRef<THREE.Group>(null);
   const chassisRef = useRef<THREE.Mesh>(null);
   const bandRef = useRef<THREE.Mesh>(null);
@@ -491,8 +495,21 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchScreen.geometry}
-              material={materials.edYkGGAdRWeopLP}
-            />
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleWatchFaceStyle();
+              }}
+            >
+              <meshStandardMaterial
+                map={screenTexture}
+                emissiveMap={screenTexture}
+                emissive="#ffffff"
+                emissiveIntensity={1}
+                roughness={0.15}
+                metalness={0.1}
+                toneMapped={false}
+              />
+            </mesh>
           </mesh>
           <mesh
             name="watchSpeakers"
