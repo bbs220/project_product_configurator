@@ -88,7 +88,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
     setWatchMaterialProperty(validCategory, "roughness", defaults.roughness);
     setWatchMaterialProperty(validCategory, "metalness", defaults.metalness);
     if (activeTab === "face") {
-      setWatchFaceStyle("modular");
+      setWatchFaceStyle("wayfinder");
       if (watchNightMode) {
         toggleWatchNightMode();
       }

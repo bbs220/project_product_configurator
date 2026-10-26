@@ -169,7 +169,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
     })),
   resetWatchMaterials: () => set({ watchMaterials: DEFAULT_WATCH_MATERIALS }),
 
-  watchFaceStyle: "modular",
+  watchFaceStyle: "wayfinder",
   setWatchFaceStyle: (style) => set({ watchFaceStyle: style }),
   toggleWatchFaceStyle: () =>
     set((state) => ({

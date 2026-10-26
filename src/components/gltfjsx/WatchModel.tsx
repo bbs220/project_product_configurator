@@ -48,8 +48,7 @@ export const WATCH_LABELS = {
 } as const;
 
 export function WatchModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels, watchMaterials, toggleWatchFaceStyle } =
-    useConfiguratorStore();
+  const { isExploded, showLabels, watchMaterials } = useConfiguratorStore();
   // dynamic live canvas texture for smartwatch face
   const screenTexture = useWatchCanvasTexture();
   const sceneRef = useRef<THREE.Group>(null);
@@ -495,10 +494,6 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchScreen.geometry}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleWatchFaceStyle();
-              }}
             >
               <meshStandardMaterial
                 map={screenTexture}
