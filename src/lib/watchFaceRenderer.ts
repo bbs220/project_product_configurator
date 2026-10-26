@@ -27,6 +27,103 @@ function drawSquircle(
   ctx.closePath();
 }
 
+// calculate perimeter point and inward normal along rounded screen border
+function getPerimeterPoint(
+  index: number,
+  total: number,
+  width: number,
+  height: number,
+  scale: number,
+) {
+  const left = 24 * scale;
+  const right = width - 24 * scale;
+  const top = 24 * scale;
+  const bottom = height - 24 * scale;
+  const cornerR = 75 * scale;
+
+  const straightW = (right - cornerR) - (left + cornerR);
+  const straightH = (bottom - cornerR) - (top + cornerR);
+  const arcLen = 0.5 * Math.PI * cornerR;
+  const totalPerimeter = 2 * straightW + 2 * straightH + 4 * arcLen;
+
+  let d = ((index / total) * totalPerimeter) % totalPerimeter;
+  const halfTop = straightW / 2;
+
+  if (d < halfTop) {
+    return { x: width / 2 + d, y: top, nx: 0, ny: 1 };
+  }
+  d -= halfTop;
+
+  if (d < arcLen) {
+    const angle = -Math.PI / 2 + (d / arcLen) * (Math.PI / 2);
+    const cx = right - cornerR;
+    const cy = top + cornerR;
+    return {
+      x: cx + Math.cos(angle) * cornerR,
+      y: cy + Math.sin(angle) * cornerR,
+      nx: -Math.cos(angle),
+      ny: -Math.sin(angle),
+    };
+  }
+  d -= arcLen;
+
+  if (d < straightH) {
+    return { x: right, y: top + cornerR + d, nx: -1, ny: 0 };
+  }
+  d -= straightH;
+
+  if (d < arcLen) {
+    const angle = (d / arcLen) * (Math.PI / 2);
+    const cx = right - cornerR;
+    const cy = bottom - cornerR;
+    return {
+      x: cx + Math.cos(angle) * cornerR,
+      y: cy + Math.sin(angle) * cornerR,
+      nx: -Math.cos(angle),
+      ny: -Math.sin(angle),
+    };
+  }
+  d -= arcLen;
+
+  if (d < straightW) {
+    return { x: right - cornerR - d, y: bottom, nx: 0, ny: -1 };
+  }
+  d -= straightW;
+
+  if (d < arcLen) {
+    const angle = Math.PI / 2 + (d / arcLen) * (Math.PI / 2);
+    const cx = left + cornerR;
+    const cy = bottom - cornerR;
+    return {
+      x: cx + Math.cos(angle) * cornerR,
+      y: cy + Math.sin(angle) * cornerR,
+      nx: -Math.cos(angle),
+      ny: -Math.sin(angle),
+    };
+  }
+  d -= arcLen;
+
+  if (d < straightH) {
+    return { x: left, y: bottom - cornerR - d, nx: 1, ny: 0 };
+  }
+  d -= straightH;
+
+  if (d < arcLen) {
+    const angle = Math.PI + (d / arcLen) * (Math.PI / 2);
+    const cx = left + cornerR;
+    const cy = top + cornerR;
+    return {
+      x: cx + Math.cos(angle) * cornerR,
+      y: cy + Math.sin(angle) * cornerR,
+      nx: -Math.cos(angle),
+      ny: -Math.sin(angle),
+    };
+  }
+  d -= arcLen;
+
+  return { x: left + cornerR + d, y: top, nx: 0, ny: 1 };
+}
+
 // draw circular progress ring with rounded line caps
 function drawProgressRing(
   ctx: CanvasRenderingContext2D,
@@ -113,36 +210,35 @@ export function createModularUltraBackground(
 
   const scale = width / 1024;
   const centerX = width / 2;
-  const centerY = height / 2;
 
-  // outer static seconds bezel tick marks
+  // outer static seconds bezel tick marks along display perimeter
   const totalTicks = 60;
-  const outerBezelRadius = width / 2 - 58 * scale;
   for (let i = 0; i < totalTicks; i++) {
-    const angle = (i / totalTicks) * Math.PI * 2 - Math.PI / 2;
+    const pt = getPerimeterPoint(i, totalTicks, width, height, scale);
     const isMajor = i % 5 === 0;
-    const tickLen = (isMajor ? 14 : 7) * scale;
-    const x1 = centerX + Math.cos(angle) * (outerBezelRadius - tickLen);
-    const y1 = centerY + Math.sin(angle) * (outerBezelRadius - tickLen);
-    const x2 = centerX + Math.cos(angle) * outerBezelRadius;
-    const y2 = centerY + Math.sin(angle) * outerBezelRadius;
+    const tickLen = (isMajor ? 26 : 14) * scale;
+    const x2 = pt.x + pt.nx * tickLen;
+    const y2 = pt.y + pt.ny * tickLen;
 
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
+    ctx.moveTo(pt.x, pt.y);
     ctx.lineTo(x2, y2);
-    ctx.strokeStyle = dimColor;
-    ctx.lineWidth = (isMajor ? 2.5 : 1.5) * scale;
+    ctx.strokeStyle = nightMode
+      ? (isMajor ? "rgba(255, 38, 0, 0.85)" : "rgba(255, 38, 0, 0.4)")
+      : (isMajor ? "#e5e5ea" : "#636366");
+    ctx.lineWidth = (isMajor ? 4.5 : 2.5) * scale;
+    ctx.lineCap = "round";
     ctx.stroke();
   }
 
   // top left complication fitness runner
   const compTopY = 175 * scale;
-  const compLeftX = 220 * scale;
+  const compLeftX = 180 * scale;
   ctx.fillStyle = cardBg;
   ctx.strokeStyle = cardBorder;
   ctx.lineWidth = 2 * scale;
   ctx.beginPath();
-  ctx.arc(compLeftX, compTopY, 68 * scale, 0, Math.PI * 2);
+  ctx.arc(compLeftX, compTopY, 74 * scale, 0, Math.PI * 2);
   ctx.fill();
   ctx.stroke();
 
@@ -150,8 +246,8 @@ export function createModularUltraBackground(
     ctx,
     compLeftX,
     compTopY,
-    58 * scale,
-    7 * scale,
+    62 * scale,
+    8 * scale,
     0.72,
     nightMode ? "#ff2600" : "#30d158",
     nightMode ? "rgba(255, 38, 0, 0.2)" : "rgba(48, 209, 88, 0.2)",
@@ -164,12 +260,12 @@ export function createModularUltraBackground(
   ctx.fillText("RUN", compLeftX, compTopY);
 
   // top right music complication
-  const compRightX = width - 220 * scale;
+  const compRightX = width - 180 * scale;
   ctx.fillStyle = cardBg;
   ctx.strokeStyle = cardBorder;
   ctx.lineWidth = 2 * scale;
   ctx.beginPath();
-  ctx.arc(compRightX, compTopY, 68 * scale, 0, Math.PI * 2);
+  ctx.arc(compRightX, compTopY, 74 * scale, 0, Math.PI * 2);
   ctx.fill();
   ctx.stroke();
 
@@ -177,8 +273,8 @@ export function createModularUltraBackground(
     ctx,
     compRightX,
     compTopY,
-    58 * scale,
-    7 * scale,
+    62 * scale,
+    8 * scale,
     0.55,
     nightMode ? "#ff2600" : "#fa114f",
     nightMode ? "rgba(255, 38, 0, 0.2)" : "rgba(250, 17, 79, 0.2)",
@@ -188,9 +284,9 @@ export function createModularUltraBackground(
   ctx.font = `bold ${Math.round(32 * scale)}px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif`;
   ctx.fillText("♫", compRightX, compTopY);
 
-  // middle uvi elevation metrics container
+  // middle uvi elevation metrics container spanning full screen width
   const barY = 575 * scale;
-  const barWidth = width - 240 * scale;
+  const barWidth = width - 120 * scale;
   const barX = (width - barWidth) / 2;
   const barHeight = 84 * scale;
 
@@ -242,7 +338,7 @@ export function createModularUltraBackground(
   }
 
   // bottom left complication battery status
-  const compBottomY = 780 * scale;
+  const compBottomY = 785 * scale;
   ctx.fillStyle = cardBg;
   ctx.strokeStyle = cardBorder;
   ctx.lineWidth = 2 * scale;
@@ -484,6 +580,20 @@ export function renderModularUltra(
   const seconds = date.getSeconds() + date.getMilliseconds() / 1000;
   const minutes = date.getMinutes();
   const hours = date.getHours() % 12 || 12;
+
+  // highlight active second tick mark along display perimeter
+  const currentSecIndex = Math.floor(seconds) % 60;
+  const activePt = getPerimeterPoint(currentSecIndex, 60, width, height, scale);
+  const activeIsMajor = currentSecIndex % 5 === 0;
+  const activeLen = (activeIsMajor ? 30 : 18) * scale;
+
+  ctx.beginPath();
+  ctx.moveTo(activePt.x, activePt.y);
+  ctx.lineTo(activePt.x + activePt.nx * activeLen, activePt.y + activePt.ny * activeLen);
+  ctx.strokeStyle = accentColor;
+  ctx.lineWidth = (activeIsMajor ? 5.5 : 4) * scale;
+  ctx.lineCap = "round";
+  ctx.stroke();
 
   // top center dynamic date
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
