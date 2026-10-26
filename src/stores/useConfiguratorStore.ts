@@ -6,8 +6,8 @@ export const MODEL_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 2, -5],
-  keyboard: [0, 2.6, -3.2], // Placeholders that we can tune later
+  watch: [0, 2, -3],
+  keyboard: [0, 2.6, -1],
   mtBike: [4, 2, -4],
   guitar: [0, 2, -4],
 };
@@ -16,10 +16,10 @@ export const MODEL_CAMERA_DISTANCES: Record<
   ConfiguratorModel,
   { min: number; max: number }
 > = {
-  watch: { min: 1.8, max: 10 },
-  keyboard: { min: 1.2, max: 12 }, // Placeholders that we can tune later
-  mtBike: { min: 2, max: 10 },
-  guitar: { min: 1.5, max: 10 },
+  watch: { min: 1.8, max: 8 },
+  keyboard: { min: 2.2, max: 8 },
+  mtBike: { min: 2, max: 8 },
+  guitar: { min: 1.5, max: 8 },
 };
 
 export const MODEL_CAMERA_TARGETS: Record<
@@ -43,10 +43,10 @@ export const MODEL_EXPLODED_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 4, -9],
+  watch: [0, 10, -14],
   keyboard: [0, 5.5, -11],
-  mtBike: [0, 6, -10],
-  guitar: [0, 3, -6],
+  mtBike: [0, 4, -20],
+  guitar: [0, 3, -6.8],
 };
 
 export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
@@ -55,8 +55,8 @@ export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
 > = {
   watch: [0, 2.5, 0],
   keyboard: [0, 2.5, 0],
-  mtBike: [0, 2.5, 0],
-  guitar: [0, 3, 0],
+  mtBike: [-0.4, 3.6, 0],
+  guitar: [0.4, 3, 0],
 };
 
 // material properties configuration
