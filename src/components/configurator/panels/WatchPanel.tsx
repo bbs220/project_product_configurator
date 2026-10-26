@@ -4,7 +4,6 @@ import {
   Layers,
   Palette,
   RotateCcw,
-  Watch,
 } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
@@ -22,7 +21,6 @@ export const watchTabs = [
   { id: "case", label: "Case", icon: Palette },
   { id: "band", label: "Band", icon: Layers },
   { id: "crown", label: "Crown", icon: CircleDot },
-  { id: "face", label: "Display", icon: Watch },
   { id: "back", label: "Back", icon: Activity },
 ];
 

@@ -67,7 +67,6 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
       bezel: materials.GXPSJdzybTrBefY.clone(),
       band: materials.FsJfKVbzNLXJeBa.clone(),
       crown: materials.GvXrALMIeaGmIJo.clone(),
-      face: materials.edYkGGAdRWeopLP.clone(),
       back: materials.YtajTVWccmKRZBL.clone(),
     }),
     [materials],
@@ -492,10 +491,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchScreen.geometry}
-              material={customMaterials.face}
-              material-color={watchMaterials.face.color}
-              material-roughness={watchMaterials.face.roughness}
-              material-metalness={watchMaterials.face.metalness}
+              material={materials.edYkGGAdRWeopLP}
             />
           </mesh>
           <mesh
