@@ -495,7 +495,7 @@ export function renderModularUltra(
 
   const seconds = date.getSeconds() + date.getMilliseconds() / 1000;
   const minutes = date.getMinutes();
-  const hours = date.getHours();
+  const hours = date.getHours() % 12 || 12;
 
   // top center dynamic date
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
