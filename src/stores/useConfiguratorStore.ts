@@ -6,7 +6,7 @@ export const MODEL_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 2, -5],
+  watch: [0, 2, -3],
   keyboard: [0, 2.6, -1],
   mtBike: [4, 2, -4],
   guitar: [0, 2, -4],
@@ -43,7 +43,7 @@ export const MODEL_EXPLODED_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 4, -9],
+  watch: [0, 10, -14],
   keyboard: [0, 5.5, -11],
   mtBike: [0, 4, -20],
   guitar: [0, 3, -6.8],
