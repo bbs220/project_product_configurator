@@ -22,9 +22,6 @@ function createWatchDisplayManager(): WatchDisplayManager {
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.repeat.set(-1, 1);
-  texture.offset.set(1, 0);
 
   return { canvas, ctx, texture };
 }
