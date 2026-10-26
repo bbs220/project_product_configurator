@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { BoxSelect, Tag } from "lucide-react";
+import { BoxSelect, Sparkles, Tag } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 type CanvasControlsProps = {
   className?: string;
 };
 
-// viewport explode and label toggle controls
+// viewport explode, label, and floor reflection toggle controls
 export default function CanvasControls({
   className = "",
 }: CanvasControlsProps) {
@@ -17,6 +17,8 @@ export default function CanvasControls({
     toggleExploded,
     showLabels,
     toggleLabels,
+    showFloor,
+    toggleFloor,
     setExploded,
     setLabels,
   } = useConfiguratorStore();
@@ -62,6 +64,22 @@ export default function CanvasControls({
       >
         <Tag className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Labels</span>
+      </button>
+
+      <div className="w-px h-4 bg-gray-300 dark:bg-zinc-700" />
+
+      <button
+        type="button"
+        onClick={toggleFloor}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+          showFloor
+            ? "bg-blue-600 text-white shadow-sm"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+        }`}
+        title="Toggle Floor Reflection"
+      >
+        <Sparkles className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Floor</span>
       </button>
     </div>
   );

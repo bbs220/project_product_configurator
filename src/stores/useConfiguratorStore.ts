@@ -125,6 +125,10 @@ type ConfiguratorState = {
   toggleLabels: () => void;
   setLabels: (val: boolean) => void;
 
+  showFloor: boolean;
+  toggleFloor: () => void;
+  setFloor: (val: boolean) => void;
+
   // watch customization materials state
   watchMaterials: Record<WatchMaterialCategory, MaterialProperties>;
   // update watch material property
@@ -171,6 +175,10 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
   showLabels: false,
   toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
   setLabels: (val) => set({ showLabels: val }),
+
+  showFloor: true,
+  toggleFloor: () => set((state) => ({ showFloor: !state.showFloor })),
+  setFloor: (val) => set({ showFloor: val }),
 
   cameraTarget: MODEL_CAMERA_TARGETS["watch"],
   setCameraTarget: (target) => set({ cameraTarget: target }),
