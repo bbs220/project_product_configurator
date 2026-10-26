@@ -37,14 +37,6 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
   },
 };
 
-// preset color palettes for fast customization
-const PRESET_COLORS: Record<string, string[]> = {
-  base: ["#2a2d32", "#e2e8f0", "#18181b", "#1e293b", "#78350f", "#047857"],
-  keycaps: ["#d4d4d8", "#f4f4f5", "#27272a", "#f97316", "#0284c7", "#10b981"],
-  switches: ["#e11d48", "#2563eb", "#ca8a04", "#65a30d", "#7c3aed", "#475569"],
-  knobs: ["#18181b", "#d4d4d8", "#d97706", "#dc2626", "#2563eb", "#059669"],
-};
-
 // keyboard configuration panel with four component categories
 export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
   const { keyboardMaterials, setKeyboardMaterialProperty } =
@@ -63,8 +55,6 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
     title: `${activeTab} Configuration`,
     description: `Customize the keyboard ${activeTab} components.`,
   };
-
-  const presets = PRESET_COLORS[validCategory] || [];
 
   // reset category material properties to defaults
   const handleResetCategory = () => {
@@ -123,26 +113,6 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
                 setKeyboardMaterialProperty(validCategory, "color", hex)
               }
             />
-          </div>
-
-          {/* quick color preset swatches */}
-          <div className="flex items-center gap-2 pt-1">
-            {presets.map((hex) => (
-              <button
-                key={hex}
-                type="button"
-                onClick={() =>
-                  setKeyboardMaterialProperty(validCategory, "color", hex)
-                }
-                style={{ backgroundColor: hex }}
-                className={`w-5 h-5 rounded-full border transition-transform ${
-                  currentMaterial.color.toLowerCase() === hex.toLowerCase()
-                    ? "scale-110 border-blue-500 ring-2 ring-blue-500/30"
-                    : "border-black/10 dark:border-white/10 hover:scale-105"
-                }`}
-                title={hex}
-              />
-            ))}
           </div>
         </div>
 
