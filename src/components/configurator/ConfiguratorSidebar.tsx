@@ -59,10 +59,10 @@ const ConfiguratorSidebar = () => {
   };
 
   const modelLabels: Record<string, string> = {
-    watch: "Apple Watch Ultra 2",
-    mtBike: "Santa Cruz V10",
-    guitar: "Fender Stratocaster 1954",
-    keyboard: "Mechanical Keyboard",
+    watch: "Apple Watch Ultra 2 (2023)",
+    keyboard: "Knob1 Mechanical Keyboard (2024)",
+    mtBike: "Santa Cruz V10 (2023)",
+    guitar: "Fender Stratocaster (1954)",
   };
 
   return (
@@ -101,9 +101,7 @@ const ConfiguratorSidebar = () => {
 
       {/* studio panel body */}
       <div className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="max-w-2xl mx-auto w-full">
-          {renderPanel()}
-        </div>
+        <div className="max-w-2xl mx-auto w-full">{renderPanel()}</div>
       </div>
 
       {/* navigation controls hints footer */}
