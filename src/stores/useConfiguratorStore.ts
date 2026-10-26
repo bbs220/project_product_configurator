@@ -176,7 +176,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
   toggleLabels: () => set((state) => ({ showLabels: !state.showLabels })),
   setLabels: (val) => set({ showLabels: val }),
 
-  showFloor: true,
+  showFloor: false,
   toggleFloor: () => set((state) => ({ showFloor: !state.showFloor })),
   setFloor: (val) => set({ showFloor: val }),
 
