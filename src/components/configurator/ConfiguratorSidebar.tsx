@@ -105,6 +105,30 @@ const ConfiguratorSidebar = () => {
           {renderPanel()}
         </div>
       </div>
+
+      {/* navigation controls hints footer */}
+      <div className="px-6 py-2.5 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 backdrop-blur-sm flex items-center justify-around gap-2 text-[11px] text-gray-500 dark:text-gray-400 select-none shrink-0">
+        <div className="flex items-center gap-1.5">
+          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
+            L-Click
+          </span>
+          <span>Rotate</span>
+        </div>
+        <span className="text-gray-300 dark:text-gray-700">•</span>
+        <div className="flex items-center gap-1.5">
+          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
+            R-Click
+          </span>
+          <span>Pan</span>
+        </div>
+        <span className="text-gray-300 dark:text-gray-700">•</span>
+        <div className="flex items-center gap-1.5">
+          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
+            Scroll
+          </span>
+          <span>Zoom</span>
+        </div>
+      </div>
     </aside>
   );
 };
