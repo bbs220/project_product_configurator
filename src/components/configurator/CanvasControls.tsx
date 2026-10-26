@@ -4,7 +4,14 @@ import { useEffect } from "react";
 import { BoxSelect, Tag } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
-export default function CanvasControls() {
+type CanvasControlsProps = {
+  className?: string;
+};
+
+// viewport explode and label toggle controls
+export default function CanvasControls({
+  className = "",
+}: CanvasControlsProps) {
   const {
     isExploded,
     toggleExploded,
@@ -22,37 +29,39 @@ export default function CanvasControls() {
   }, [setExploded, setLabels]);
 
   return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-800 z-10 transition-all">
+    <div
+      className={`flex items-center gap-1.5 p-1 bg-gray-100 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-gray-800 shrink-0 ${className}`}
+    >
       <button
+        type="button"
         onClick={toggleExploded}
-        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
           isExploded
-            ? "bg-blue-600 text-white shadow-md"
-            : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+            ? "bg-blue-600 text-white shadow-sm"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
         }`}
         title="Explode View"
       >
-        <BoxSelect className="w-4 h-4" />
+        <BoxSelect className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">
           {isExploded ? "Implode" : "Explode"}
         </span>
       </button>
 
-      <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
+      <div className="w-px h-4 bg-gray-300 dark:bg-zinc-700" />
 
       <button
+        type="button"
         onClick={toggleLabels}
-        className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
           showLabels
-            ? "bg-blue-600 text-white shadow-md"
-            : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+            ? "bg-blue-600 text-white shadow-sm"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
         }`}
         title="Toggle Info Labels"
       >
-        <Tag className="w-4 h-4" />
-        <span className="hidden sm:inline">
-          {showLabels ? "Labels" : "Labels"}
-        </span>
+        <Tag className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Labels</span>
       </button>
     </div>
   );

@@ -8,6 +8,7 @@ import WatchPanel, { watchTabs } from "./panels/WatchPanel";
 import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
 import BikePanel, { bikeTabs } from "./panels/BikePanel";
 import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
+import CanvasControls from "./CanvasControls";
 
 type TabDef = {
   id: string;
@@ -67,7 +68,7 @@ const ConfiguratorSidebar = () => {
   return (
     <aside className="flex flex-col h-full w-full overflow-hidden">
       {/* studio header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
+      <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
         <div>
           <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Design Studio
@@ -76,6 +77,7 @@ const ConfiguratorSidebar = () => {
             {modelLabels[modelKey] || modelKey}
           </h1>
         </div>
+        <CanvasControls />
       </div>
 
       {/* horizontal category tabs navigation */}

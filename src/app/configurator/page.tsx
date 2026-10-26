@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import PrimaryCanvas from "@/components/scene/PrimaryCanvas";
 import ConfiguratorSidebar from "@/components/configurator/ConfiguratorSidebar";
-import CanvasControls from "@/components/configurator/CanvasControls";
 
 // wrap client components using search params in suspense boundary for static export
 const Configurator = () => {
@@ -11,7 +10,6 @@ const Configurator = () => {
         {/* interactive model viewport stage */}
         <section className="relative w-full lg:w-1/2 h-1/2 lg:h-full flex-1 overflow-hidden">
           <PrimaryCanvas />
-          <CanvasControls />
         </section>
 
         {/* customization studio options panel */}
