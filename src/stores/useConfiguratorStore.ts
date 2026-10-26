@@ -6,8 +6,8 @@ export const MODEL_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 2, -3],
-  keyboard: [0, 2.6, -1],
+  watch: [0, 2, -5],
+  keyboard: [0, 2.6, -3.2], // Placeholders that we can tune later
   mtBike: [4, 2, -4],
   guitar: [0, 2, -4],
 };
@@ -16,10 +16,10 @@ export const MODEL_CAMERA_DISTANCES: Record<
   ConfiguratorModel,
   { min: number; max: number }
 > = {
-  watch: { min: 1.8, max: 8 },
-  keyboard: { min: 2.2, max: 8 },
-  mtBike: { min: 2, max: 8 },
-  guitar: { min: 1.5, max: 8 },
+  watch: { min: 1.8, max: 10 },
+  keyboard: { min: 1.2, max: 12 }, // Placeholders that we can tune later
+  mtBike: { min: 2, max: 10 },
+  guitar: { min: 1.5, max: 10 },
 };
 
 export const MODEL_CAMERA_TARGETS: Record<
@@ -43,10 +43,10 @@ export const MODEL_EXPLODED_CAMERA_POSITIONS: Record<
   ConfiguratorModel,
   [number, number, number]
 > = {
-  watch: [0, 10, -14],
+  watch: [0, 4, -9],
   keyboard: [0, 5.5, -11],
-  mtBike: [0, 4, -20],
-  guitar: [0, 3, -6.8],
+  mtBike: [0, 6, -10],
+  guitar: [0, 3, -6],
 };
 
 export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
@@ -55,8 +55,8 @@ export const MODEL_EXPLODED_CAMERA_TARGETS: Record<
 > = {
   watch: [0, 2.5, 0],
   keyboard: [0, 2.5, 0],
-  mtBike: [-0.4, 3.6, 0],
-  guitar: [0.4, 3, 0],
+  mtBike: [0, 2.5, 0],
+  guitar: [0, 3, 0],
 };
 
 // material properties configuration
@@ -104,6 +104,36 @@ export const DEFAULT_WATCH_MATERIALS: Record<
   },
 };
 
+// keyboard material categories mapping
+export type KeyboardMaterialCategory = "base" | "keycaps" | "switches" | "knobs";
+
+// default keyboard material values
+export const DEFAULT_KEYBOARD_MATERIALS: Record<
+  KeyboardMaterialCategory,
+  MaterialProperties
+> = {
+  base: {
+    color: "#2a2d32",
+    roughness: 0.3,
+    metalness: 0.8,
+  },
+  keycaps: {
+    color: "#d4d4d8",
+    roughness: 0.55,
+    metalness: 0.05,
+  },
+  switches: {
+    color: "#e11d48",
+    roughness: 0.35,
+    metalness: 0.1,
+  },
+  knobs: {
+    color: "#18181b",
+    roughness: 0.25,
+    metalness: 0.85,
+  },
+};
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -143,6 +173,17 @@ type ConfiguratorState = {
   // reset watch materials to defaults
   resetWatchMaterials: () => void;
 
+  // keyboard customization materials state
+  keyboardMaterials: Record<KeyboardMaterialCategory, MaterialProperties>;
+  // update keyboard material property
+  setKeyboardMaterialProperty: (
+    category: KeyboardMaterialCategory,
+    property: keyof MaterialProperties,
+    value: string | number,
+  ) => void;
+  // reset keyboard materials to defaults
+  resetKeyboardMaterials: () => void;
+
   // watch face display style
   watchFaceStyle: WatchFaceStyle;
   // update watch face display style
@@ -168,6 +209,20 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       },
     })),
   resetWatchMaterials: () => set({ watchMaterials: DEFAULT_WATCH_MATERIALS }),
+
+  keyboardMaterials: DEFAULT_KEYBOARD_MATERIALS,
+  setKeyboardMaterialProperty: (category, property, value) =>
+    set((state) => ({
+      keyboardMaterials: {
+        ...state.keyboardMaterials,
+        [category]: {
+          ...state.keyboardMaterials[category],
+          [property]: value,
+        },
+      },
+    })),
+  resetKeyboardMaterials: () =>
+    set({ keyboardMaterials: DEFAULT_KEYBOARD_MATERIALS }),
 
   watchFaceStyle: "wayfinder",
   setWatchFaceStyle: (style) => set({ watchFaceStyle: style }),
