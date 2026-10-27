@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { BoxSelect, Sparkles, Tag } from "lucide-react";
+import { BoxSelect, Focus, Sparkles, Tag } from "lucide-react";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 type CanvasControlsProps = {
@@ -19,6 +19,8 @@ export default function CanvasControls({
     toggleLabels,
     showFloor,
     toggleFloor,
+    focus,
+    toggleFocus,
     setExploded,
     setLabels,
   } = useConfiguratorStore();
@@ -80,6 +82,22 @@ export default function CanvasControls({
       >
         <Sparkles className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Floor</span>
+      </button>
+
+      <div className="w-px h-4 bg-gray-300 dark:bg-zinc-700" />
+
+      <button
+        type="button"
+        onClick={toggleFocus}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+          focus
+            ? "bg-blue-600 text-white shadow-sm"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+        }`}
+        title="Toggle Focus View"
+      >
+        <Focus className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Focus</span>
       </button>
     </div>
   );

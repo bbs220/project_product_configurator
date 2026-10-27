@@ -245,6 +245,10 @@ type ConfiguratorState = {
   toggleFloor: () => void;
   setFloor: (val: boolean) => void;
 
+  focus: boolean;
+  toggleFocus: () => void;
+  setFocus: (val: boolean) => void;
+
   // watch customization materials state
   watchMaterials: Record<WatchMaterialCategory, MaterialProperties>;
   // update watch material property
@@ -401,6 +405,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       cameraMaxDistance: MODEL_CAMERA_DISTANCES[model].max,
       isExploded: false,
       showLabels: false,
+      focus: false,
     }),
 
   isExploded: false,
@@ -414,6 +419,10 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
   showFloor: false,
   toggleFloor: () => set((state) => ({ showFloor: !state.showFloor })),
   setFloor: (val) => set({ showFloor: val }),
+
+  focus: false,
+  toggleFocus: () => set((state) => ({ focus: !state.focus })),
+  setFocus: (val) => set({ focus: val }),
 
   cameraTarget: MODEL_CAMERA_TARGETS["watch"],
   setCameraTarget: (target) => set({ cameraTarget: target }),
