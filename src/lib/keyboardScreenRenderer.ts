@@ -119,41 +119,23 @@ function drawRoundedRect(
   ctx.roundRect(x, y, width, height, radius);
 }
 
-// render base pill screen boundary and background
+// render base screen background filling full canvas and letting mesh handle cutoff
 export function drawScreenBackground(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   theme: KeyboardThemeColors,
 ) {
-  ctx.fillStyle = "#030304";
+  ctx.fillStyle = "#070709";
   ctx.fillRect(0, 0, width, height);
 
-  // draw outer pill boundary glow
-  const pad = 8;
-  const pillW = width - pad * 2;
-  const pillH = height - pad * 2;
-  const pillRadius = pillW / 2;
-
-  ctx.save();
-  drawRoundedRect(ctx, pad, pad, pillW, pillH, pillRadius);
-  ctx.fillStyle = "#070709";
-  ctx.fill();
-
-  // subtle outer rim stroke
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-  ctx.stroke();
-
   // subtle inner theme ambient vignette
-  const grad = ctx.createLinearGradient(0, pad, 0, height - pad);
+  const grad = ctx.createLinearGradient(0, 0, 0, height);
   grad.addColorStop(0, "rgba(255, 255, 255, 0.02)");
   grad.addColorStop(0.5, theme.glow);
   grad.addColorStop(1, "rgba(0, 0, 0, 0.6)");
   ctx.fillStyle = grad;
-  ctx.fill();
-
-  ctx.restore();
+  ctx.fillRect(0, 0, width, height);
 }
 
 // render primary digital clock and status card widget
