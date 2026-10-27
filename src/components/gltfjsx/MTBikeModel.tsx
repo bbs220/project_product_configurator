@@ -227,7 +227,7 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.frontFrame.geometry}
-            material={materials.M_Fox40_1}
+            material={materials.M_Frame}
           >
             <mesh
               name="decorRing"
