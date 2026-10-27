@@ -6,6 +6,7 @@ import { assetPaths } from "@/lib/utils";
 import { KeyboardGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { PartLabel } from "@/lib/PartLabel";
+import { useKeyboardCanvasTexture } from "@/hooks/useKeyboardCanvasTexture";
 
 export const KEYBOARD_EXPLODED_CONFIG = {
   chassis: {
@@ -112,7 +113,12 @@ function applyKeyboardMaterialProperties(
 }
 
 export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels, keyboardMaterials } = useConfiguratorStore();
+  const {
+    isExploded,
+    showLabels,
+    keyboardMaterials,
+    keyboardDisplayBrightness,
+  } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
   const chassisRef = useRef<THREE.Mesh>(null);
   const keysBodyRef = useRef<THREE.Group>(null);
@@ -229,6 +235,9 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     assetPaths.keyboard,
   ) as unknown as KeyboardGLTFResult;
+
+  // dynamic live canvas texture for keyboard oled display
+  const screenTexture = useKeyboardCanvasTexture(materials.Custom_1.map);
 
   // cloned materials for keyboard parts
   const customMaterials = useMemo(
@@ -2020,8 +2029,16 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.infoDisplay.geometry}
-          material={materials.Custom_1}
         >
+          <meshStandardMaterial
+            map={screenTexture}
+            emissiveMap={screenTexture}
+            emissive="#ffffff"
+            emissiveIntensity={keyboardDisplayBrightness}
+            roughness={0.15}
+            metalness={0.1}
+            toneMapped={false}
+          />
           <PartLabel
             show={showLabels && isExploded}
             title={KEYBOARD_LABELS.infoDisplay}

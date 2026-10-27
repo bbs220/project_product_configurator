@@ -138,6 +138,17 @@ export const DEFAULT_KEYBOARD_MATERIALS: Record<
   },
 };
 
+// keyboard display screen style options
+export type KeyboardDisplayStyle = "status" | "matrix" | "audio" | "retro";
+
+// keyboard display color theme options
+export type KeyboardDisplayTheme =
+  | "amber"
+  | "cyber"
+  | "matrix"
+  | "neon"
+  | "white";
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -188,6 +199,21 @@ type ConfiguratorState = {
   // reset keyboard materials to defaults
   resetKeyboardMaterials: () => void;
 
+  // keyboard display screen style
+  keyboardDisplayStyle: KeyboardDisplayStyle;
+  // update keyboard display screen style
+  setKeyboardDisplayStyle: (style: KeyboardDisplayStyle) => void;
+
+  // keyboard display color theme
+  keyboardDisplayTheme: KeyboardDisplayTheme;
+  // update keyboard display color theme
+  setKeyboardDisplayTheme: (theme: KeyboardDisplayTheme) => void;
+
+  // keyboard display brightness level
+  keyboardDisplayBrightness: number;
+  // update keyboard display brightness
+  setKeyboardDisplayBrightness: (brightness: number) => void;
+
   // watch face display style
   watchFaceStyle: WatchFaceStyle;
   // update watch face display style
@@ -227,6 +253,14 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
     })),
   resetKeyboardMaterials: () =>
     set({ keyboardMaterials: DEFAULT_KEYBOARD_MATERIALS }),
+
+  keyboardDisplayStyle: "status",
+  setKeyboardDisplayStyle: (style) => set({ keyboardDisplayStyle: style }),
+  keyboardDisplayTheme: "amber",
+  setKeyboardDisplayTheme: (theme) => set({ keyboardDisplayTheme: theme }),
+  keyboardDisplayBrightness: 1.0,
+  setKeyboardDisplayBrightness: (brightness) =>
+    set({ keyboardDisplayBrightness: brightness }),
 
   watchFaceStyle: "wayfinder",
   setWatchFaceStyle: (style) => set({ watchFaceStyle: style }),
