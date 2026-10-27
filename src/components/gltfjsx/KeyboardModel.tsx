@@ -237,7 +237,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   ) as unknown as KeyboardGLTFResult;
 
   // dynamic live canvas texture for keyboard oled display
-  const screenTexture = useKeyboardCanvasTexture(materials.Custom_1.map);
+  const screenTexture = useKeyboardCanvasTexture();
 
   // cloned materials for keyboard parts
   const customMaterials = useMemo(

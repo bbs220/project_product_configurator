@@ -29,22 +29,26 @@ function createKeyboardDisplayManager(): KeyboardDisplayManager {
   };
 }
 
-// sync texture transform matrix from original gltf material
-function syncTextureMatrix(
-  manager: KeyboardDisplayManager,
-  originalMap?: THREE.Texture | null,
-) {
-  if (originalMap && !manager.matrixInitialized) {
-    manager.texture.matrix.copy(originalMap.matrix);
-    manager.texture.matrixAutoUpdate = false;
-    manager.texture.wrapS = originalMap.wrapS;
-    manager.texture.wrapT = originalMap.wrapT;
-    manager.texture.repeat.copy(originalMap.repeat);
-    manager.texture.offset.copy(originalMap.offset);
-    manager.texture.rotation = originalMap.rotation;
-    manager.texture.center.copy(originalMap.center);
-    manager.matrixInitialized = true;
-  }
+// configure precise uv transform matrix mapping screen mesh to normalized canvas
+function initTextureMatrix(manager: KeyboardDisplayManager) {
+  if (manager.matrixInitialized) return;
+
+  manager.texture.matrix.set(
+    0.0,
+    -9.44376,
+    0.259137,
+    -0.285714,
+    0.0,
+    0.955,
+    0.0,
+    0.0,
+    1.0,
+  );
+  manager.texture.matrixAutoUpdate = false;
+  manager.texture.flipY = false;
+  manager.texture.wrapS = THREE.ClampToEdgeWrapping;
+  manager.texture.wrapT = THREE.ClampToEdgeWrapping;
+  manager.matrixInitialized = true;
 }
 
 // render canvas frame and request texture upload to graphics pipeline
@@ -54,9 +58,8 @@ function drawKeyboardDisplayFrame(
   theme: ReturnType<typeof useConfiguratorStore.getState>["keyboardDisplayTheme"],
   now: Date,
   timeSec: number,
-  originalMap?: THREE.Texture | null,
 ) {
-  syncTextureMatrix(manager, originalMap);
+  initTextureMatrix(manager);
 
   const ctx = manager.ctx;
   if (!ctx) return;
@@ -75,7 +78,7 @@ function drawKeyboardDisplayFrame(
 }
 
 // dynamic live canvas texture hook for mechanical keyboard oled display
-export function useKeyboardCanvasTexture(originalMap?: THREE.Texture | null) {
+export function useKeyboardCanvasTexture() {
   const { keyboardDisplayStyle, keyboardDisplayTheme } = useConfiguratorStore();
   const [manager] = useState<KeyboardDisplayManager>(createKeyboardDisplayManager);
   const timeAccumulatorRef = useRef(0);
@@ -103,7 +106,6 @@ export function useKeyboardCanvasTexture(originalMap?: THREE.Texture | null) {
       keyboardDisplayTheme,
       now,
       state.clock.elapsedTime,
-      originalMap,
     );
   });
 

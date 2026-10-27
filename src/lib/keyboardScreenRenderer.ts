@@ -71,7 +71,7 @@ export const KEYBOARD_THEME_PALETTES: Record<
   },
 };
 
-// draw rotated block upright relative to user keyboard viewing angle
+// draw centered component block in screen coordinates
 function withUpright(
   ctx: CanvasRenderingContext2D,
   centerX: number,
@@ -80,7 +80,6 @@ function withUpright(
 ) {
   ctx.save();
   ctx.translate(centerX, centerY);
-  ctx.rotate(Math.PI);
   renderFn();
   ctx.restore();
 }
