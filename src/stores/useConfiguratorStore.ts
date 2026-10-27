@@ -17,7 +17,7 @@ export const MODEL_CAMERA_DISTANCES: Record<
   { min: number; max: number }
 > = {
   watch: { min: 1.8, max: 8 },
-  keyboard: { min: 2.2, max: 8 },
+  keyboard: { min: 2, max: 8 },
   mtBike: { min: 2, max: 8 },
   guitar: { min: 1.5, max: 8 },
 };
@@ -105,7 +105,11 @@ export const DEFAULT_WATCH_MATERIALS: Record<
 };
 
 // keyboard material categories mapping
-export type KeyboardMaterialCategory = "base" | "keycaps" | "switches" | "knobs";
+export type KeyboardMaterialCategory =
+  | "base"
+  | "keycaps"
+  | "switches"
+  | "knobs";
 
 // default keyboard material values
 export const DEFAULT_KEYBOARD_MATERIALS: Record<
@@ -113,17 +117,17 @@ export const DEFAULT_KEYBOARD_MATERIALS: Record<
   MaterialProperties
 > = {
   base: {
-    color: "#2a2d32",
+    color: "#B7B7B7",
     roughness: 0.3,
     metalness: 0.8,
   },
   keycaps: {
-    color: "#d4d4d8",
+    color: "#C8C8C8",
     roughness: 0.55,
     metalness: 0.05,
   },
   switches: {
-    color: "#e11d48",
+    color: "#272727",
     roughness: 0.35,
     metalness: 0.1,
   },
