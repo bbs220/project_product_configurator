@@ -183,6 +183,40 @@ export const DEFAULT_BIKE_MATERIALS: Record<
   },
 };
 
+// guitar material categories mapping
+export type GuitarMaterialCategory =
+  | "body"
+  | "neck"
+  | "hardware"
+  | "pickguard";
+
+// default guitar material values
+export const DEFAULT_GUITAR_MATERIALS: Record<
+  GuitarMaterialCategory,
+  MaterialProperties
+> = {
+  body: {
+    color: "#ffffff",
+    roughness: 0.25,
+    metalness: 0.05,
+  },
+  neck: {
+    color: "#ffffff",
+    roughness: 0.35,
+    metalness: 0.0,
+  },
+  hardware: {
+    color: "#e5e7eb",
+    roughness: 0.2,
+    metalness: 0.9,
+  },
+  pickguard: {
+    color: "#f8fafc",
+    roughness: 0.4,
+    metalness: 0.0,
+  },
+};
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -259,6 +293,17 @@ type ConfiguratorState = {
   // reset mountain bike materials to defaults
   resetBikeMaterials: () => void;
 
+  // guitar customization materials state
+  guitarMaterials: Record<GuitarMaterialCategory, MaterialProperties>;
+  // update guitar material property
+  setGuitarMaterialProperty: (
+    category: GuitarMaterialCategory,
+    property: keyof MaterialProperties,
+    value: string | number,
+  ) => void;
+  // reset guitar materials to defaults
+  resetGuitarMaterials: () => void;
+
   // watch face display style
   watchFaceStyle: WatchFaceStyle;
   // update watch face display style
@@ -311,6 +356,20 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
       },
     })),
   resetBikeMaterials: () => set({ bikeMaterials: DEFAULT_BIKE_MATERIALS }),
+
+  guitarMaterials: DEFAULT_GUITAR_MATERIALS,
+  setGuitarMaterialProperty: (category, property, value) =>
+    set((state) => ({
+      guitarMaterials: {
+        ...state.guitarMaterials,
+        [category]: {
+          ...state.guitarMaterials[category],
+          [property]: value,
+        },
+      },
+    })),
+  resetGuitarMaterials: () =>
+    set({ guitarMaterials: DEFAULT_GUITAR_MATERIALS }),
 
   keyboardDisplayStyle: "status",
   setKeyboardDisplayStyle: (style) => set({ keyboardDisplayStyle: style }),

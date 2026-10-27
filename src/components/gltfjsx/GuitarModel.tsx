@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
-import { JSX, useRef } from "react";
+import { JSX, useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { assetPaths } from "@/lib/utils";
 import { GuitarGLTFResult } from "@/types/models";
@@ -44,8 +44,44 @@ export const GUITAR_LABELS = {
   outputJack: "Output Jack",
 } as const;
 
+// custom cloned materials for guitar configuration
+type CustomGuitarMaterials = {
+  pickguard: THREE.MeshPhysicalMaterial;
+};
+
+// apply customized colors roughness and metalness to guitar materials
+function applyGuitarMaterialProperties(
+  materials: GuitarGLTFResult["materials"],
+  customMaterials: CustomGuitarMaterials,
+  guitarMaterials: ReturnType<typeof useConfiguratorStore.getState>["guitarMaterials"],
+) {
+  // body customization
+  materials.BodyMaterial.color.set(guitarMaterials.body.color);
+  materials.BodyMaterial.roughness = guitarMaterials.body.roughness;
+  materials.BodyMaterial.metalness = guitarMaterials.body.metalness;
+
+  // neck customization
+  materials.NeckMaterial.color.set(guitarMaterials.neck.color);
+  materials.NeckMaterial.roughness = guitarMaterials.neck.roughness;
+  materials.NeckMaterial.metalness = guitarMaterials.neck.metalness;
+
+  // hardware customization
+  materials.MetalPartsMaterial.color.set(guitarMaterials.hardware.color);
+  materials.MetalPartsMaterial.roughness = guitarMaterials.hardware.roughness;
+  materials.MetalPartsMaterial.metalness = guitarMaterials.hardware.metalness;
+
+  // pickguard customization
+  customMaterials.pickguard.color.set(guitarMaterials.pickguard.color);
+  customMaterials.pickguard.roughness = guitarMaterials.pickguard.roughness;
+  customMaterials.pickguard.metalness = guitarMaterials.pickguard.metalness;
+
+  materials.white.color.set(guitarMaterials.pickguard.color);
+  materials.white.roughness = guitarMaterials.pickguard.roughness;
+  materials.white.metalness = guitarMaterials.pickguard.metalness;
+}
+
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels } = useConfiguratorStore();
+  const { isExploded, showLabels, guitarMaterials } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
   const bodyRef = useRef<THREE.Mesh>(null);
   const coverRef = useRef<THREE.Mesh>(null);
@@ -122,6 +158,20 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     assetPaths.guitar,
   ) as unknown as GuitarGLTFResult;
+
+  // cloned materials for guitar pickguard and plastics
+  const customMaterials = useMemo(
+    () => ({
+      pickguard: materials.NeckMaterial.clone(),
+    }),
+    [materials],
+  );
+
+  useEffect(() => {
+    // update all guitar materials via external helper
+    applyGuitarMaterialProperties(materials, customMaterials, guitarMaterials);
+  }, [guitarMaterials, materials, customMaterials]);
+
   return (
     <group {...props} dispose={null}>
       <group name="Scene" ref={sceneRef}>
@@ -145,7 +195,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.bodyCover.geometry}
-            material={materials.NeckMaterial}
+            material={customMaterials.pickguard}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -179,21 +229,21 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.toneControlA.geometry}
-              material={materials.NeckMaterial}
+              material={customMaterials.pickguard}
             />
             <mesh
               name="toneControlB"
               castShadow
               receiveShadow
               geometry={nodes.toneControlB.geometry}
-              material={materials.NeckMaterial}
+              material={customMaterials.pickguard}
             />
             <mesh
               name="volumeControl"
               castShadow
               receiveShadow
               geometry={nodes.volumeControl.geometry}
-              material={materials.NeckMaterial}
+              material={customMaterials.pickguard}
             />
           </mesh>
           <mesh
@@ -274,7 +324,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.pickups.geometry}
-            material={materials.NeckMaterial}
+            material={customMaterials.pickguard}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -295,7 +345,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.pickupSelector.geometry}
-              material={materials.NeckMaterial}
+              material={customMaterials.pickguard}
             />
           </mesh>
           <mesh
