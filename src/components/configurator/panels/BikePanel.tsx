@@ -15,7 +15,7 @@ export const bikeTabs = [
   { id: "frame", label: "Frame", icon: Bike },
   { id: "wheels", label: "Wheels", icon: Disc },
   { id: "suspension", label: "Suspension", icon: Layers },
-  { id: "drivetrain", label: "Drivetrain", icon: Settings2 },
+  { id: "drivetrain", label: "Pedals & Gears", icon: Settings2 },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
@@ -32,8 +32,8 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
     description: "Configure front fork stanchions and rear coil shock spring.",
   },
   drivetrain: {
-    title: "Drivetrain & Cranks",
-    description: "Customize the crank arms, chain, pedals, and derailleur.",
+    title: "Pedals & Gears",
+    description: "Customize the pedals, crank arms, chain, and gear cassette.",
   },
 };
 
