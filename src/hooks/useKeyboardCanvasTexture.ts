@@ -35,8 +35,8 @@ function initTextureMatrix(manager: KeyboardDisplayManager) {
 
   manager.texture.matrix.set(
     0.0,
-    -9.44376,
-    0.259137,
+    9.44376,
+    0.740863,
     -0.285714,
     0.0,
     0.955,

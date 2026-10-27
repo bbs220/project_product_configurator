@@ -17,7 +17,7 @@ export const MODEL_CAMERA_DISTANCES: Record<
   { min: number; max: number }
 > = {
   watch: { min: 1.8, max: 8 },
-  keyboard: { min: 2, max: 8 },
+  keyboard: { min: 1.5, max: 8 },
   mtBike: { min: 2, max: 8 },
   guitar: { min: 1.5, max: 8 },
 };
