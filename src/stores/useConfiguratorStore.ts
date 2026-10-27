@@ -149,6 +149,40 @@ export type KeyboardDisplayTheme =
   | "neon"
   | "white";
 
+// mountain bike material categories mapping
+export type BikeMaterialCategory =
+  | "frame"
+  | "wheels"
+  | "suspension"
+  | "drivetrain";
+
+// default mountain bike material values
+export const DEFAULT_BIKE_MATERIALS: Record<
+  BikeMaterialCategory,
+  MaterialProperties
+> = {
+  frame: {
+    color: "#d32f2f",
+    roughness: 0.35,
+    metalness: 0.15,
+  },
+  wheels: {
+    color: "#18181b",
+    roughness: 0.45,
+    metalness: 0.6,
+  },
+  suspension: {
+    color: "#ff4b00",
+    roughness: 0.35,
+    metalness: 0.7,
+  },
+  drivetrain: {
+    color: "#27272a",
+    roughness: 0.3,
+    metalness: 0.85,
+  },
+};
+
 type ConfiguratorState = {
   activeModel: ConfiguratorModel;
   setActiveModel: (model: ConfiguratorModel) => void;
@@ -214,6 +248,17 @@ type ConfiguratorState = {
   // update keyboard display brightness
   setKeyboardDisplayBrightness: (brightness: number) => void;
 
+  // mountain bike customization materials state
+  bikeMaterials: Record<BikeMaterialCategory, MaterialProperties>;
+  // update mountain bike material property
+  setBikeMaterialProperty: (
+    category: BikeMaterialCategory,
+    property: keyof MaterialProperties,
+    value: string | number,
+  ) => void;
+  // reset mountain bike materials to defaults
+  resetBikeMaterials: () => void;
+
   // watch face display style
   watchFaceStyle: WatchFaceStyle;
   // update watch face display style
@@ -253,6 +298,19 @@ export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
     })),
   resetKeyboardMaterials: () =>
     set({ keyboardMaterials: DEFAULT_KEYBOARD_MATERIALS }),
+
+  bikeMaterials: DEFAULT_BIKE_MATERIALS,
+  setBikeMaterialProperty: (category, property, value) =>
+    set((state) => ({
+      bikeMaterials: {
+        ...state.bikeMaterials,
+        [category]: {
+          ...state.bikeMaterials[category],
+          [property]: value,
+        },
+      },
+    })),
+  resetBikeMaterials: () => set({ bikeMaterials: DEFAULT_BIKE_MATERIALS }),
 
   keyboardDisplayStyle: "status",
   setKeyboardDisplayStyle: (style) => set({ keyboardDisplayStyle: style }),

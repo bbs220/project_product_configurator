@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
-import { JSX, useRef } from "react";
+import { JSX, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { assetPaths } from "@/lib/utils";
 import { MTBikeGLTFResult } from "@/types/models";
@@ -44,8 +44,86 @@ export const MTBIKE_LABELS = {
   rearWheelTyre: "Rear Tyre",
 } as const;
 
+// shader hook flag to ensure shader customization runs only once
+let frameShaderHooked = false;
+
+// inject custom color neutralization shader into frame material
+function setupFrameShader(material: THREE.MeshStandardMaterial) {
+  if (frameShaderHooked) {
+    return;
+  }
+  frameShaderHooked = true;
+  material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <map_fragment>",
+      `
+      #ifdef USE_MAP
+        vec4 sampledDiffuseColor = texture2D( map, vMapUv );
+        float maxGb = max(sampledDiffuseColor.g, sampledDiffuseColor.b);
+        float redness = max(0.0, sampledDiffuseColor.r - maxGb);
+        vec3 paintBase = vec3(sampledDiffuseColor.r);
+        vec3 neutralMap = mix(sampledDiffuseColor.rgb, paintBase, clamp(redness * 2.0, 0.0, 1.0));
+        float isDecal = step(0.7, min(min(sampledDiffuseColor.r, sampledDiffuseColor.g), sampledDiffuseColor.b));
+        diffuseColor.rgb = mix(diffuseColor.rgb * neutralMap, sampledDiffuseColor.rgb, isDecal);
+      #endif
+      `,
+    );
+  };
+  material.needsUpdate = true;
+}
+
+// apply customized colors roughness and metalness to mountain bike materials
+function applyBikeMaterialProperties(
+  materials: MTBikeGLTFResult["materials"],
+  bikeMaterials: ReturnType<typeof useConfiguratorStore.getState>["bikeMaterials"],
+) {
+  setupFrameShader(materials.M_Frame);
+
+  // frame customization
+  materials.M_Frame.color.set(bikeMaterials.frame.color);
+  materials.M_Frame.roughness = bikeMaterials.frame.roughness;
+  materials.M_Frame.metalness = bikeMaterials.frame.metalness;
+
+  // wheels customization
+  materials.M_Wheel_1.color.set(bikeMaterials.wheels.color);
+  materials.M_Wheel_1.roughness = bikeMaterials.wheels.roughness;
+  materials.M_Wheel_1.metalness = bikeMaterials.wheels.metalness;
+
+  // suspension customization
+  materials.MetalOrange.color.set(bikeMaterials.suspension.color);
+  materials.MetalOrange.roughness = bikeMaterials.suspension.roughness;
+  materials.MetalOrange.metalness = bikeMaterials.suspension.metalness;
+
+  materials.M_Fox40_1.roughness = bikeMaterials.suspension.roughness;
+
+  // drivetrain customization
+  materials.M_Crankset1.color.set(bikeMaterials.drivetrain.color);
+  materials.M_Crankset1.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_Crankset1.metalness = bikeMaterials.drivetrain.metalness;
+
+  materials.M_Crankset2.color.set(bikeMaterials.drivetrain.color);
+  materials.M_Crankset2.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_Crankset2.metalness = bikeMaterials.drivetrain.metalness;
+
+  materials.M_Pedals.color.set(bikeMaterials.drivetrain.color);
+  materials.M_Pedals.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_Pedals.metalness = bikeMaterials.drivetrain.metalness;
+
+  materials.M_Chain.color.set(bikeMaterials.drivetrain.color);
+  materials.M_Chain.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_Chain.metalness = bikeMaterials.drivetrain.metalness;
+
+  materials.M_RearDerailleur_1.color.set(bikeMaterials.drivetrain.color);
+  materials.M_RearDerailleur_1.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_RearDerailleur_1.metalness = bikeMaterials.drivetrain.metalness;
+
+  materials.M_RearDerailleur_2.color.set(bikeMaterials.drivetrain.color);
+  materials.M_RearDerailleur_2.roughness = bikeMaterials.drivetrain.roughness;
+  materials.M_RearDerailleur_2.metalness = bikeMaterials.drivetrain.metalness;
+}
+
 export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels } = useConfiguratorStore();
+  const { isExploded, showLabels, bikeMaterials } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
   const frameRef = useRef<THREE.Mesh>(null);
   const pedalShaftRef = useRef<THREE.Mesh>(null);
@@ -122,6 +200,11 @@ export function MTBikeModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     assetPaths.mtBike,
   ) as unknown as MTBikeGLTFResult;
+
+  useEffect(() => {
+    // update all mountain bike materials via external helper
+    applyBikeMaterialProperties(materials, bikeMaterials);
+  }, [bikeMaterials, materials]);
   return (
     <group {...props} dispose={null}>
       <group name="Scene" ref={sceneRef}>
