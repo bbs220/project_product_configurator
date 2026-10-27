@@ -28,7 +28,7 @@ type KeyboardPanelProps = {
 export const keyboardTabs = [
   { id: "base", label: "Base", icon: Layers },
   { id: "keycaps", label: "Keycaps", icon: Keyboard },
-  { id: "switches", label: "Switches", icon: Settings2 },
+  { id: "switches", label: "Switch Plate", icon: Settings2 },
   { id: "knobs", label: "Knobs", icon: Disc },
   { id: "display", label: "Display", icon: Tv },
 ];
@@ -43,8 +43,8 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
     description: "Personalize the primary keycap colorway and surface texture.",
   },
   switches: {
-    title: "Switches & Switch Plate",
-    description: "Configure the switch plate material and mechanical switch accents.",
+    title: "Switch Plate",
+    description: "Configure the switch plate material and finish.",
   },
   knobs: {
     title: "Rotary Control Knobs",

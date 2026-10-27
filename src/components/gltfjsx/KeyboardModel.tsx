@@ -88,9 +88,10 @@ function applyKeyboardMaterialProperties(
   materials.Plastic_5.roughness = keyboardMaterials.keycaps.roughness;
   materials.Plastic_5.metalness = keyboardMaterials.keycaps.metalness;
 
-  materials.Plastic_2.color.set(keyboardMaterials.keycaps.color);
-  materials.Plastic_2.roughness = keyboardMaterials.keycaps.roughness;
-  materials.Plastic_2.metalness = keyboardMaterials.keycaps.metalness;
+  // restore distinct accent color for arrow and escape keys
+  materials.Plastic_2.color.set("#c86200");
+  materials.Plastic_2.roughness = 0.25;
+  materials.Plastic_2.metalness = 0;
 
   const secondaryColor = new THREE.Color(
     keyboardMaterials.keycaps.color,
