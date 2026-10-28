@@ -249,7 +249,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchBackPlate001.geometry}
-            material={materials.CdZJpyOXLDMygZg}
+            material={customMaterials.back}
+            material-color={watchMaterials.back.color}
+            material-roughness={watchMaterials.back.roughness}
+            material-metalness={watchMaterials.back.metalness}
           />
           <mesh
             ref={bandRef}
