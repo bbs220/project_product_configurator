@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Settings2, type LucideIcon } from "lucide-react";
+import { Lock, Settings2, type LucideIcon } from "lucide-react";
 
 import WatchPanel, { watchTabs } from "./panels/WatchPanel";
 import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
 import BikePanel, { bikeTabs } from "./panels/BikePanel";
 import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 import CanvasControls from "./CanvasControls";
+import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 type TabDef = {
   id: string;
@@ -29,6 +30,7 @@ const fallbackTabs: TabDef[] = [
 ];
 
 const ConfiguratorSidebar = () => {
+  const { focus } = useConfiguratorStore();
   const searchParams = useSearchParams();
   const modelKey = searchParams.get("model") || "watch";
   const tabs = modelTabsConfig[modelKey] || fallbackTabs;
@@ -113,11 +115,31 @@ const ConfiguratorSidebar = () => {
           <span>Rotate</span>
         </div>
         <span className="text-gray-300 dark:text-gray-700">•</span>
-        <div className="flex items-center gap-1.5">
-          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
+        <div
+          className="relative flex items-center gap-1.5"
+          title={focus ? "Panning is disabled when focus is on" : undefined}
+        >
+          <span
+            className={`px-1.5 py-0.5 rounded border text-[10px] font-mono font-medium transition-colors ${
+              focus
+                ? "bg-red-500/10 border-red-500/30 text-red-600 dark:text-red-400 line-through"
+                : "bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300"
+            }`}
+          >
             R-Click
           </span>
-          <span>Pan</span>
+          <span
+            className={`transition-colors ${
+              focus ? "line-through text-red-600 dark:text-red-400 font-medium" : ""
+            }`}
+          >
+            Pan
+          </span>
+          <Lock
+            className={`w-3 h-3 text-red-600 dark:text-red-400 absolute -right-4 top-1/2 -translate-y-1/2 transition-opacity duration-150 ${
+              focus ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          />
         </div>
         <span className="text-gray-300 dark:text-gray-700">•</span>
         <div className="flex items-center gap-1.5">

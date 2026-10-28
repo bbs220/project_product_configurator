@@ -94,7 +94,7 @@ export default function CanvasControls({
             ? "bg-blue-600 text-white shadow-sm"
             : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
         }`}
-        title="Toggle Focus View"
+        title={focus ? "Focus View: Active (Panning disabled)" : "Toggle Focus View"}
       >
         <Focus className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Focus</span>
