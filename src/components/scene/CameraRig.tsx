@@ -28,6 +28,7 @@ export default function CameraRig() {
     cameraMaxDistance,
     isExploded,
     activeModel,
+    focus,
   } = useConfiguratorStore();
   const controlsRef = useRef<OrbitControlsImpl>(null);
 
@@ -120,7 +121,7 @@ export default function CameraRig() {
         onStart={() => {
           isLerping.current = false;
         }}
-        enablePan={true}
+        enablePan={!focus}
         screenSpacePanning={true}
       />
     </>
