@@ -69,7 +69,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
       case: materials.edhWAPEBZsqCLTg.clone(),
       bezel: materials.GXPSJdzybTrBefY.clone(),
       band: materials.FsJfKVbzNLXJeBa.clone(),
-      crown: materials.GvXrALMIeaGmIJo.clone(),
+      crown: materials.VJcIxaYCeMHzzAJ.clone(),
       back: materials.YtajTVWccmKRZBL.clone(),
     }),
     [materials],
@@ -333,10 +333,7 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.watchCrown.geometry}
-            material={customMaterials.crown}
-            material-color={watchMaterials.crown.color}
-            material-roughness={watchMaterials.crown.roughness}
-            material-metalness={watchMaterials.crown.metalness}
+            material={materials.GvXrALMIeaGmIJo}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -349,16 +346,11 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchCrownAccentRing.geometry}
-              material={materials.VJcIxaYCeMHzzAJ}
-            >
-              <mesh
-                name="watchCrownAccentRingHighlight"
-                castShadow
-                receiveShadow
-                geometry={nodes.watchCrownAccentRingHighlight.geometry}
-                material={materials.vqobCvtAVyNLbeh}
-              />
-            </mesh>
+              material={customMaterials.crown}
+              material-color={watchMaterials.crown.color}
+              material-roughness={watchMaterials.crown.roughness}
+              material-metalness={watchMaterials.crown.metalness}
+            />
             <mesh
               name="watchCrownGrip"
               castShadow
@@ -371,10 +363,10 @@ export function WatchModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.watchCrownHead.geometry}
-              material={customMaterials.crown}
-              material-color={watchMaterials.crown.color}
-              material-roughness={watchMaterials.crown.roughness}
-              material-metalness={watchMaterials.crown.metalness}
+              material={customMaterials.case}
+              material-color={watchMaterials.case.color}
+              material-roughness={watchMaterials.case.roughness}
+              material-metalness={watchMaterials.case.metalness}
             />
           </mesh>
           <mesh
