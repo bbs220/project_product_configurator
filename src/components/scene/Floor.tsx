@@ -1,6 +1,19 @@
 import { MeshReflectorMaterial } from "@react-three/drei";
+import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
-const Floor = () => {
+type FloorProps = {
+  visible?: boolean;
+};
+
+// reflective ground plane displaying premium floor reflections
+const Floor = ({ visible }: FloorProps) => {
+  const storeShowFloor = useConfiguratorStore((state) => state.showFloor);
+  const isVisible = visible !== undefined ? visible : storeShowFloor;
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <mesh
       rotation={[-Math.PI / 2, 0, 0]}

@@ -56,7 +56,12 @@ body {
 
 /* tweakpane overrides (width, positioning, and scroll limits) */
 .tp-dfwv {
+  position: fixed !important;
+  left: 16px !important;
+  right: auto !important;
   width: 340px !important;
+  max-width: calc(100vw - 32px) !important;
+  z-index: 50 !important;
   top: 10% !important;
   max-height: calc(
     100vh - 96px

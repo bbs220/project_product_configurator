@@ -1,11 +1,12 @@
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
-import { JSX, useRef } from "react";
+import { JSX, useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { assetPaths } from "@/lib/utils";
 import { KeyboardGLTFResult } from "@/types/models";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { PartLabel } from "@/lib/PartLabel";
+import { useKeyboardCanvasTexture } from "@/hooks/useKeyboardCanvasTexture";
 
 export const KEYBOARD_EXPLODED_CONFIG = {
   chassis: {
@@ -64,8 +65,61 @@ export const KEYBOARD_LABELS = {
   onOffSwitch: "Power Switch",
 } as const;
 
+type CustomKeyboardMaterials = {
+  switchPlate: THREE.MeshStandardMaterial;
+  knobs: THREE.MeshStandardMaterial;
+};
+
+// apply customized colors roughness and metalness to keyboard materials
+function applyKeyboardMaterialProperties(
+  materials: KeyboardGLTFResult["materials"],
+  customMaterials: CustomKeyboardMaterials,
+  keyboardMaterials: ReturnType<typeof useConfiguratorStore.getState>["keyboardMaterials"],
+) {
+  materials.Metal_1.color.set(keyboardMaterials.base.color);
+  materials.Metal_1.roughness = keyboardMaterials.base.roughness;
+  materials.Metal_1.metalness = keyboardMaterials.base.metalness;
+
+  materials.Metal_2.color.set(keyboardMaterials.base.color);
+  materials.Metal_2.roughness = keyboardMaterials.base.roughness;
+  materials.Metal_2.metalness = keyboardMaterials.base.metalness;
+
+  materials.Plastic_5.color.set(keyboardMaterials.keycaps.color);
+  materials.Plastic_5.roughness = keyboardMaterials.keycaps.roughness;
+  materials.Plastic_5.metalness = keyboardMaterials.keycaps.metalness;
+
+  // restore distinct accent color for arrow and escape keys
+  materials.Plastic_2.color.set("#c86200");
+  materials.Plastic_2.roughness = 0.25;
+  materials.Plastic_2.metalness = 0;
+
+  const secondaryColor = new THREE.Color(
+    keyboardMaterials.keycaps.color,
+  ).multiplyScalar(0.7);
+  materials.Plastic_1.color.copy(secondaryColor);
+  materials.Plastic_1.roughness = keyboardMaterials.keycaps.roughness;
+  materials.Plastic_1.metalness = keyboardMaterials.keycaps.metalness;
+
+  materials.Plastic_4.color.set(keyboardMaterials.switches.color);
+  materials.Plastic_4.roughness = keyboardMaterials.switches.roughness;
+  materials.Plastic_4.metalness = keyboardMaterials.switches.metalness;
+
+  customMaterials.switchPlate.color.set(keyboardMaterials.switches.color);
+  customMaterials.switchPlate.roughness = keyboardMaterials.switches.roughness;
+  customMaterials.switchPlate.metalness = keyboardMaterials.switches.metalness;
+
+  customMaterials.knobs.color.set(keyboardMaterials.knobs.color);
+  customMaterials.knobs.roughness = keyboardMaterials.knobs.roughness;
+  customMaterials.knobs.metalness = keyboardMaterials.knobs.metalness;
+}
+
 export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
-  const { isExploded, showLabels } = useConfiguratorStore();
+  const {
+    isExploded,
+    showLabels,
+    keyboardMaterials,
+    keyboardDisplayBrightness,
+  } = useConfiguratorStore();
   const sceneRef = useRef<THREE.Group>(null);
   const chassisRef = useRef<THREE.Mesh>(null);
   const keysBodyRef = useRef<THREE.Group>(null);
@@ -182,6 +236,27 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     assetPaths.keyboard,
   ) as unknown as KeyboardGLTFResult;
+
+  // dynamic live canvas texture for keyboard oled display
+  const screenTexture = useKeyboardCanvasTexture();
+
+  // cloned materials for keyboard parts
+  const customMaterials = useMemo(
+    () => ({
+      switchPlate: materials.Plastic_3.clone(),
+      knobs: materials.Plastic_3.clone(),
+    }),
+    [materials],
+  );
+
+  useEffect(() => {
+    // update all custom keyboard materials via external helper
+    applyKeyboardMaterialProperties(
+      materials,
+      customMaterials,
+      keyboardMaterials,
+    );
+  }, [keyboardMaterials, materials, customMaterials]);
   return (
     <group {...props} dispose={null}>
       <group name="Scene" ref={sceneRef}>
@@ -1955,8 +2030,16 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.infoDisplay.geometry}
-          material={materials.Custom_1}
         >
+          <meshStandardMaterial
+            map={screenTexture}
+            emissiveMap={screenTexture}
+            emissive="#ffffff"
+            emissiveIntensity={keyboardDisplayBrightness}
+            roughness={0.15}
+            metalness={0.1}
+            toneMapped={false}
+          />
           <PartLabel
             show={showLabels && isExploded}
             title={KEYBOARD_LABELS.infoDisplay}
@@ -1970,7 +2053,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.keysUnderPlate.geometry}
-          material={materials.Plastic_3}
+          material={customMaterials.switchPlate}
         >
           <PartLabel
             show={showLabels && isExploded}
@@ -1985,7 +2068,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.knobAUnderPlate.geometry}
-          material={materials.Plastic_3}
+          material={customMaterials.knobs}
         >
           <PartLabel
             show={showLabels && isExploded}
@@ -1998,7 +2081,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.knobA.geometry}
-            material={materials.Plastic_3}
+            material={customMaterials.knobs}
           />
         </mesh>
         <mesh
@@ -2007,7 +2090,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
           castShadow
           receiveShadow
           geometry={nodes.knobBUnderPlate.geometry}
-          material={materials.Plastic_3}
+          material={customMaterials.knobs}
         >
           <PartLabel
             show={showLabels && isExploded}
@@ -2020,7 +2103,7 @@ export function KeyboardModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.knobB.geometry}
-            material={materials.Plastic_3}
+            material={customMaterials.knobs}
           />
         </mesh>
       </group>
