@@ -47,7 +47,7 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
   face: {
     title: "Display & Face",
     description:
-      "Choose watch face styles, dial color themes, and glass tones.",
+      "Choose watch face styles, complications, and ultra night mode.",
   },
   back: {
     title: "Back Plate & Sensor",
@@ -83,16 +83,17 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
 
   // reset category material properties to defaults
   const handleResetCategory = () => {
-    const defaults = DEFAULT_WATCH_MATERIALS[validCategory];
-    setWatchMaterialProperty(validCategory, "color", defaults.color);
-    setWatchMaterialProperty(validCategory, "roughness", defaults.roughness);
-    setWatchMaterialProperty(validCategory, "metalness", defaults.metalness);
     if (activeTab === "face") {
       setWatchFaceStyle("wayfinder");
       if (watchNightMode) {
         toggleWatchNightMode();
       }
+      return;
     }
+    const defaults = DEFAULT_WATCH_MATERIALS[validCategory];
+    setWatchMaterialProperty(validCategory, "color", defaults.color);
+    setWatchMaterialProperty(validCategory, "roughness", defaults.roughness);
+    setWatchMaterialProperty(validCategory, "metalness", defaults.metalness);
   };
 
   return (
@@ -214,13 +215,14 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
       )}
 
       {/* controls layout container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* base color picker section */}
-        <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
-              {activeTab === "face" ? "Glass Tint" : "Base Color"}
-            </span>
+      {activeTab !== "face" && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* base color picker section */}
+          <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
+                Base Color
+              </span>
             <div className="flex items-center gap-1.5">
               <div
                 className="w-3.5 h-3.5 rounded-full border border-black/10 dark:border-white/10 shrink-0"
@@ -311,6 +313,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }
