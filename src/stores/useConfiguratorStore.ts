@@ -98,7 +98,7 @@ export const DEFAULT_WATCH_MATERIALS: Record<
     metalness: 0.1,
   },
   back: {
-    color: "#e2ded9",
+    color: "#bfb0a1",
     roughness: 0.25,
     metalness: 0.4,
   },
@@ -184,11 +184,7 @@ export const DEFAULT_BIKE_MATERIALS: Record<
 };
 
 // guitar material categories mapping
-export type GuitarMaterialCategory =
-  | "body"
-  | "neck"
-  | "hardware"
-  | "pickguard";
+export type GuitarMaterialCategory = "body" | "neck" | "hardware" | "pickguard";
 
 // default guitar material values
 export const DEFAULT_GUITAR_MATERIALS: Record<
