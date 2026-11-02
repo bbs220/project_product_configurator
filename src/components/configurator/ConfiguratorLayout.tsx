@@ -76,68 +76,65 @@ export default function ConfiguratorLayout({
       >
         {canvas}
 
+        {/* top left stage navigation instructions without background */}
+        <div className="absolute top-4 left-4 z-20 hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm">
+          <span className="font-semibold text-gray-700 dark:text-gray-200">
+            L-Click
+          </span>
+          <span>Rotate</span>
+          <span className="text-gray-400 dark:text-gray-600">•</span>
+          <div
+            className="flex items-center gap-1"
+            title={focus ? "Panning is disabled when focus is on" : undefined}
+          >
+            <span
+              className={`font-semibold transition-colors ${
+                focus
+                  ? "text-red-500 line-through"
+                  : "text-gray-700 dark:text-gray-200"
+              }`}
+            >
+              R-Click
+            </span>
+            <span
+              className={`transition-colors ${
+                focus ? "line-through text-red-500" : ""
+              }`}
+            >
+              Pan
+            </span>
+            {focus && (
+              <Lock className="w-3 h-3 text-red-500" />
+            )}
+          </div>
+          <span className="text-gray-400 dark:text-gray-600">•</span>
+          <span className="font-semibold text-gray-700 dark:text-gray-200">
+            Scroll
+          </span>
+          <span>Zoom</span>
+        </div>
+
         {/* floating viewport controls on canvas stage */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 max-w-[calc(100%-2rem)]">
           <CanvasControls />
         </div>
 
-        {/* top right stage controls navigation instructions and open studio button */}
-        <div className="absolute top-4 right-4 z-30 flex items-center gap-3">
-          {/* floating camera navigation hints without background */}
-          <div className="hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm">
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
-              L-Click
-            </span>
-            <span>Rotate</span>
-            <span className="text-gray-400 dark:text-gray-600">•</span>
-            <div
-              className="flex items-center gap-1"
-              title={focus ? "Panning is disabled when focus is on" : undefined}
-            >
-              <span
-                className={`font-semibold transition-colors ${
-                  focus
-                    ? "text-red-500 line-through"
-                    : "text-gray-700 dark:text-gray-200"
-                }`}
-              >
-                R-Click
-              </span>
-              <span
-                className={`transition-colors ${
-                  focus ? "line-through text-red-500" : ""
-                }`}
-              >
-                Pan
-              </span>
-              {focus && (
-                <Lock className="w-3 h-3 text-red-500" />
-              )}
-            </div>
-            <span className="text-gray-400 dark:text-gray-600">•</span>
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
-              Scroll
-            </span>
-            <span>Zoom</span>
-          </div>
-
-          {/* floating button to restore sidebar when minimized */}
-          {!open && (
-            <motion.button
-              type="button"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              onClick={toggleSidebar}
-              aria-label="Open customization studio"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-zinc-800 shadow-lg transition-colors"
-            >
-              <PanelRightOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Open Studio</span>
-            </motion.button>
-          )}
-        </div>
+        {/* floating button to restore sidebar when minimized */}
+        {!open && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+            onClick={toggleSidebar}
+            aria-label="Open customization studio"
+            className="absolute top-4 right-4 z-30 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-zinc-800 shadow-lg transition-colors"
+          >
+            <PanelRightOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <span>Open Studio</span>
+          </motion.button>
+        )}
       </motion.section>
 
       {/* customization studio options panel */}
