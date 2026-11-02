@@ -106,35 +106,91 @@ function getModelSpecifications(modelKey: string): {
   }
 }
 
+// crop source canvas to widescreen aspect ratio
+function cropCanvasToAspect(
+  sourceCanvas: HTMLCanvasElement,
+  targetAspect: number,
+): HTMLCanvasElement {
+  const srcW = sourceCanvas.width;
+  const srcH = sourceCanvas.height;
+  const srcAspect = srcW / srcH;
+
+  let cropW = srcW;
+  let cropH = srcH;
+  let cropX = 0;
+  let cropY = 0;
+
+  if (srcAspect < targetAspect) {
+    cropH = Math.round(srcW / targetAspect);
+    cropY = Math.round((srcH - cropH) / 2);
+  } else {
+    cropW = Math.round(srcH * targetAspect);
+    cropX = Math.round((srcW - cropW) / 2);
+  }
+
+  const dest = document.createElement("canvas");
+  dest.width = cropW;
+  dest.height = cropH;
+  const ctx = dest.getContext("2d");
+  if (ctx) {
+    ctx.drawImage(sourceCanvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+  }
+  return dest;
+}
+
 // capture standard canvas image without labels
-function captureCanvasImage(stageEl: HTMLElement): string | null {
+function captureCanvasImage(
+  stageEl: HTMLElement,
+  targetAspect: number,
+): string | null {
   const canvas = stageEl.querySelector("canvas");
   if (!canvas) return null;
-  return canvas.toDataURL("image/png");
+  const cropped = cropCanvasToAspect(canvas, targetAspect);
+  return cropped.toDataURL("image/png");
 }
 
 // composite canvas and billboarding labels
-function captureCanvasWithLabels(stageEl: HTMLElement): string | null {
+function captureCanvasWithLabels(
+  stageEl: HTMLElement,
+  targetAspect: number,
+): string | null {
   const canvas = stageEl.querySelector("canvas");
   if (!canvas) return null;
 
   try {
+    const srcW = canvas.width;
+    const srcH = canvas.height;
+    const srcAspect = srcW / srcH;
+
+    let cropW = srcW;
+    let cropH = srcH;
+    let cropX = 0;
+    let cropY = 0;
+
+    if (srcAspect < targetAspect) {
+      cropH = Math.round(srcW / targetAspect);
+      cropY = Math.round((srcH - cropH) / 2);
+    } else {
+      cropW = Math.round(srcH * targetAspect);
+      cropX = Math.round((srcW - cropW) / 2);
+    }
+
     const offscreen = document.createElement("canvas");
-    offscreen.width = canvas.width;
-    offscreen.height = canvas.height;
+    offscreen.width = cropW;
+    offscreen.height = cropH;
     const ctx = offscreen.getContext("2d");
     if (!ctx) return canvas.toDataURL("image/png");
 
-    // transfer rendered three dimensions webgl scene
-    ctx.drawImage(canvas, 0, 0);
+    // draw cropped base webgl canvas
+    ctx.drawImage(canvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
 
     const canvasRect = canvas.getBoundingClientRect();
     if (canvasRect.width === 0 || canvasRect.height === 0) {
-      return canvas.toDataURL("image/png");
+      return offscreen.toDataURL("image/png");
     }
 
-    const scaleX = canvas.width / canvasRect.width;
-    const scaleY = canvas.height / canvasRect.height;
+    const scaleX = srcW / canvasRect.width;
+    const scaleY = srcH / canvasRect.height;
 
     // locate all billboarding label elements
     const labelNodes = stageEl.querySelectorAll<HTMLElement>(
@@ -150,11 +206,17 @@ function captureCanvasWithLabels(stageEl: HTMLElement): string | null {
         node.textContent?.replace(/\s+/g, " ").trim();
       if (!title) return;
 
-      const x = (rect.left - canvasRect.left) * scaleX;
-      const y = (rect.top - canvasRect.top) * scaleY;
+      // transform coordinates into cropped offscreen canvas space
+      const rawX = (rect.left - canvasRect.left) * scaleX;
+      const rawY = (rect.top - canvasRect.top) * scaleY;
+      const x = rawX - cropX;
+      const y = rawY - cropY;
       const w = rect.width * scaleX;
       const h = rect.height * scaleY;
       const radius = h / 2;
+
+      // skip labels outside crop boundary
+      if (x + w < 0 || x > cropW || y + h < 0 || y > cropH) return;
 
       ctx.save();
       // pill background styling
@@ -213,6 +275,9 @@ export async function generateProductPdf({
   let implodedImage: string | null = null;
   let explodedImage: string | null = null;
 
+  // target widescreen aspect ratio matching page width to height ratio
+  const targetAspect = 182 / 70;
+
   try {
     // prepare imploded capture view without labels
     onProgress?.("Framing imploded view...");
@@ -221,7 +286,7 @@ export async function generateProductPdf({
     await wait(700);
 
     // capture imploded viewport snapshot
-    implodedImage = captureCanvasImage(stageEl);
+    implodedImage = captureCanvasImage(stageEl, targetAspect);
 
     // prepare exploded capture view with component labels
     onProgress?.("Framing exploded view with labels...");
@@ -230,7 +295,7 @@ export async function generateProductPdf({
     await wait(800);
 
     // capture exploded viewport snapshot
-    explodedImage = captureCanvasWithLabels(stageEl);
+    explodedImage = captureCanvasWithLabels(stageEl, targetAspect);
   } finally {
     // restore original user viewport toggle state
     store.setExploded(originalExploded);
@@ -294,79 +359,43 @@ export async function generateProductPdf({
   });
 
   // visual views section header
-  let currentY = 35;
+  let currentY = 34;
+  const imgWidth = contentWidth;
+  const imgHeight = 70;
+
+  // full width imploded view presentation card
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(39, 39, 42);
-  doc.text("VISUAL INSPECTION VIEWS", margin, currentY);
+  doc.setFontSize(7.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, currentY);
 
-  currentY += 4;
-
-  const cardWidth = contentWidth;
-  const cardHeight = 70;
-
-  // retrieve canvas aspect ratio for scaling
-  const stageCanvas = stageEl.querySelector("canvas");
-  const canvasAspect =
-    stageCanvas && stageCanvas.height > 0
-      ? stageCanvas.width / stageCanvas.height
-      : 16 / 9;
-
-  // imploded view full width presentation card
-  doc.setFillColor(248, 249, 250);
-  doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(margin, currentY, cardWidth, cardHeight, 2, 2, "FD");
-
-  doc.setFillColor(235, 236, 240);
-  doc.roundedRect(margin + 3, currentY + 3, cardWidth - 6, 5.5, 1, 1, "F");
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(7);
-  doc.setTextColor(82, 82, 91);
-  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin + 5, currentY + 6.8);
+  currentY += 2.5;
 
   if (implodedImage) {
-    const boxW = cardWidth - 8;
-    const boxH = cardHeight - 12;
-    let imgW = boxW;
-    let imgH = imgW / canvasAspect;
-    if (imgH > boxH) {
-      imgH = boxH;
-      imgW = imgH * canvasAspect;
-    }
-    const imgX = margin + 4 + (boxW - imgW) / 2;
-    const imgY = currentY + 9.5 + (boxH - imgH) / 2;
-    doc.addImage(implodedImage, "PNG", imgX, imgY, imgW, imgH, undefined, "FAST");
+    doc.addImage(implodedImage, "PNG", margin, currentY, imgWidth, imgHeight, undefined, "FAST");
   }
 
-  currentY += cardHeight + 4;
-
-  // exploded view full width presentation card with labels
-  doc.setFillColor(248, 249, 250);
   doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(margin, currentY, cardWidth, cardHeight, 2, 2, "FD");
+  doc.roundedRect(margin, currentY, imgWidth, imgHeight, 1.5, 1.5, "S");
 
-  doc.setFillColor(235, 236, 240);
-  doc.roundedRect(margin + 3, currentY + 3, cardWidth - 6, 5.5, 1, 1, "F");
+  currentY += imgHeight + 4;
+
+  // full width exploded view presentation card with labels
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(7);
-  doc.setTextColor(82, 82, 91);
-  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin + 5, currentY + 6.8);
+  doc.setFontSize(7.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin, currentY);
+
+  currentY += 2.5;
 
   if (explodedImage) {
-    const boxW = cardWidth - 8;
-    const boxH = cardHeight - 12;
-    let imgW = boxW;
-    let imgH = imgW / canvasAspect;
-    if (imgH > boxH) {
-      imgH = boxH;
-      imgW = imgH * canvasAspect;
-    }
-    const imgX = margin + 4 + (boxW - imgW) / 2;
-    const imgY = currentY + 9.5 + (boxH - imgH) / 2;
-    doc.addImage(explodedImage, "PNG", imgX, imgY, imgW, imgH, undefined, "FAST");
+    doc.addImage(explodedImage, "PNG", margin, currentY, imgWidth, imgHeight, undefined, "FAST");
   }
 
-  currentY += cardHeight + 6;
+  doc.setDrawColor(228, 228, 231);
+  doc.roundedRect(margin, currentY, imgWidth, imgHeight, 1.5, 1.5, "S");
+
+  currentY += imgHeight + 6;
 
   // material configurations section header
   doc.setFont("helvetica", "bold");
@@ -439,21 +468,21 @@ export async function generateProductPdf({
 
   // optional extra details block
   if (extraDetails.length > 0) {
-    currentY += 6;
+    currentY += 5;
     doc.setFillColor(244, 244, 245);
-    doc.roundedRect(margin, currentY, contentWidth, 14, 2, 2, "F");
+    doc.roundedRect(margin, currentY, contentWidth, 13, 2, 2, "F");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(7.5);
     doc.setTextColor(39, 39, 42);
-    doc.text("ADDITIONAL STUDIO PARAMETERS", margin + 4, currentY + 5);
+    doc.text("ADDITIONAL STUDIO PARAMETERS", margin + 4, currentY + 4.5);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(82, 82, 91);
-    doc.text(extraDetails.join("   •   "), margin + 4, currentY + 10);
+    doc.text(extraDetails.join("   •   "), margin + 4, currentY + 9);
 
-    currentY += 14;
+    currentY += 13;
   }
 
   // bottom footer metadata bar
