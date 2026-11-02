@@ -377,10 +377,10 @@ export async function generateProductPdf({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 31);
+  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 39);
 
   const implodedAspect = implodedResult?.aspect || 1.6;
-  const maxImgHeight = 175;
+  const maxImgHeight = 155;
   let imgWidth = contentWidth;
   let imgHeight = imgWidth / implodedAspect;
   let imgX = margin;
@@ -391,7 +391,7 @@ export async function generateProductPdf({
     imgX = margin + (contentWidth - imgWidth) / 2;
   }
 
-  const imgY = 33;
+  const imgY = 43;
 
   if (implodedResult?.dataUrl) {
     doc.addImage(
@@ -413,7 +413,8 @@ export async function generateProductPdf({
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  let pageOneY = imgY + imgHeight + 7.5;
+  const tableGap = imgHeight > 140 ? 12 : 18;
+  let pageOneY = imgY + imgHeight + tableGap;
 
   // studio configuration overview card
   // material configurations section header
@@ -422,7 +423,7 @@ export async function generateProductPdf({
   doc.setTextColor(39, 39, 42);
   doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, pageOneY);
 
-  pageOneY += 3.8;
+  pageOneY += 4;
 
   // table column headers background
   doc.setFillColor(24, 24, 27);
@@ -521,9 +522,9 @@ export async function generateProductPdf({
   doc.text(`${modelTitle.toUpperCase()} — COMPONENT INSPECTION & AUTHORIZATION`, margin + 22, 11);
 
   // full width square exploded view with labels
-  let pageTwoY = 21.5;
+  let pageTwoY = 28;
   const explodedAspect = explodedResult?.aspect || implodedAspect;
-  const maxExpImgHeight = 175;
+  const maxExpImgHeight = 155;
   let expImgWidth = contentWidth;
   let expImgHeight = expImgWidth / explodedAspect;
   let expImgX = margin;
@@ -539,14 +540,14 @@ export async function generateProductPdf({
   doc.setTextColor(71, 85, 105);
   doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin, pageTwoY);
 
-  pageTwoY += 2;
+  const expImgY = pageTwoY + 4;
 
   if (explodedResult?.dataUrl) {
     doc.addImage(
       explodedResult.dataUrl,
       "PNG",
       expImgX,
-      pageTwoY,
+      expImgY,
       expImgWidth,
       expImgHeight,
       undefined,
@@ -559,7 +560,7 @@ export async function generateProductPdf({
   doc.setLineWidth(0.6);
   doc.roundedRect(
     expImgX,
-    pageTwoY,
+    expImgY,
     expImgWidth,
     expImgHeight,
     1.5,
@@ -569,7 +570,8 @@ export async function generateProductPdf({
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  pageTwoY += expImgHeight + 12;
+  const signGap = expImgHeight > 140 ? 14 : 24;
+  pageTwoY = expImgY + expImgHeight + signGap;
 
   // designer authentication and approval sign off section
   const signBoxY = pageTwoY;
