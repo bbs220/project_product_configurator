@@ -14,7 +14,7 @@ import ExportGlbButton from "./ExportGlbButton";
 import SaveConfigButton from "./SaveConfigButton";
 import ConfigDataLoader from "./ConfigDataLoader";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
-import { Toaster } from "react-hot-toast";
+
 
 type TabDef = {
   id: string;
@@ -78,7 +78,7 @@ const ConfiguratorSidebar = () => {
   return (
     <aside className="flex flex-col h-full w-full overflow-hidden">
       <ConfigDataLoader />
-      <Toaster position="bottom-left" />
+
       {/* studio header */}
       <div className="flex flex-col gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
         <div className="flex items-start justify-between gap-3">

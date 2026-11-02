@@ -5,7 +5,7 @@ import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { Box, Lock, LogIn, Plus } from "lucide-react";
 import GarageCard from "@/components/garage/GarageCard";
-import { Toaster } from "react-hot-toast";
+
 
 // user garage management page
 export default async function AccountPage() {
@@ -52,7 +52,7 @@ export default async function AccountPage() {
 
   return (
     <div className="w-full min-h-[calc(100vh-64px)] pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
-      <Toaster position="bottom-right" />
+
 
       {/* garage dashboard header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">

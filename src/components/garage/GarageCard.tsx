@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import {
   Globe,
   Lock,
   MoreVertical,
+  Share2,
   Trash2,
   Unlock,
   Check,
@@ -61,7 +62,27 @@ export default function GarageCard({ config }: GarageCardProps) {
   const [isDuplicating, setIsDuplicating] = useState<boolean>(false);
   const [isLocking, setIsLocking] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const mounted = useClientMount();
+
+  // dismiss options popup on outside click
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+    };
+  }, [menuOpen]);
 
   // copy direct studio configuration link to clipboard
   const handleCopyLink = async () => {
@@ -188,7 +209,7 @@ export default function GarageCard({ config }: GarageCardProps) {
               </div>
 
               {/* options dropdown trigger button */}
-              <div className="relative">
+              <div ref={menuRef} className="relative">
                 <button
                   type="button"
                   onClick={() => setMenuOpen(!menuOpen)}
@@ -200,72 +221,64 @@ export default function GarageCard({ config }: GarageCardProps) {
 
                 {/* options menu dropdown */}
                 {menuOpen && (
-                  <>
-                    {/* modal backdrop dismiss surface */}
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setMenuOpen(false)}
-                    />
+                  <div className="absolute right-0 bottom-full mb-1 sm:bottom-auto sm:top-full sm:mt-1 w-44 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-1.5 shadow-xl z-50 text-xs font-medium space-y-0.5 animate-in fade-in zoom-in-95 duration-100">
+                    <button
+                      type="button"
+                      onClick={handleCopyLink}
+                      className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left"
+                    >
+                      {copied ? (
+                        <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                      ) : (
+                        <Share2 className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      )}
+                      <span>{copied ? "Link Copied" : "Share Link"}</span>
+                    </button>
 
-                    <div className="absolute right-0 bottom-full mb-1 sm:bottom-auto sm:top-full sm:mt-1 w-44 rounded-xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-1.5 shadow-xl z-50 text-xs font-medium space-y-0.5 animate-in fade-in zoom-in-95 duration-100">
-                      <button
-                        type="button"
-                        onClick={handleCopyLink}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left"
-                      >
-                        {copied ? (
-                          <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
-                        ) : (
-                          <Copy className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                        )}
-                        <span>{copied ? "Copied" : "Copy Link"}</span>
-                      </button>
+                    <button
+                      type="button"
+                      onClick={handleDuplicate}
+                      disabled={isDuplicating}
+                      className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left disabled:opacity-50"
+                    >
+                      {isDuplicating ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0 text-blue-500" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      )}
+                      <span>Duplicate</span>
+                    </button>
 
-                      <button
-                        type="button"
-                        onClick={handleDuplicate}
-                        disabled={isDuplicating}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left disabled:opacity-50"
-                      >
-                        {isDuplicating ? (
-                          <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0 text-blue-500" />
-                        ) : (
-                          <Copy className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                        )}
-                        <span>Duplicate</span>
-                      </button>
+                    <button
+                      type="button"
+                      onClick={handleToggleLock}
+                      disabled={isLocking}
+                      className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left disabled:opacity-50"
+                    >
+                      {isLocking ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0 text-amber-500" />
+                      ) : config.isLocked ? (
+                        <Unlock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                      ) : (
+                        <Lock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      )}
+                      <span>{config.isLocked ? "Unlock" : "Lock"}</span>
+                    </button>
 
-                      <button
-                        type="button"
-                        onClick={handleToggleLock}
-                        disabled={isLocking}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors text-left disabled:opacity-50"
-                      >
-                        {isLocking ? (
-                          <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0 text-amber-500" />
-                        ) : config.isLocked ? (
-                          <Unlock className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                        ) : (
-                          <Lock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                        )}
-                        <span>{config.isLocked ? "Unlock" : "Lock"}</span>
-                      </button>
+                    <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
 
-                      <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setShowDeleteConfirm(true);
-                        }}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors text-left"
-                      >
-                        <Trash2 className="w-3.5 h-3.5 shrink-0" />
-                        <span>Delete</span>
-                      </button>
-                    </div>
-                  </>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setShowDeleteConfirm(true);
+                      }}
+                      className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors text-left"
+                    >
+                      <Trash2 className="w-3.5 h-3.5 shrink-0" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
                 )}
               </div>
             </div>

@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "../components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AppToaster from "@/components/ui/AppToaster";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Skip to main content
           </a>
           <ThemeProvider>
+            <AppToaster />
             <Navbar />
             <main id="main-content" className="flex-1">
               {children}
