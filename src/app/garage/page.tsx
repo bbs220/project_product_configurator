@@ -1,10 +1,11 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import { savedConfigs } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
-import { Box, Lock, LogIn, Plus, Settings } from "lucide-react";
-import Image from "next/image";
+import { Box, Lock, LogIn, Plus } from "lucide-react";
+import GarageCard from "@/components/garage/GarageCard";
+import { Toaster } from "react-hot-toast";
 
 // user garage management page
 export default async function AccountPage() {
@@ -42,85 +43,68 @@ export default async function AccountPage() {
     );
   }
 
+  // fetch user configurations ordered by most recent update
   const configs = await db
     .select()
     .from(savedConfigs)
-    .where(eq(savedConfigs.clerkUserId, userId));
+    .where(eq(savedConfigs.clerkUserId, userId))
+    .orderBy(desc(savedConfigs.updatedAt));
 
   return (
-    <div className="w-full min-h-[calc(100vh-64px)] pt-32 pb-12 px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+    <div className="w-full min-h-[calc(100vh-64px)] pt-28 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
+      <Toaster position="bottom-right" />
+
+      {/* garage dashboard header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">
-            My Garage
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            View and manage your saved product configurations.
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+              My Garage
+            </h1>
+            <span className="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+              {configs.length} / 20 Builds
+            </span>
+          </div>
+          <p className="text-base text-gray-600 dark:text-gray-400">
+            View, inspect, and manage your saved custom 3D product variations.
           </p>
         </div>
+
+        {/* new project action link */}
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-xl font-medium hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity shrink-0 shadow-sm"
         >
-          <Plus className="w-5 h-5" />
-          New Project
+          <Plus className="w-4 h-4" />
+          <span>New Build</span>
         </Link>
       </div>
 
+      {/* empty garage state */}
       {configs.length === 0 ? (
-        <div className="w-full h-64 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center text-center p-6">
-          <Box className="w-12 h-12 text-gray-400 mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        <div className="w-full h-80 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl flex flex-col items-center justify-center text-center p-8">
+          <div className="w-14 h-14 rounded-2xl bg-gray-100 dark:bg-zinc-900 flex items-center justify-center mb-4 text-gray-400 dark:text-gray-600">
+            <Box className="w-8 h-8" />
+          </div>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1.5">
             Your garage is empty
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 max-w-md">
-            {`You haven't saved any configurations yet. Head over to the dashboard to start customizing a new product.`}
+          <p className="text-xs text-gray-500 dark:text-gray-400 max-w-sm mb-6">
+            You have not saved any product variations yet. Head over to the studio to customize and save your first build.
           </p>
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Start Customizing</span>
+          </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        /* saved configurations card grid */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {configs.map((config) => (
-            <div
-              key={config.id}
-              className="group rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300 hover:ring-2 hover:ring-gray-900 dark:hover:ring-white"
-            >
-              <div className="w-full aspect-video bg-gray-200 dark:bg-gray-800 relative flex items-center justify-center">
-                {config.thumbnailUrl ? (
-                  <Image
-                    src={config.thumbnailUrl}
-                    alt={`Saved ${config.modelType}`}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <Box className="w-16 h-16 text-gray-300 dark:text-gray-700" />
-                )}
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white capitalize">
-                      {config.modelType}
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                      Saved {new Date(config.updatedAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <button
-                    aria-label="Configuration settings"
-                    className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                  >
-                    <Settings className="w-5 h-5" />
-                  </button>
-                </div>
-                <Link
-                  href={`/configurator?model=${config.modelType}&id=${config.id}`}
-                  className="w-full block text-center bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white py-3 rounded-xl font-medium transition-colors"
-                >
-                  Load Configuration
-                </Link>
-              </div>
-            </div>
+            <GarageCard key={config.id} config={config} />
           ))}
         </div>
       )}

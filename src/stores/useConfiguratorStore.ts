@@ -314,9 +314,130 @@ type ConfiguratorState = {
   watchNightMode: boolean;
   // toggle watch display night mode
   toggleWatchNightMode: () => void;
+
+  // active saved configuration identifier
+  activeConfigId: number | null;
+  // active saved configuration name
+  activeConfigName: string | null;
+  // whether the user is the author of this build
+  isConfigOwner: boolean;
+  // whether the build is locked from edits
+  isConfigLocked: boolean;
+  // update active configuration state
+  setActiveConfig: (info: {
+    id: number | null;
+    name: string | null;
+    isOwner?: boolean;
+    isLocked?: boolean;
+  }) => void;
+  // extract current material properties and styles for serialization
+  getConfigSnapshot: (model: ConfiguratorModel) => Record<string, unknown>;
+  // populate materials and styles from saved configuration
+  loadConfigSnapshot: (
+    model: ConfiguratorModel,
+    data: Record<string, unknown>
+  ) => void;
 };
 
-export const useConfiguratorStore = create<ConfiguratorState>((set) => ({
+export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
+  // active saved configuration identifier
+  activeConfigId: null,
+  // active saved configuration name
+  activeConfigName: null,
+  // whether the user is the author of this build
+  isConfigOwner: false,
+  // whether the build is locked from edits
+  isConfigLocked: false,
+  // update active configuration state
+  setActiveConfig: (info) =>
+    set({
+      activeConfigId: info.id,
+      activeConfigName: info.name,
+      isConfigOwner: info.isOwner ?? false,
+      isConfigLocked: info.isLocked ?? false,
+    }),
+  // extract current material properties and styles for serialization
+  getConfigSnapshot: (model) => {
+    const s = get();
+    if (model === "watch") {
+      return {
+        materials: s.watchMaterials,
+        watchFaceStyle: s.watchFaceStyle,
+        watchNightMode: s.watchNightMode,
+      };
+    }
+    if (model === "keyboard") {
+      return {
+        materials: s.keyboardMaterials,
+        keyboardDisplayStyle: s.keyboardDisplayStyle,
+        keyboardDisplayTheme: s.keyboardDisplayTheme,
+        keyboardDisplayBrightness: s.keyboardDisplayBrightness,
+      };
+    }
+    if (model === "mtBike") {
+      return {
+        materials: s.bikeMaterials,
+      };
+    }
+    if (model === "guitar") {
+      return {
+        materials: s.guitarMaterials,
+      };
+    }
+    return {};
+  },
+  // populate materials and styles from saved configuration
+  loadConfigSnapshot: (model, data) => {
+    if (!data) return;
+    const partial: Partial<ConfiguratorState> = {};
+    if (model === "watch") {
+      if (data.materials) {
+        partial.watchMaterials = data.materials as Record<
+          WatchMaterialCategory,
+          MaterialProperties
+        >;
+      }
+      if (typeof data.watchFaceStyle === "string") {
+        partial.watchFaceStyle = data.watchFaceStyle as WatchFaceStyle;
+      }
+      if (typeof data.watchNightMode === "boolean") {
+        partial.watchNightMode = data.watchNightMode;
+      }
+    } else if (model === "keyboard") {
+      if (data.materials) {
+        partial.keyboardMaterials = data.materials as Record<
+          KeyboardMaterialCategory,
+          MaterialProperties
+        >;
+      }
+      if (typeof data.keyboardDisplayStyle === "string") {
+        partial.keyboardDisplayStyle =
+          data.keyboardDisplayStyle as KeyboardDisplayStyle;
+      }
+      if (typeof data.keyboardDisplayTheme === "string") {
+        partial.keyboardDisplayTheme =
+          data.keyboardDisplayTheme as KeyboardDisplayTheme;
+      }
+      if (typeof data.keyboardDisplayBrightness === "number") {
+        partial.keyboardDisplayBrightness = data.keyboardDisplayBrightness;
+      }
+    } else if (model === "mtBike") {
+      if (data.materials) {
+        partial.bikeMaterials = data.materials as Record<
+          BikeMaterialCategory,
+          MaterialProperties
+        >;
+      }
+    } else if (model === "guitar") {
+      if (data.materials) {
+        partial.guitarMaterials = data.materials as Record<
+          GuitarMaterialCategory,
+          MaterialProperties
+        >;
+      }
+    }
+    set(partial);
+  },
   watchMaterials: DEFAULT_WATCH_MATERIALS,
   setWatchMaterialProperty: (category, property, value) =>
     set((state) => ({

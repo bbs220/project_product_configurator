@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Lock, Settings2, type LucideIcon } from "lucide-react";
+import { Globe, Lock, Settings2, type LucideIcon } from "lucide-react";
 
 import WatchPanel, { watchTabs } from "./panels/WatchPanel";
 import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
@@ -11,6 +11,8 @@ import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 import CanvasControls from "./CanvasControls";
 import ExportPdfButton from "./ExportPdfButton";
 import ExportGlbButton from "./ExportGlbButton";
+import SaveConfigButton from "./SaveConfigButton";
+import ConfigDataLoader from "./ConfigDataLoader";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { Toaster } from "react-hot-toast";
 
@@ -34,6 +36,9 @@ const fallbackTabs: TabDef[] = [
 
 const ConfiguratorSidebar = () => {
   const { focus } = useConfiguratorStore();
+  const activeConfigName = useConfiguratorStore((s) => s.activeConfigName);
+  const isConfigLocked = useConfiguratorStore((s) => s.isConfigLocked);
+  const isConfigOwner = useConfiguratorStore((s) => s.isConfigOwner);
   const searchParams = useSearchParams();
   const modelKey = searchParams.get("model") || "watch";
   const tabs = modelTabsConfig[modelKey] || fallbackTabs;
@@ -72,29 +77,36 @@ const ConfiguratorSidebar = () => {
 
   return (
     <aside className="flex flex-col h-full w-full overflow-hidden">
+      <ConfigDataLoader />
       <Toaster position="bottom-left" />
       {/* studio header */}
       <div className="flex flex-col gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
         <div className="flex items-start justify-between gap-3">
           <div>
-          <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
-            Design Studio
-          </span>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            {modelLabels[modelKey] || modelKey}
-          </h1>
-        </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                Design Studio
+              </span>
+              {activeConfigName && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                  {isConfigLocked && <Lock className="w-2.5 h-2.5" />}
+                  {!isConfigOwner && <Globe className="w-2.5 h-2.5" />}
+                  <span className="truncate max-w-35">{activeConfigName}</span>
+                </span>
+              )}
+            </div>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+              {modelLabels[modelKey] || modelKey}
+            </h1>
+          </div>
           <div className="flex items-center gap-2 shrink-0">
-  
+            <SaveConfigButton modelKey={modelKey} />
             <ExportPdfButton modelKey={modelKey} />
             <ExportGlbButton modelKey={modelKey} />
-  
           </div>
         </div>
         <div className="w-full">
           <CanvasControls />
-
-
         </div>
       </div>
 
