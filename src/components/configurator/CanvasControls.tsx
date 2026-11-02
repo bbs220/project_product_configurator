@@ -34,7 +34,7 @@ export default function CanvasControls({
 
   return (
     <div
-      className={`grid grid-cols-2 gap-1 p-1 bg-gray-100 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-gray-800 shrink-0 ${className}`}
+      className={`grid grid-cols-4 gap-1 p-1 bg-gray-100 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-gray-800 w-full ${className}`}
     >
       <button
         type="button"

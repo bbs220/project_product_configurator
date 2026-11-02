@@ -11,6 +11,7 @@ import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 import CanvasControls from "./CanvasControls";
 import ExportPdfButton from "./ExportPdfButton";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
+import { Toaster } from "react-hot-toast";
 
 type TabDef = {
   id: string;
@@ -70,8 +71,9 @@ const ConfiguratorSidebar = () => {
 
   return (
     <aside className="flex flex-col h-full w-full overflow-hidden">
+      <Toaster position="top-left" />
       {/* studio header */}
-      <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
+      <div className="flex flex-col gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
         <div>
           <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Design Studio
@@ -134,7 +136,9 @@ const ConfiguratorSidebar = () => {
           </span>
           <span
             className={`transition-colors ${
-              focus ? "line-through text-red-600 dark:text-red-400 font-medium" : ""
+              focus
+                ? "line-through text-red-600 dark:text-red-400 font-medium"
+                : ""
             }`}
           >
             Pan
