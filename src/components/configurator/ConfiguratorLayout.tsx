@@ -43,7 +43,7 @@ export default function ConfiguratorLayout({
       <section
         id="canvas-stage"
         className={`relative h-1/2 lg:h-full overflow-hidden isolate transition-all duration-300 ${
-          open ? "w-full lg:flex-1" : "w-full h-full flex-1"
+          open ? "w-full lg:w-3/5 flex-1 lg:flex-none" : "w-full h-full flex-1"
         }`}
       >
         {canvas}
@@ -53,63 +53,64 @@ export default function ConfiguratorLayout({
           <CanvasControls />
         </div>
 
-        {/* floating camera navigation hints */}
-        <div className="absolute bottom-5 left-5 z-20 hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border border-gray-200/70 dark:border-gray-800/70 shadow-sm text-[11px] text-gray-500 dark:text-gray-400 select-none">
-          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
-            L-Click
-          </span>
-          <span>Rotate</span>
-          <span className="text-gray-300 dark:text-gray-700">•</span>
-          <div
-            className="flex items-center gap-1"
-            title={focus ? "Panning is disabled when focus is on" : undefined}
-          >
-            <span
-              className={`px-1.5 py-0.5 rounded border text-[10px] font-mono font-medium transition-colors ${
-                focus
-                  ? "bg-red-500/10 border-red-500/30 text-red-600 dark:text-red-400 line-through"
-                  : "bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300"
-              }`}
-            >
-              R-Click
+        {/* top right stage controls navigation instructions and open studio button */}
+        <div className="absolute top-4 right-4 z-30 flex items-center gap-3">
+          {/* floating camera navigation hints without background */}
+          <div className="hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm">
+            <span className="font-semibold text-gray-700 dark:text-gray-200">
+              L-Click
             </span>
-            <span
-              className={`transition-colors ${
-                focus
-                  ? "line-through text-red-600 dark:text-red-400 font-medium"
-                  : ""
-              }`}
+            <span>Rotate</span>
+            <span className="text-gray-400 dark:text-gray-600">•</span>
+            <div
+              className="flex items-center gap-1"
+              title={focus ? "Panning is disabled when focus is on" : undefined}
             >
-              Pan
+              <span
+                className={`font-semibold transition-colors ${
+                  focus
+                    ? "text-red-500 line-through"
+                    : "text-gray-700 dark:text-gray-200"
+                }`}
+              >
+                R-Click
+              </span>
+              <span
+                className={`transition-colors ${
+                  focus ? "line-through text-red-500" : ""
+                }`}
+              >
+                Pan
+              </span>
+              {focus && (
+                <Lock className="w-3 h-3 text-red-500" />
+              )}
+            </div>
+            <span className="text-gray-400 dark:text-gray-600">•</span>
+            <span className="font-semibold text-gray-700 dark:text-gray-200">
+              Scroll
             </span>
-            {focus && (
-              <Lock className="w-3 h-3 text-red-600 dark:text-red-400" />
-            )}
+            <span>Zoom</span>
           </div>
-          <span className="text-gray-300 dark:text-gray-700">•</span>
-          <span className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 text-[10px] font-mono font-medium text-gray-700 dark:text-gray-300">
-            Scroll
-          </span>
-          <span>Zoom</span>
-        </div>
 
-        {/* floating button to restore sidebar when minimized */}
-        {!open && (
-          <button
-            type="button"
-            onClick={toggleSidebar}
-            aria-label="Open customization studio"
-            className="absolute top-4 right-4 z-40 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-zinc-800 shadow-lg transition-all animate-in fade-in zoom-in-95 duration-200"
-          >
-            <PanelRightOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span>Open Studio</span>
-          </button>
-        )}
+          {/* floating button to restore sidebar when minimized */}
+          {!open && (
+            <button
+              type="button"
+              onClick={toggleSidebar}
+              aria-label="Open customization studio"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-zinc-800 shadow-lg transition-all animate-in fade-in zoom-in-95 duration-200"
+            >
+              <PanelRightOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span>Open Studio</span>
+            </button>
+          )}
+        </div>
       </section>
 
       {/* customization studio options panel */}
       {open && (
-        <section className="w-full lg:w-[460px] xl:w-[480px] 2xl:w-[500px] lg:flex-none h-1/2 lg:h-full border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-800 flex flex-col bg-gray-50/70 dark:bg-zinc-950/70 backdrop-blur-xl overflow-hidden transition-all duration-300">
+        <section className="w-full lg:w-2/5 h-1/2 lg:h-full lg:flex-none border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-800 flex flex-col bg-gray-50/70 dark:bg-zinc-950/70 backdrop-blur-xl overflow-hidden transition-all duration-300">
           {sidebar}
         </section>
       )}
