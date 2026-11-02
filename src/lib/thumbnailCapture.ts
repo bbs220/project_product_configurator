@@ -6,8 +6,8 @@ export function captureStudioThumbnail(): string | undefined {
   const canvas = stageEl?.querySelector("canvas");
   if (!canvas || canvas.width === 0 || canvas.height === 0) return undefined;
 
-  // target clean portrait card aspect ratio for garage preview
-  const targetAspect = 3 / 4;
+  // target clean square aspect ratio for garage preview
+  const targetAspect = 1;
   const srcW = canvas.width;
   const srcH = canvas.height;
   const srcAspect = srcW / srcH;
@@ -18,22 +18,21 @@ export function captureStudioThumbnail(): string | undefined {
   let cropY = 0;
 
   if (srcAspect > targetAspect) {
-    // canvas is wider than target crop horizontal center
-    cropW = Math.round(srcH * targetAspect);
+    // canvas is wider than square crop horizontal center
+    cropW = srcH;
     cropX = Math.round((srcW - cropW) / 2);
   } else {
-    // canvas is taller than target crop vertical center
-    cropH = Math.round(srcW / targetAspect);
+    // canvas is taller than square crop vertical center
+    cropH = srcW;
     cropY = Math.round((srcH - cropH) / 2);
   }
 
   // target output dimensions
-  const destW = 450;
-  const destH = 600;
+  const destSize = 512;
 
   const offscreen = document.createElement("canvas");
-  offscreen.width = destW;
-  offscreen.height = destH;
+  offscreen.width = destSize;
+  offscreen.height = destSize;
   const ctx = offscreen.getContext("2d");
   if (!ctx) return undefined;
 
@@ -46,8 +45,8 @@ export function captureStudioThumbnail(): string | undefined {
     cropH,
     0,
     0,
-    destW,
-    destH
+    destSize,
+    destSize
   );
 
   // export optimized webp data url
