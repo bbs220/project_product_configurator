@@ -3,6 +3,9 @@ import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 export type PdfExportOptions = {
   modelKey: string;
+  signerName?: string;
+  signerEmail?: string;
+  signatureDataUrl?: string;
   onProgress?: (message: string) => void;
 };
 
@@ -299,6 +302,9 @@ function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
 // generate downloadable product specification document
 export async function generateProductPdf({
   modelKey,
+  signerName,
+  signerEmail,
+  signatureDataUrl,
   onProgress,
 }: PdfExportOptions): Promise<void> {
   // locate interactive viewport stage container
@@ -399,14 +405,14 @@ export async function generateProductPdf({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 34);
+  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 31);
 
   if (implodedImage) {
     doc.addImage(
       implodedImage,
       "PNG",
       margin,
-      36.5,
+      33,
       squareSize,
       squareSize,
       undefined,
@@ -417,34 +423,108 @@ export async function generateProductPdf({
   // draw image border frame with enhanced stroke width
   doc.setDrawColor(24, 24, 27);
   doc.setLineWidth(0.6);
-  doc.roundedRect(margin, 36.5, squareSize, squareSize, 1.5, 1.5, "S");
+  doc.roundedRect(margin, 33, squareSize, squareSize, 1.5, 1.5, "S");
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  // studio configuration overview card
-  doc.setFillColor(248, 249, 250);
-  doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(margin, 224, contentWidth, 42, 2, 2, "FD");
+  let pageOneY = 219;
 
+  // studio configuration overview card
+  // material configurations section header
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8);
   doc.setTextColor(39, 39, 42);
-  doc.text("STUDIO CONFIGURATION OVERVIEW", margin + 5, 231);
+  doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, pageOneY);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.5);
-  doc.setTextColor(71, 85, 105);
-  doc.text(`MODEL: ${modelTitle.toUpperCase()}`, margin + 5, 238);
-  doc.text("VIEW MODE: HIGH FIDELITY ASSEMBLED STATE", margin + 5, 245);
-  doc.text("STATUS: VERIFIED CONFIGURATION SPECIFICATION", margin + 5, 252);
-
-  doc.setTextColor(37, 99, 235);
   doc.setFont("helvetica", "bold");
+  doc.setFontSize(7);
+  doc.setTextColor(37, 99, 235);
   doc.text(
-    "SEE PAGE 2 FOR EXPLODED PART LABELS AND COMPONENT SPECIFICATIONS →",
-    margin + 5,
-    260,
+    "SEE PAGE 2 FOR EXPLODED PART LABELS AND VERIFIED SIGN-OFF →",
+    pageWidth - margin,
+    pageOneY,
+    { align: "right" },
   );
+
+  pageOneY += 3.5;
+
+  // table column headers background
+  doc.setFillColor(24, 24, 27);
+  doc.rect(margin, pageOneY, contentWidth, 5.5, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(7);
+  doc.setTextColor(255, 255, 255);
+
+  const colComponentX = margin + 4;
+  const colColorX = margin + 65;
+  const colRoughnessX = margin + 115;
+  const colMetalnessX = margin + 150;
+
+  doc.text("COMPONENT", colComponentX, pageOneY + 3.8);
+  doc.text("FINISH COLOR", colColorX, pageOneY + 3.8);
+  doc.text("ROUGHNESS", colRoughnessX, pageOneY + 3.8);
+  doc.text("METALNESS", colMetalnessX, pageOneY + 3.8);
+
+  pageOneY += 5.5;
+
+  // populate component specifications rows
+  const { specs, extraDetails } = getModelSpecifications(modelKey);
+  const rowHeight = 6.2;
+
+  specs.forEach((spec, index) => {
+    const isEven = index % 2 === 0;
+    doc.setFillColor(isEven ? 255 : 249, isEven ? 255 : 250, isEven ? 255 : 251);
+    doc.setDrawColor(241, 243, 245);
+    doc.rect(margin, pageOneY, contentWidth, rowHeight, "FD");
+
+    // component label
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7);
+    doc.setTextColor(24, 24, 27);
+    doc.text(spec.name, colComponentX, pageOneY + 4.2);
+
+    // color swatch block
+    const rgb = hexToRgb(spec.color);
+    doc.setFillColor(rgb[0], rgb[1], rgb[2]);
+    doc.setDrawColor(200, 200, 200);
+    doc.roundedRect(colColorX, pageOneY + 1.2, 3.8, 3.8, 0.8, 0.8, "FD");
+
+    // hex color code
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(71, 85, 105);
+    doc.text(spec.color.toUpperCase(), colColorX + 6.5, pageOneY + 4.2);
+
+    // roughness level
+    const roughnessPercent = Math.round(spec.roughness * 100);
+    const roughnessTag = roughnessPercent < 30 ? "Glossy" : roughnessPercent > 70 ? "Matte" : "Satin";
+    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, pageOneY + 4.2);
+
+    // metalness level
+    const metalnessPercent = Math.round(spec.metalness * 100);
+    const metalnessTag = metalnessPercent > 50 ? "Metallic" : "Dielectric";
+    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, pageOneY + 4.2);
+
+    pageOneY += rowHeight;
+  });
+
+  // optional extra details block
+  if (extraDetails.length > 0) {
+    pageOneY += 2;
+    doc.setFillColor(244, 244, 245);
+    doc.roundedRect(margin, pageOneY, contentWidth, 7, 1.5, 1.5, "F");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(6.5);
+    doc.setTextColor(39, 39, 42);
+    doc.text("STUDIO PARAMETERS:", margin + 4, pageOneY + 4.5);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(6.5);
+    doc.setTextColor(82, 82, 91);
+    doc.text(extraDetails.join("   •   "), margin + 36, pageOneY + 4.5);
+  }
 
   // begin page two for exploded inspection and specifications
   doc.addPage();
@@ -462,19 +542,19 @@ export async function generateProductPdf({
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(161, 161, 170);
-  doc.text(`${modelTitle.toUpperCase()} — COMPONENT INSPECTION`, margin + 22, 11);
+  doc.text(`${modelTitle.toUpperCase()} — COMPONENT INSPECTION & AUTHORIZATION`, margin + 22, 11);
 
   // full width square exploded view with labels
-  let pageTwoY = 22;
-  const explodedSquareSize = 136;
-  const explodedX = margin + (contentWidth - explodedSquareSize) / 2;
+  let pageTwoY = 21.5;
+  const explodedSquareSize = squareSize;
+  const explodedX = margin;
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(71, 85, 105);
   doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin, pageTwoY);
 
-  pageTwoY += 2.5;
+  pageTwoY += 2;
 
   if (explodedResult?.dataUrl) {
     doc.addImage(
@@ -506,91 +586,76 @@ export async function generateProductPdf({
 
   pageTwoY += explodedSquareSize + 5;
 
-  // material configurations section header
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.setTextColor(39, 39, 42);
-  doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, pageTwoY);
+  // designer authentication and approval sign off section
+  const signBoxY = pageTwoY;
+  const signBoxH = 40;
 
-  pageTwoY += 4.5;
-
-  // table column headers background
-  doc.setFillColor(24, 24, 27);
-  doc.rect(margin, pageTwoY, contentWidth, 6.5, "F");
+  doc.setFillColor(250, 250, 250);
+  doc.setDrawColor(228, 228, 231);
+  doc.roundedRect(margin, signBoxY, contentWidth, signBoxH, 2, 2, "FD");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
-  doc.setTextColor(255, 255, 255);
+  doc.setTextColor(24, 24, 27);
+  doc.text("DESIGNER VERIFICATION & APPROVAL SIGN-OFF", margin + 5, signBoxY + 6);
 
-  const colComponentX = margin + 4;
-  const colColorX = margin + 65;
-  const colRoughnessX = margin + 115;
-  const colMetalnessX = margin + 150;
-
-  doc.text("COMPONENT", colComponentX, pageTwoY + 4.5);
-  doc.text("FINISH COLOR", colColorX, pageTwoY + 4.5);
-  doc.text("ROUGHNESS", colRoughnessX, pageTwoY + 4.5);
-  doc.text("METALNESS", colMetalnessX, pageTwoY + 4.5);
-
-  pageTwoY += 6.5;
-
-  // populate component specifications rows
-  const { specs, extraDetails } = getModelSpecifications(modelKey);
-  const rowHeight = 7;
-
-  specs.forEach((spec, index) => {
-    const isEven = index % 2 === 0;
-    doc.setFillColor(isEven ? 255 : 249, isEven ? 255 : 250, isEven ? 255 : 251);
-    doc.setDrawColor(241, 243, 245);
-    doc.rect(margin, pageTwoY, contentWidth, rowHeight, "FD");
-
-    // component label
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(7.5);
-    doc.setTextColor(24, 24, 27);
-    doc.text(spec.name, colComponentX, pageTwoY + 4.6);
-
-    // color swatch block
-    const rgb = hexToRgb(spec.color);
-    doc.setFillColor(rgb[0], rgb[1], rgb[2]);
-    doc.setDrawColor(200, 200, 200);
-    doc.roundedRect(colColorX, pageTwoY + 1.4, 4, 4, 0.8, 0.8, "FD");
-
-    // hex color code
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(7.5);
-    doc.setTextColor(71, 85, 105);
-    doc.text(spec.color.toUpperCase(), colColorX + 6.5, pageTwoY + 4.6);
-
-    // roughness level
-    const roughnessPercent = Math.round(spec.roughness * 100);
-    const roughnessTag = roughnessPercent < 30 ? "Glossy" : roughnessPercent > 70 ? "Matte" : "Satin";
-    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, pageTwoY + 4.6);
-
-    // metalness level
-    const metalnessPercent = Math.round(spec.metalness * 100);
-    const metalnessTag = metalnessPercent > 50 ? "Metallic" : "Dielectric";
-    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, pageTwoY + 4.6);
-
-    pageTwoY += rowHeight;
-  });
-
-  // optional extra details block
-  if (extraDetails.length > 0) {
-    pageTwoY += 3.5;
-    doc.setFillColor(244, 244, 245);
-    doc.roundedRect(margin, pageTwoY, contentWidth, 10, 1.5, 1.5, "F");
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(7);
-    doc.setTextColor(39, 39, 42);
-    doc.text("ADDITIONAL STUDIO PARAMETERS", margin + 4, pageTwoY + 3.8);
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(7);
-    doc.setTextColor(82, 82, 91);
-    doc.text(extraDetails.join("   •   "), margin + 4, pageTwoY + 7.5);
+  // designer verification credential details
+  const displaySigner = signerName || "Authorized Designer";
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7);
+  doc.setTextColor(71, 85, 105);
+  doc.text(`CONFIGURED BY: ${displaySigner.toUpperCase()}`, margin + 5, signBoxY + 12.5);
+  if (signerEmail) {
+    doc.text(`ACCOUNT EMAIL: ${signerEmail}`, margin + 5, signBoxY + 17.5);
   }
+  doc.text("AUTHENTICATION: CLERK SECURE VERIFIED SESSION", margin + 5, signBoxY + 22.5);
+
+  // verification status badge stamp
+  doc.setFillColor(239, 246, 255);
+  doc.setDrawColor(59, 130, 246);
+  doc.roundedRect(margin + 5, signBoxY + 27, 48, 6.5, 1, 1, "FD");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(6.5);
+  doc.setTextColor(37, 99, 235);
+  doc.text("FORMA VERIFIED CONFIGURATION", margin + 7.5, signBoxY + 31.2);
+
+  // signature line and date fields
+  const sigAreaX = margin + 86;
+  const sigLineY = signBoxY + 29;
+  const sigLineW = 52;
+  const dateLineX = sigAreaX + 58;
+  const dateLineW = 32;
+
+  // embedded hand drawn or digital signature mark
+  if (signatureDataUrl) {
+    doc.addImage(
+      signatureDataUrl,
+      "PNG",
+      sigAreaX,
+      sigLineY - 14,
+      46,
+      13,
+      undefined,
+      "FAST",
+    );
+  } else {
+    doc.setFont("helvetica", "bolditalic");
+    doc.setFontSize(8.5);
+    doc.setTextColor(37, 99, 235);
+    doc.text(displaySigner, sigAreaX + 2, sigLineY - 3);
+  }
+
+  doc.setDrawColor(161, 161, 170);
+  doc.setLineWidth(0.3);
+  doc.line(sigAreaX, sigLineY, sigAreaX + sigLineW, sigLineY);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(6.5);
+  doc.setTextColor(113, 113, 122);
+  doc.text("AUTHORIZED SIGNATURE", sigAreaX, sigLineY + 4);
+
+  doc.line(dateLineX, sigLineY, dateLineX + dateLineW, sigLineY);
+  doc.text(`DATE: ${exportDate.toUpperCase()}`, dateLineX, sigLineY + 4);
+  doc.setLineWidth(0.2);
 
   // bottom footer metadata bar and page numbering
   const totalPages = doc.getNumberOfPages();
