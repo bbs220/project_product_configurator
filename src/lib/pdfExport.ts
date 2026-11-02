@@ -286,67 +286,87 @@ export async function generateProductPdf({
   });
 
   // visual views section header
-  let currentY = 36;
+  let currentY = 35;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(39, 39, 42);
   doc.text("VISUAL INSPECTION VIEWS", margin, currentY);
 
   currentY += 4;
 
-  const cardWidth = (contentWidth - 6) / 2;
-  const cardHeight = 62;
+  const cardWidth = contentWidth;
+  const cardHeight = 70;
 
-  // imploded view visual presentation card
+  // retrieve canvas aspect ratio for scaling
+  const stageCanvas = stageEl.querySelector("canvas");
+  const canvasAspect =
+    stageCanvas && stageCanvas.height > 0
+      ? stageCanvas.width / stageCanvas.height
+      : 16 / 9;
+
+  // imploded view full width presentation card
   doc.setFillColor(248, 249, 250);
   doc.setDrawColor(228, 228, 231);
   doc.roundedRect(margin, currentY, cardWidth, cardHeight, 2, 2, "FD");
 
   doc.setFillColor(235, 236, 240);
-  doc.roundedRect(margin + 3, currentY + 3, cardWidth - 6, 6, 1, 1, "F");
+  doc.roundedRect(margin + 3, currentY + 3, cardWidth - 6, 5.5, 1, 1, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7);
   doc.setTextColor(82, 82, 91);
-  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin + 5, currentY + 7);
+  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin + 5, currentY + 6.8);
 
   if (implodedImage) {
-    const imgX = margin + 4;
-    const imgY = currentY + 11;
-    const imgW = cardWidth - 8;
-    const imgH = cardHeight - 14;
+    const boxW = cardWidth - 8;
+    const boxH = cardHeight - 12;
+    let imgW = boxW;
+    let imgH = imgW / canvasAspect;
+    if (imgH > boxH) {
+      imgH = boxH;
+      imgW = imgH * canvasAspect;
+    }
+    const imgX = margin + 4 + (boxW - imgW) / 2;
+    const imgY = currentY + 9.5 + (boxH - imgH) / 2;
     doc.addImage(implodedImage, "PNG", imgX, imgY, imgW, imgH, undefined, "FAST");
   }
 
-  // exploded view visual presentation card with labels
-  const rightCardX = margin + cardWidth + 6;
+  currentY += cardHeight + 4;
+
+  // exploded view full width presentation card with labels
   doc.setFillColor(248, 249, 250);
   doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(rightCardX, currentY, cardWidth, cardHeight, 2, 2, "FD");
+  doc.roundedRect(margin, currentY, cardWidth, cardHeight, 2, 2, "FD");
 
   doc.setFillColor(235, 236, 240);
-  doc.roundedRect(rightCardX + 3, currentY + 3, cardWidth - 6, 6, 1, 1, "F");
+  doc.roundedRect(margin + 3, currentY + 3, cardWidth - 6, 5.5, 1, 1, "F");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7);
   doc.setTextColor(82, 82, 91);
-  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", rightCardX + 5, currentY + 7);
+  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin + 5, currentY + 6.8);
 
   if (explodedImage) {
-    const imgX = rightCardX + 4;
-    const imgY = currentY + 11;
-    const imgW = cardWidth - 8;
-    const imgH = cardHeight - 14;
+    const boxW = cardWidth - 8;
+    const boxH = cardHeight - 12;
+    let imgW = boxW;
+    let imgH = imgW / canvasAspect;
+    if (imgH > boxH) {
+      imgH = boxH;
+      imgW = imgH * canvasAspect;
+    }
+    const imgX = margin + 4 + (boxW - imgW) / 2;
+    const imgY = currentY + 9.5 + (boxH - imgH) / 2;
     doc.addImage(explodedImage, "PNG", imgX, imgY, imgW, imgH, undefined, "FAST");
   }
 
-  currentY += cardHeight + 10;
+  currentY += cardHeight + 6;
 
   // material configurations section header
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(39, 39, 42);
   doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, currentY);
 
-  currentY += 5;
+  currentY += 4.5;
 
   // table column headers background
   doc.setFillColor(24, 24, 27);
@@ -370,7 +390,7 @@ export async function generateProductPdf({
 
   // populate component specifications rows
   const { specs, extraDetails } = getModelSpecifications(modelKey);
-  const rowHeight = 9.5;
+  const rowHeight = 8.5;
 
   specs.forEach((spec, index) => {
     const isEven = index % 2 === 0;
@@ -382,29 +402,29 @@ export async function generateProductPdf({
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
     doc.setTextColor(24, 24, 27);
-    doc.text(spec.name, colComponentX, currentY + 6);
+    doc.text(spec.name, colComponentX, currentY + 5.5);
 
     // color swatch block
     const rgb = hexToRgb(spec.color);
     doc.setFillColor(rgb[0], rgb[1], rgb[2]);
     doc.setDrawColor(200, 200, 200);
-    doc.roundedRect(colColorX, currentY + 2.5, 4.5, 4.5, 0.8, 0.8, "FD");
+    doc.roundedRect(colColorX, currentY + 2, 4.5, 4.5, 0.8, 0.8, "FD");
 
     // hex color code
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(71, 85, 105);
-    doc.text(spec.color.toUpperCase(), colColorX + 7, currentY + 6);
+    doc.text(spec.color.toUpperCase(), colColorX + 7, currentY + 5.5);
 
     // roughness level
     const roughnessPercent = Math.round(spec.roughness * 100);
     const roughnessTag = roughnessPercent < 30 ? "Glossy" : roughnessPercent > 70 ? "Matte" : "Satin";
-    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, currentY + 6);
+    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, currentY + 5.5);
 
     // metalness level
     const metalnessPercent = Math.round(spec.metalness * 100);
     const metalnessTag = metalnessPercent > 50 ? "Metallic" : "Dielectric";
-    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, currentY + 6);
+    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, currentY + 5.5);
 
     currentY += rowHeight;
   });
