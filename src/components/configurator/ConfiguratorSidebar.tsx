@@ -10,6 +10,7 @@ import BikePanel, { bikeTabs } from "./panels/BikePanel";
 import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 import CanvasControls from "./CanvasControls";
 import ExportPdfButton from "./ExportPdfButton";
+import ExportGlbButton from "./ExportGlbButton";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 import { Toaster } from "react-hot-toast";
 
@@ -74,7 +75,8 @@ const ConfiguratorSidebar = () => {
       <Toaster position="bottom-left" />
       {/* studio header */}
       <div className="flex flex-col gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-md">
-        <div>
+        <div className="flex items-start justify-between gap-3">
+          <div>
           <span className="text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Design Studio
           </span>
@@ -82,9 +84,17 @@ const ConfiguratorSidebar = () => {
             {modelLabels[modelKey] || modelKey}
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
+  
+            <ExportPdfButton modelKey={modelKey} />
+            <ExportGlbButton modelKey={modelKey} />
+  
+          </div>
+        </div>
+        <div className="w-full">
           <CanvasControls />
-          <ExportPdfButton modelKey={modelKey} />
+
+
         </div>
       </div>
 
