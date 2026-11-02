@@ -1,6 +1,12 @@
 "use client";
 
-import { useRef, useState, useEffect, type PointerEvent } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useSyncExternalStore,
+  type PointerEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import { CheckCircle2, FileDown, Loader2, RotateCcw, X } from "lucide-react";
 
@@ -18,6 +24,19 @@ type SignatureModalProps = {
   isExporting: boolean;
 };
 
+// empty subscribe callback for client hydration sync
+const emptySubscribe = () => () => {};
+
+// track client mount state for safe portal mounting
+// set mounted flag after initial client render
+function useClientMount(): boolean {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 // interactive signature dialog for authorized specification sign off
 export default function SignatureModal({
   isOpen,
@@ -30,13 +49,7 @@ export default function SignatureModal({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [hasDrawn, setHasDrawn] = useState<boolean>(false);
-  // track client mount state for safe portal mounting
-  const [mounted, setMounted] = useState<boolean>(false);
-
-  // set mounted flag after initial client render
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useClientMount();
 
   // initialize drawing canvas background
   useEffect(() => {
@@ -119,7 +132,7 @@ export default function SignatureModal({
   return createPortal(
     <div
       style={{ zIndex: 9999 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
     >
       <div className="relative w-full max-w-md p-6 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl flex flex-col gap-5 my-auto">
         {/* dialog header bar */}
@@ -149,7 +162,9 @@ export default function SignatureModal({
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-900 dark:text-white">
-              <span className="truncate">{userName || "Authenticated User"}</span>
+              <span className="truncate">
+                {userName || "Authenticated User"}
+              </span>
               <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
             </div>
             <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
@@ -190,7 +205,8 @@ export default function SignatureModal({
             )}
           </div>
           <p className="text-[10px] text-gray-400">
-            Optional: If left blank, your verified account credentials will be stamped.
+            Optional: If left blank, your verified account credentials will be
+            stamped.
           </p>
         </div>
 
@@ -223,4 +239,3 @@ export default function SignatureModal({
     document.body,
   );
 }
-

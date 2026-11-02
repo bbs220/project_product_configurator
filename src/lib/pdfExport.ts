@@ -89,7 +89,10 @@ function getModelSpecifications(modelKey: string): {
         specs: [
           { name: "Carbon Frame Chassis", ...state.bikeMaterials.frame },
           { name: "Wheel Rims & Hubs", ...state.bikeMaterials.wheels },
-          { name: "Front & Rear Suspension", ...state.bikeMaterials.suspension },
+          {
+            name: "Front & Rear Suspension",
+            ...state.bikeMaterials.suspension,
+          },
           { name: "Drivetrain & Crankset", ...state.bikeMaterials.drivetrain },
         ],
         extraDetails: [
@@ -102,7 +105,10 @@ function getModelSpecifications(modelKey: string): {
         specs: [
           { name: "Contoured Body", ...state.guitarMaterials.body },
           { name: "Maple Neck & Headstock", ...state.guitarMaterials.neck },
-          { name: "Chrome Hardware & Bridge", ...state.guitarMaterials.hardware },
+          {
+            name: "Chrome Hardware & Bridge",
+            ...state.guitarMaterials.hardware,
+          },
           { name: "Single-Ply Pickguard", ...state.guitarMaterials.pickguard },
         ],
         extraDetails: [
@@ -113,11 +119,6 @@ function getModelSpecifications(modelKey: string): {
     default:
       return { specs: [], extraDetails: [] };
   }
-}
-
-// crop canvas to square aspect ratio
-function cropCanvasToSquare(sourceCanvas: HTMLCanvasElement): HTMLCanvasElement {
-  return sourceCanvas;
 }
 
 // capture standard canvas image without labels
@@ -197,17 +198,7 @@ function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
     }
 
     // draw square cropped webgl canvas
-    ctx.drawImage(
-      canvas,
-      0,
-      0,
-      srcW,
-      srcH,
-      offsetX,
-      offsetY,
-      srcW,
-      srcH,
-    );
+    ctx.drawImage(canvas, 0, 0, srcW, srcH, offsetX, offsetY, srcW, srcH);
 
     labelNodes.forEach((node) => {
       const rect = node.getBoundingClientRect();
@@ -451,7 +442,11 @@ export async function generateProductPdf({
 
   specs.forEach((spec, index) => {
     const isEven = index % 2 === 0;
-    doc.setFillColor(isEven ? 255 : 249, isEven ? 255 : 250, isEven ? 255 : 251);
+    doc.setFillColor(
+      isEven ? 255 : 249,
+      isEven ? 255 : 250,
+      isEven ? 255 : 251,
+    );
     doc.setDrawColor(241, 243, 245);
     doc.rect(margin, pageOneY, contentWidth, rowHeight, "FD");
 
@@ -475,13 +470,26 @@ export async function generateProductPdf({
 
     // roughness level
     const roughnessPercent = Math.round(spec.roughness * 100);
-    const roughnessTag = roughnessPercent < 30 ? "Glossy" : roughnessPercent > 70 ? "Matte" : "Satin";
-    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, pageOneY + 4.2);
+    const roughnessTag =
+      roughnessPercent < 30
+        ? "Glossy"
+        : roughnessPercent > 70
+          ? "Matte"
+          : "Satin";
+    doc.text(
+      `${roughnessPercent}% (${roughnessTag})`,
+      colRoughnessX,
+      pageOneY + 4.2,
+    );
 
     // metalness level
     const metalnessPercent = Math.round(spec.metalness * 100);
     const metalnessTag = metalnessPercent > 50 ? "Metallic" : "Dielectric";
-    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, pageOneY + 4.2);
+    doc.text(
+      `${metalnessPercent}% (${metalnessTag})`,
+      colMetalnessX,
+      pageOneY + 4.2,
+    );
 
     pageOneY += rowHeight;
   });
@@ -519,7 +527,11 @@ export async function generateProductPdf({
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(161, 161, 170);
-  doc.text(`${modelTitle.toUpperCase()} — COMPONENT INSPECTION & AUTHORIZATION`, margin + 22, 11);
+  doc.text(
+    `${modelTitle.toUpperCase()} — COMPONENT INSPECTION & AUTHORIZATION`,
+    margin + 22,
+    11,
+  );
 
   // full width square exploded view with labels
   let pageTwoY = 28;
@@ -558,15 +570,7 @@ export async function generateProductPdf({
   // draw image border frame with enhanced stroke width
   doc.setDrawColor(24, 24, 27);
   doc.setLineWidth(0.6);
-  doc.roundedRect(
-    expImgX,
-    expImgY,
-    expImgWidth,
-    expImgHeight,
-    1.5,
-    1.5,
-    "S",
-  );
+  doc.roundedRect(expImgX, expImgY, expImgWidth, expImgHeight, 1.5, 1.5, "S");
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
@@ -584,18 +588,30 @@ export async function generateProductPdf({
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(24, 24, 27);
-  doc.text("DESIGNER VERIFICATION & APPROVAL SIGN-OFF", margin + 5, signBoxY + 6);
+  doc.text(
+    "DESIGNER VERIFICATION & APPROVAL SIGN-OFF",
+    margin + 5,
+    signBoxY + 6,
+  );
 
   // designer verification credential details
   const displaySigner = signerName || "Authorized Designer";
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7);
   doc.setTextColor(71, 85, 105);
-  doc.text(`CONFIGURED BY: ${displaySigner.toUpperCase()}`, margin + 5, signBoxY + 12.5);
+  doc.text(
+    `CONFIGURED BY: ${displaySigner.toUpperCase()}`,
+    margin + 5,
+    signBoxY + 12.5,
+  );
   if (signerEmail) {
     doc.text(`ACCOUNT EMAIL: ${signerEmail}`, margin + 5, signBoxY + 17.5);
   }
-  doc.text("AUTHENTICATION: CLERK SECURE VERIFIED SESSION", margin + 5, signBoxY + 22.5);
+  doc.text(
+    "AUTHENTICATION: CLERK SECURE VERIFIED SESSION",
+    margin + 5,
+    signBoxY + 22.5,
+  );
 
   // verification status badge stamp
   doc.setFillColor(239, 246, 255);
