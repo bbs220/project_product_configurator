@@ -9,6 +9,7 @@ import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
 import BikePanel, { bikeTabs } from "./panels/BikePanel";
 import GuitarPanel, { guitarTabs } from "./panels/GuitarPanel";
 import CanvasControls from "./CanvasControls";
+import ExportPdfButton from "./ExportPdfButton";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 type TabDef = {
@@ -79,7 +80,10 @@ const ConfiguratorSidebar = () => {
             {modelLabels[modelKey] || modelKey}
           </h1>
         </div>
-        <CanvasControls />
+        <div className="flex items-center gap-2">
+          <CanvasControls />
+          <ExportPdfButton modelKey={modelKey} />
+        </div>
       </div>
 
       {/* horizontal category tabs navigation */}

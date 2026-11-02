@@ -8,7 +8,10 @@ const Configurator = () => {
     <main className="w-full h-[calc(100dvh-64px)] mt-16 flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-black">
       <Suspense fallback={null}>
         {/* interactive model viewport stage */}
-        <section className="relative w-full lg:w-3/5 h-1/2 lg:h-full flex-1 lg:flex-none overflow-hidden">
+        <section
+          id="canvas-stage"
+          className="relative w-full lg:w-3/5 h-1/2 lg:h-full flex-1 lg:flex-none overflow-hidden"
+        >
           <PrimaryCanvas />
         </section>
 

@@ -17,6 +17,7 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 - **Cinematic Part-Focused Views**: Smooth camera lerping and framing transitions focused on specific component categories (Case, Band, Crown, Display, Back) with clamped OrbitControls.
 - **Exploded View & 3D Labels**: Smooth spatial disassembly along configured axes with billboarding HTML markers anchored to 3D mesh coordinates.
 - **User Garage & Presets**: Authenticated user garage to save custom builds using Clerk and Neon Serverless Postgres.
+- **Downloadable Specification PDF**: Automated client-side PDF export featuring dual high-resolution captures (imploded assembly overview and exploded view with 3D labels) and full component material breakdowns.
 - **Adaptive Design & A11y**: Full light/dark mode support, semantic HTML landmarks, WCAG-compliant contrast, and keyboard navigation.
 
 ---
@@ -31,6 +32,7 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Database & ORM**: [Neon Serverless Postgres](https://neon.tech/) & [Drizzle ORM](https://orm.drizzle.team/)
 - **Icons & UI**: [Lucide React](https://lucide.dev/)
+- **PDF & Canvas Export**: [jsPDF](https://github.com/parallax/jsPDF) & [html2canvas](https://html2canvas.hertzen.com/)
 
 ---
 
