@@ -1,9 +1,18 @@
-import { Bike, Disc, Layers, RotateCcw, Settings2 } from "lucide-react";
+import {
+  Activity,
+  CircleDot,
+  Layers,
+  Palette,
+  RotateCcw,
+  Sliders,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
+  useConfiguratorStore,
   BikeMaterialCategory,
   DEFAULT_BIKE_MATERIALS,
-  useConfiguratorStore,
 } from "@/stores/useConfiguratorStore";
 
 type BikePanelProps = {
@@ -12,32 +21,47 @@ type BikePanelProps = {
 
 // configuration tabs for mountain bike customization
 export const bikeTabs = [
-  { id: "frame", label: "Frame", icon: Bike },
-  { id: "wheels", label: "Wheels", icon: Disc },
-  { id: "suspension", label: "Suspension", icon: Layers },
-  { id: "drivetrain", label: "Pedals & Gears", icon: Settings2 },
+  { id: "frame", label: "Frame", icon: Palette },
+  { id: "fork", label: "Front Fork", icon: Zap },
+  { id: "rims", label: "Wheel Rims", icon: CircleDot },
+  { id: "handlebar", label: "Handlebar", icon: Sliders },
+  { id: "seat", label: "Saddle", icon: Layers },
+  { id: "chain", label: "Drivetrain", icon: Activity },
+  { id: "suspension", label: "Rear Shock", icon: Sparkles },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
   frame: {
-    title: "Frame & Finish",
-    description: "Customize the carbon chassis, rear triangle, and linkages.",
+    title: "Carbon Chassis Frame",
+    description: "High-modulus aerospace grade carbon fiber downhill frame.",
   },
-  wheels: {
-    title: "Wheels & Rims",
-    description: "Personalize the wheel rims, spokes, and hub assembly.",
+  fork: {
+    title: "Front Suspension Stanchions",
+    description: "Kashima coated dual-crown inverted downhill suspension.",
+  },
+  rims: {
+    title: "Tubeless Alloy Rims",
+    description: "Double-walled welded aluminum tubeless-ready wheelset.",
+  },
+  handlebar: {
+    title: "Cockpit Handlebars",
+    description: "Riser handlebars with laser-etched alignment markings.",
+  },
+  seat: {
+    title: "Downhill Racing Saddle",
+    description: "Ergonomic Kevlar-reinforced composite racing seat.",
+  },
+  chain: {
+    title: "Drivetrain & Cassette",
+    description: "Nickel-plated hardened alloy chain and titanium cassette.",
   },
   suspension: {
-    title: "Suspension System",
-    description: "Configure front fork stanchions and rear coil shock spring.",
-  },
-  drivetrain: {
-    title: "Pedals & Gears",
-    description: "Customize the pedals, crank arms, chain, and gear cassette.",
+    title: "Coil Shock Spring",
+    description: "Progressive damping piggyback reservoir rear coil spring.",
   },
 };
 
-// mountain bike configuration panel with four component categories
+// bike configuration panel with seven categories
 export default function BikePanel({ activeTab }: BikePanelProps) {
   const { bikeMaterials, setBikeMaterialProperty } = useConfiguratorStore();
 
@@ -52,7 +76,7 @@ export default function BikePanel({ activeTab }: BikePanelProps) {
 
   const currentCategory = categoryInfo[activeTab] || {
     title: `${activeTab} Configuration`,
-    description: `Customize the mountain bike ${activeTab} components.`,
+    description: `Customize the bike ${activeTab} components.`,
   };
 
   // reset category material properties to defaults
@@ -87,7 +111,7 @@ export default function BikePanel({ activeTab }: BikePanelProps) {
       </div>
 
       {/* controls layout container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         {/* base color picker section */}
         <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
           <div className="flex items-center justify-between">
@@ -105,7 +129,7 @@ export default function BikePanel({ activeTab }: BikePanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-36!">
+          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-40!">
             <HexColorPicker
               color={currentMaterial.color}
               onChange={(hex) =>
@@ -116,7 +140,7 @@ export default function BikePanel({ activeTab }: BikePanelProps) {
         </div>
 
         {/* surface finish properties section */}
-        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-3">
+        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
             Surface Properties
           </span>

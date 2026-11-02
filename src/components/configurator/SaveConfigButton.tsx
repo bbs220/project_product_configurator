@@ -68,10 +68,10 @@ export default function SaveConfigButton({ modelKey }: SaveConfigButtonProps) {
         <button
           type="button"
           onClick={() => handleButtonClick("fork")}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 text-xs font-semibold transition-all shadow-sm"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 text-xs font-semibold transition-all shadow-sm"
         >
-          <GitFork className="w-3.5 h-3.5" />
-          <span>Fork to My Garage</span>
+          <GitFork className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Fork to My Garage</span>
         </button>
       ) : activeConfigId !== null && isConfigLocked ? (
         /* owner is viewing a locked build */
@@ -79,29 +79,29 @@ export default function SaveConfigButton({ modelKey }: SaveConfigButtonProps) {
           type="button"
           onClick={() => handleButtonClick("duplicate")}
           title="Build is locked from direct edits click to save a copy"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 text-xs font-semibold transition-all shadow-sm"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 text-xs font-semibold transition-all shadow-sm"
         >
-          <Lock className="w-3.5 h-3.5" />
-          <span>Save Copy</span>
+          <Lock className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Save Copy</span>
         </button>
       ) : activeConfigId !== null && isConfigOwner ? (
         /* owner is viewing an active editable build */
-        <div className="flex items-center gap-1">
+        <div className="w-full flex items-center gap-1">
           <button
             type="button"
             onClick={() => handleButtonClick("update")}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 text-xs font-semibold transition-all shadow-sm"
+            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 text-xs font-semibold transition-all shadow-sm"
           >
-            <Bookmark className="w-3.5 h-3.5" />
-            <span>Update</span>
+            <Bookmark className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Update</span>
           </button>
           <button
             type="button"
             onClick={() => handleButtonClick("duplicate")}
             title="Save as a new variation copy"
-            className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+            className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors shrink-0"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 shrink-0" />
           </button>
         </div>
       ) : (
@@ -109,10 +109,10 @@ export default function SaveConfigButton({ modelKey }: SaveConfigButtonProps) {
         <button
           type="button"
           onClick={() => handleButtonClick("new")}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-zinc-700 text-xs font-semibold transition-all shadow-sm"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-zinc-700 text-xs font-semibold transition-all shadow-sm"
         >
-          <Bookmark className="w-3.5 h-3.5" />
-          <span>Save</span>
+          <Bookmark className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate">Save</span>
         </button>
       )}
 

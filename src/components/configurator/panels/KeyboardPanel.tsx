@@ -36,7 +36,8 @@ export const keyboardTabs = [
 const categoryInfo: Record<string, { title: string; description: string }> = {
   base: {
     title: "Chassis & Frame",
-    description: "Customize the keyboard aluminum chassis and bottom weight plate finish.",
+    description:
+      "Customize the keyboard aluminum chassis and bottom weight plate finish.",
   },
   keycaps: {
     title: "Keycaps & Legends",
@@ -52,7 +53,8 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
   },
   display: {
     title: "OLED Info Display",
-    description: "Configure real-time screen modes, color themes, and brightness.",
+    description:
+      "Configure real-time screen modes, color themes, and brightness.",
   },
 };
 
@@ -122,7 +124,8 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
 
   // extract current material properties
   const currentMaterial =
-    keyboardMaterials[validCategory] || DEFAULT_KEYBOARD_MATERIALS[validCategory];
+    keyboardMaterials[validCategory] ||
+    DEFAULT_KEYBOARD_MATERIALS[validCategory];
 
   const currentCategory = categoryInfo[activeTab] || {
     title: `${activeTab} Configuration`,
@@ -211,7 +214,7 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             {/* color theme selector */}
             <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-3">
               <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
@@ -281,7 +284,7 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
         </div>
       ) : (
         /* controls layout container */
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
           {/* base color picker section */}
           <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
             <div className="flex items-center justify-between">
@@ -299,7 +302,7 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
               </div>
             </div>
 
-            <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-36!">
+            <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-40!">
               <HexColorPicker
                 color={currentMaterial.color}
                 onChange={(hex) =>
@@ -310,7 +313,7 @@ export default function KeyboardPanel({ activeTab }: KeyboardPanelProps) {
           </div>
 
           {/* surface finish properties section */}
-          <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-3">
+          <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-4">
             <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
               Surface Properties
             </span>

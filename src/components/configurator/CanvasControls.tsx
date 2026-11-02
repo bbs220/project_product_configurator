@@ -34,15 +34,15 @@ export default function CanvasControls({
 
   return (
     <div
-      className={`grid grid-cols-4 gap-1 p-1 bg-gray-100 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-gray-800 w-full ${className}`}
+      className={`flex items-center gap-1 p-1 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-gray-200/80 dark:border-gray-800/80 shadow-lg ${className}`}
     >
       <button
         type="button"
         onClick={toggleExploded}
-        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+        className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
           isExploded
             ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
         title="Explode View"
       >
@@ -55,10 +55,10 @@ export default function CanvasControls({
       <button
         type="button"
         onClick={toggleLabels}
-        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+        className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
           showLabels
             ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
         title="Toggle Info Labels"
       >
@@ -69,10 +69,10 @@ export default function CanvasControls({
       <button
         type="button"
         onClick={toggleFloor}
-        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+        className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
           showFloor
             ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
         title="Toggle Floor Reflection"
       >
@@ -83,10 +83,10 @@ export default function CanvasControls({
       <button
         type="button"
         onClick={toggleFocus}
-        className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+        className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
           focus
             ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white dark:hover:bg-zinc-800"
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
         title={focus ? "Focus View: Active (Panning disabled)" : "Toggle Focus View"}
       >
