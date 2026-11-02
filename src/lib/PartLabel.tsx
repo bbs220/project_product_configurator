@@ -46,6 +46,7 @@ export function PartLabel({
       <Html
         position={targetPos}
         center
+        zIndexRange={[100, 0]}
         className={`select-none transition-opacity duration-500 ease-in-out ${show ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
         <div

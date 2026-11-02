@@ -10,7 +10,7 @@ const Configurator = () => {
         {/* interactive model viewport stage */}
         <section
           id="canvas-stage"
-          className="relative w-full lg:w-3/5 h-1/2 lg:h-full flex-1 lg:flex-none overflow-hidden"
+          className="relative w-full lg:w-3/5 h-1/2 lg:h-full flex-1 lg:flex-none overflow-hidden isolate"
         >
           <PrimaryCanvas />
         </section>
