@@ -1,5 +1,4 @@
 import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 export type PdfExportOptions = {
@@ -114,15 +113,86 @@ function captureCanvasImage(stageEl: HTMLElement): string | null {
   return canvas.toDataURL("image/png");
 }
 
-// capture composite stage image with dynamic billboarding labels
-async function captureStageWithLabels(stageEl: HTMLElement): Promise<string> {
-  const compositeCanvas = await html2canvas(stageEl, {
-    useCORS: true,
-    logging: false,
-    backgroundColor: null,
-    scale: 2,
-  });
-  return compositeCanvas.toDataURL("image/png");
+// composite canvas and billboarding labels
+function captureCanvasWithLabels(stageEl: HTMLElement): string | null {
+  const canvas = stageEl.querySelector("canvas");
+  if (!canvas) return null;
+
+  try {
+    const offscreen = document.createElement("canvas");
+    offscreen.width = canvas.width;
+    offscreen.height = canvas.height;
+    const ctx = offscreen.getContext("2d");
+    if (!ctx) return canvas.toDataURL("image/png");
+
+    // transfer rendered three dimensions webgl scene
+    ctx.drawImage(canvas, 0, 0);
+
+    const canvasRect = canvas.getBoundingClientRect();
+    if (canvasRect.width === 0 || canvasRect.height === 0) {
+      return canvas.toDataURL("image/png");
+    }
+
+    const scaleX = canvas.width / canvasRect.width;
+    const scaleY = canvas.height / canvasRect.height;
+
+    // locate all billboarding label elements
+    const labelNodes = stageEl.querySelectorAll<HTMLElement>(
+      "[data-part-label], .select-none div",
+    );
+
+    labelNodes.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+
+      const title =
+        node.getAttribute("data-label-title") ||
+        node.textContent?.replace(/\s+/g, " ").trim();
+      if (!title) return;
+
+      const x = (rect.left - canvasRect.left) * scaleX;
+      const y = (rect.top - canvasRect.top) * scaleY;
+      const w = rect.width * scaleX;
+      const h = rect.height * scaleY;
+      const radius = h / 2;
+
+      ctx.save();
+      // pill background styling
+      ctx.fillStyle = "rgba(255, 255, 255, 0.94)";
+      ctx.strokeStyle = "rgba(210, 215, 220, 0.9)";
+      ctx.lineWidth = Math.max(1, 1.5 * scaleX);
+
+      ctx.beginPath();
+      if (typeof ctx.roundRect === "function") {
+        ctx.roundRect(x, y, w, h, radius);
+      } else {
+        ctx.rect(x, y, w, h);
+      }
+      ctx.fill();
+      ctx.stroke();
+
+      // accent indicator circle
+      const dotRadius = Math.max(2, 3 * scaleX);
+      const dotX = x + 10 * scaleX;
+      const dotY = y + h / 2;
+      ctx.fillStyle = "#3b82f6";
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, dotRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // label typography styling
+      const fontSize = Math.max(10, Math.round(11 * scaleX));
+      ctx.fillStyle = "#18181b";
+      ctx.font = `600 ${fontSize}px sans-serif`;
+      ctx.textBaseline = "middle";
+      ctx.fillText(title, x + 18 * scaleX, y + h / 2);
+      ctx.restore();
+    });
+
+    return offscreen.toDataURL("image/png");
+  } catch {
+    return canvas.toDataURL("image/png");
+  }
 }
 
 // generate downloadable product specification document
@@ -148,7 +218,7 @@ export async function generateProductPdf({
     onProgress?.("Framing imploded view...");
     store.setExploded(false);
     store.setLabels(false);
-    await wait(800);
+    await wait(700);
 
     // capture imploded viewport snapshot
     implodedImage = captureCanvasImage(stageEl);
@@ -157,10 +227,10 @@ export async function generateProductPdf({
     onProgress?.("Framing exploded view with labels...");
     store.setExploded(true);
     store.setLabels(true);
-    await wait(1000);
+    await wait(800);
 
     // capture exploded viewport snapshot
-    explodedImage = await captureStageWithLabels(stageEl);
+    explodedImage = captureCanvasWithLabels(stageEl);
   } finally {
     // restore original user viewport toggle state
     store.setExploded(originalExploded);
@@ -376,6 +446,19 @@ export async function generateProductPdf({
 
   // trigger browser pdf file download
   const sanitizedModel = modelKey.toLowerCase().replace(/[^a-z0-9]/g, "-");
-  doc.save(`forma-${sanitizedModel}-specification.pdf`);
-}
+  const filename = `forma-${sanitizedModel}-specification.pdf`;
 
+  try {
+    doc.save(filename);
+  } catch {
+    const blob = doc.output("blob");
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+}

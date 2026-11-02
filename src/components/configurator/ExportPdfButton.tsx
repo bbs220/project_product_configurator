@@ -40,7 +40,8 @@ export default function ExportPdfButton({
       toast.success("Specification PDF downloaded successfully", {
         id: "pdf-export-toast",
       });
-    } catch {
+    } catch (err) {
+      console.error("PDF export failed:", err);
       // notify user of export failure
       toast.error("Failed to generate PDF. Please try again.", {
         id: "pdf-export-toast",
