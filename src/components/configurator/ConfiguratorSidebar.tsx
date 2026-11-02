@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Globe, Lock, Settings2, type LucideIcon } from "lucide-react";
+import { Globe, Lock, PanelRightClose, Settings2, type LucideIcon } from "lucide-react";
 
 import WatchPanel, { watchTabs } from "./panels/WatchPanel";
 import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
@@ -14,6 +14,7 @@ import ExportGlbButton from "./ExportGlbButton";
 import SaveConfigButton from "./SaveConfigButton";
 import ConfigDataLoader from "./ConfigDataLoader";
 import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
+import { useSidebarStore } from "@/stores/useSidebarStore";
 
 
 type TabDef = {
@@ -36,15 +37,21 @@ const fallbackTabs: TabDef[] = [
 
 const ConfiguratorSidebar = () => {
   const { focus } = useConfiguratorStore();
+  const activeConfigId = useConfiguratorStore((s) => s.activeConfigId);
   const activeConfigName = useConfiguratorStore((s) => s.activeConfigName);
   const isConfigLocked = useConfiguratorStore((s) => s.isConfigLocked);
   const isConfigOwner = useConfiguratorStore((s) => s.isConfigOwner);
+  const toggleSidebar = useSidebarStore((s) => s.toggleSidebar);
   const searchParams = useSearchParams();
   const modelKey = searchParams.get("model") || "watch";
   const tabs = modelTabsConfig[modelKey] || fallbackTabs;
 
   const [activeTab, setActiveTab] = useState<string>(tabs[0]?.id || "general");
   const [prevModelKey, setPrevModelKey] = useState<string>(modelKey);
+
+  const isReadOnly = Boolean(
+    activeConfigId !== null && (!isConfigOwner || isConfigLocked),
+  );
 
   // Reset active tab during render when model changes (avoids useEffect cascading renders)
   if (modelKey !== prevModelKey) {
@@ -88,10 +95,27 @@ const ConfiguratorSidebar = () => {
                 Design Studio
               </span>
               {activeConfigName && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                  {isConfigLocked && <Lock className="w-2.5 h-2.5" />}
-                  {!isConfigOwner && <Globe className="w-2.5 h-2.5" />}
+                <span
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold border ${
+                    !isConfigOwner
+                      ? "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20"
+                      : isConfigLocked
+                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                      : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
+                  }`}
+                >
+                  {!isConfigOwner ? (
+                    <Globe className="w-2.5 h-2.5" />
+                  ) : isConfigLocked ? (
+                    <Lock className="w-2.5 h-2.5" />
+                  ) : null}
                   <span className="truncate max-w-35">{activeConfigName}</span>
+                  {!isConfigOwner && (
+                    <span className="font-normal opacity-75">(view only)</span>
+                  )}
+                  {isConfigOwner && isConfigLocked && (
+                    <span className="font-normal opacity-75">(locked)</span>
+                  )}
                 </span>
               )}
             </div>
@@ -99,10 +123,20 @@ const ConfiguratorSidebar = () => {
               {modelLabels[modelKey] || modelKey}
             </h1>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             <SaveConfigButton modelKey={modelKey} />
             <ExportPdfButton modelKey={modelKey} />
             <ExportGlbButton modelKey={modelKey} />
+            {/* toggle sidebar visibility button */}
+            <button
+              type="button"
+              onClick={toggleSidebar}
+              title="Collapse studio sidebar"
+              aria-label="Collapse studio sidebar"
+              className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+            >
+              <PanelRightClose className="w-4 h-4" />
+            </button>
           </div>
         </div>
         <div className="w-full">
@@ -131,7 +165,55 @@ const ConfiguratorSidebar = () => {
 
       {/* studio panel body */}
       <div className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="max-w-2xl mx-auto w-full">{renderPanel()}</div>
+        <div className="max-w-2xl mx-auto w-full flex flex-col gap-4">
+          {/* inspection mode alert banner */}
+          {isReadOnly && (
+            <div
+              className={`p-3.5 rounded-xl border flex items-start gap-3 ${
+                !isConfigOwner
+                  ? "bg-purple-500/10 border-purple-500/20 text-purple-900 dark:text-purple-200"
+                  : "bg-amber-500/10 border-amber-500/20 text-amber-900 dark:text-amber-200"
+              }`}
+            >
+              <div
+                className={`p-1.5 rounded-lg shrink-0 ${
+                  !isConfigOwner
+                    ? "bg-purple-500/20 text-purple-600 dark:text-purple-400"
+                    : "bg-amber-500/20 text-amber-600 dark:text-amber-400"
+                }`}
+              >
+                {!isConfigOwner ? (
+                  <Globe className="w-4 h-4" />
+                ) : (
+                  <Lock className="w-4 h-4" />
+                )}
+              </div>
+              <div className="flex-1 text-xs">
+                <p className="font-semibold mb-0.5">
+                  {!isConfigOwner
+                    ? "Shared Build • Inspection Mode"
+                    : "Locked Build • Read Only"}
+                </p>
+                <p className="opacity-80 leading-relaxed">
+                  {!isConfigOwner
+                    ? "Viewing shared configuration. You can inspect all materials and colors below, or click Fork to My Garage to make your own edits."
+                    : "This build is locked from direct edits to protect the original design. Inspect specifications below, or click Save Copy to make changes."}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* panel options with read only guard */}
+          <div
+            className={
+              isReadOnly
+                ? "pointer-events-none select-none opacity-80 cursor-not-allowed"
+                : ""
+            }
+          >
+            {renderPanel()}
+          </div>
+        </div>
       </div>
 
       {/* navigation controls hints footer */}

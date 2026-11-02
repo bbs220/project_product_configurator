@@ -71,7 +71,7 @@ export default function SaveConfigButton({ modelKey }: SaveConfigButtonProps) {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400 hover:bg-purple-500/20 text-xs font-semibold transition-all shadow-sm"
         >
           <GitFork className="w-3.5 h-3.5" />
-          <span>Fork Build</span>
+          <span>Fork to My Garage</span>
         </button>
       ) : activeConfigId !== null && isConfigLocked ? (
         /* owner is viewing a locked build */
@@ -130,4 +130,3 @@ export default function SaveConfigButton({ modelKey }: SaveConfigButtonProps) {
     </>
   );
 }
-
