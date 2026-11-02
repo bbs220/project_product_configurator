@@ -5,9 +5,9 @@ import {
   Box,
   BoxSelect,
   Cpu,
+  Database,
   FileText,
   PenTool,
-  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -57,11 +57,11 @@ const features: FeatureItem[] = [
     icon: Cpu,
   },
   {
-    title: "Session-Gated Access Control",
-    tag: "Clerk Authentication Middleware",
+    title: "Cloud Garage & Build Locker",
+    tag: "Neon Postgres & Drizzle ORM",
     description:
-      "Granular security controls protecting proprietary 3D geometry exports and official engineering specifications behind authenticated sessions with seamless sign-in workflows and status notifications.",
-    icon: ShieldCheck,
+      "Persist and manage custom product variations in a secure serverless cloud database with deep-linked URL hydration. Features edit locking, public design sharing, fork mechanics, automated WebP canvas thumbnails, and quota controls.",
+    icon: Database,
   },
 ];
 

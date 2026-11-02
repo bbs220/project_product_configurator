@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { Loader2, Lock, Globe, Bookmark, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { saveNewConfig, updateConfig, forkConfig } from "@/actions/garage";
@@ -23,6 +24,18 @@ export type SaveConfigModalProps = {
   onSuccess: (id: number, name: string) => void;
 };
 
+// empty subscribe callback for client hydration sync
+const emptySubscribe = () => () => {};
+
+// track client mount state for safe portal mounting
+function useClientMount(): boolean {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 // save and update configuration dialog modal
 export default function SaveConfigModal({
   isOpen,
@@ -39,10 +52,11 @@ export default function SaveConfigModal({
   const [isPublic, setIsPublic] = useState<boolean>(initialIsPublic);
   const [isLocked, setIsLocked] = useState<boolean>(initialIsLocked);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const mounted = useClientMount();
 
   const getConfigSnapshot = useConfiguratorStore((s) => s.getConfigSnapshot);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   // determine modal display title
   const modalTitle =
@@ -128,9 +142,12 @@ export default function SaveConfigModal({
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-120 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl">
+  return createPortal(
+    <div
+      style={{ zIndex: 9999 }}
+      className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+    >
+      <div className="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl my-auto">
         {/* modal close button */}
         <button
           type="button"
@@ -245,7 +262,7 @@ export default function SaveConfigModal({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
-

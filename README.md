@@ -8,16 +8,17 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 
 ## Features
 
-- **High-Fidelity 3D Rendering**: Physically-based rendering (PBR) powered by Three.js and React Three Fiber, featuring soft contact shadows, HDR environment lighting, and ground reflections.
+- **High-Fidelity 3D Rendering**: Physically-based rendering (PBR) powered by Three.js and React Three Fiber, featuring soft contact shadows, HDR environment lighting, ACESFilmic tone mapping, and ground reflections.
 - **Multiple Configurable Models**:
   - **Apple Watch Ultra 2**: Multi-component smartwatch with titanium chassis, digital crown, display face, alpine band, and biometric sensor backplate.
   - **Santa Cruz V10**: Downhill mountain bike with frame, Fox suspension, chainwheel, pedals, and disc brakes.
   - **Fender Stratocaster 1954**: Classic electric guitar with wood body, maple neck, pickups, pickguard, and hardware.
-  - **Mechanical Keyboard**: Custom keyboard assembly with keycaps, switches, knobs, and chassis.
+  - **Knob1 Mechanical Keyboard**: Custom keyboard assembly with keycaps, switches, knobs, and dynamic interactive OLED display.
 - **Cinematic Part-Focused Views**: Smooth camera lerping and framing transitions focused on specific component categories (Case, Band, Crown, Display, Back) with clamped OrbitControls.
 - **Exploded View & 3D Labels**: Smooth spatial disassembly along configured axes with billboarding HTML markers anchored to 3D mesh coordinates.
-- **User Garage & Presets**: Authenticated user garage to save custom builds using Clerk and Neon Serverless Postgres.
-- **Downloadable Specification PDF**: Automated client-side PDF export featuring dual high-resolution captures (imploded assembly overview and exploded view with 3D labels) and full component material breakdowns.
+- **Client-Side Binary GLB Export**: In-browser 3D model serialization powered by Three.js `GLTFExporter`, embedding real-time PBR roughness, metalness, hex albedos, canvas textures, and component hierarchies into standalone `.glb` files.
+- **User Garage & Build Locker**: Cloud persistence for up to 20 custom variations per user powered by Neon Serverless Postgres and Drizzle ORM. Features URL deep linking (`?id=`), public design forking, edit lock protection, and automated WebP canvas thumbnails.
+- **Downloadable Specification PDF**: Automated client-side engineering spec sheet export featuring dual high-resolution captures (imploded overview and exploded view with 3D labels), interactive digital designer signature pad, verified Clerk authorization badges, and material telemetry tables.
 - **Adaptive Design & A11y**: Full light/dark mode support, semantic HTML landmarks, WCAG-compliant contrast, and keyboard navigation.
 
 ---
@@ -31,8 +32,8 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Database & ORM**: [Neon Serverless Postgres](https://neon.tech/) & [Drizzle ORM](https://orm.drizzle.team/)
+- **3D & PDF Serialization**: [Three.js GLTFExporter](https://threejs.org/docs/#examples/en/exporters/GLTFExporter) & [jsPDF](https://github.com/parallax/jsPDF)
 - **Icons & UI**: [Lucide React](https://lucide.dev/)
-- **PDF & Canvas Export**: [jsPDF](https://github.com/parallax/jsPDF) & [html2canvas](https://html2canvas.hertzen.com/)
 
 ---
 
@@ -66,10 +67,10 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
    # Database (Neon Serverless Postgres)
-   DATABASE_URL=your_postgres_connection_string
+   NEON_DB_SECRET_KEY=your_postgres_connection_string
    ```
 
-4. Push the database schema (optional, for saved configurations):
+4. Push the database schema:
    ```bash
    npm run db:push
    ```
@@ -94,15 +95,18 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── llms.txt               # LLM/agent index
 │   └── robots.txt             # Search crawler directives
 ├── src/
+│   ├── actions/               # Server Actions (garage CRUD, permissions, quota)
 │   ├── app/                   # Next.js App Router pages and layouts
 │   ├── components/
-│   │   ├── configurator/      # Sidebar inspector and model panels
+│   │   ├── configurator/      # Sidebar inspector, export modals, and model panels
+│   │   ├── garage/            # Garage cards and action menus
 │   │   ├── gltfjsx/           # React Three Fiber model components
+│   │   ├── landing/           # Hero, showcase, and FeatureGrid components
 │   │   ├── layout/            # Navbar, footer, and theme controls
 │   │   └── scene/             # PrimaryCanvas, CameraRig, Floor, lighting
 │   ├── db/                    # Drizzle schema and Neon database client
 │   ├── hooks/                 # Custom React and Tweakpane hooks
-│   ├── lib/                   # Utilities and 3D label components
+│   ├── lib/                   # GLB exporter, PDF compositor, and 3D labels
 │   ├── stores/                # Zustand stores (useConfiguratorStore, etc.)
 │   └── types/                 # TypeScript GLTF type definitions
 └── next.config.ts             # Security headers and Next.js settings
@@ -124,44 +128,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## License
 
 This project is licensed under the MIT License.
-
-```text
-├── public/
-│   ├── hdris/                 # Studio HDR environment maps
-│   ├── models/                # 3D assets (.glb formats)
-│   ├── appIcon.png            # Application logo
-│   ├── thumbnail_1200x630.png # Open Graph social preview
-│   ├── llms.txt               # LLM/agent index
-│   └── robots.txt             # Search crawler directives
-├── src/
-│   ├── app/                   # Next.js App Router pages and layouts
-│   ├── components/
-│   │   ├── configurator/      # Sidebar inspector and model panels
-│   │   ├── gltfjsx/           # React Three Fiber model components
-│   │   ├── layout/            # Navbar, footer, and theme controls
-│   │   └── scene/             # PrimaryCanvas, CameraRig, Floor, lighting
-│   ├── db/                    # Drizzle schema and Neon database client
-│   ├── hooks/                 # Custom React and Tweakpane hooks
-│   ├── lib/                   # Utilities and 3D label components
-│   ├── stores/                # Zustand stores (useConfiguratorStore, etc.)
-│   └── types/                 # TypeScript GLTF type definitions
-└── next.config.ts             # Security headers and Next.js settings
-```
-
----
-
-## Available Scripts
-
-- `npm run dev`: Starts the Next.js development server with Turbopack
-- `npm run build`: Creates an optimized production build
-- `npm run start`: Runs the built production application
-- `npm run lint`: Runs ESLint checks
-- `npm run db:push`: Pushes Drizzle schema changes to the Neon database
-- `npm run db:studio`: Opens Drizzle Studio to inspect and manage database records
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
