@@ -216,7 +216,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
 
       {/* controls layout container */}
       {activeTab !== "face" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
           {/* base color picker section */}
           <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
             <div className="flex items-center justify-between">
@@ -234,7 +234,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-36!">
+          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-40!">
             <HexColorPicker
               color={currentMaterial.color}
               onChange={(hex) =>
@@ -245,7 +245,7 @@ export default function WatchPanel({ activeTab }: WatchPanelProps) {
         </div>
 
         {/* surface finish properties section */}
-        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-3">
+        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
             Surface Properties
           </span>

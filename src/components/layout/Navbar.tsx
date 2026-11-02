@@ -1,11 +1,12 @@
 "use client";
 
 import { Show, UserButton } from "@clerk/nextjs";
-import { UserCircle } from "lucide-react";
+import { Box, UserCircle } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
+// application header navigation component
 const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-100 w-full flex justify-between items-center px-8 md:px-12 h-16 min-h-16 shrink-0 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-none">
@@ -28,7 +29,15 @@ const Navbar = () => {
         </span>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-3">
+        {/* garage navigation shortcut */}
+        <Link
+          href="/garage"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200"
+        >
+          <Box className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <span>Garage</span>
+        </Link>
         <ThemeToggle />
         <Show when="signed-out">
           <Link
@@ -40,15 +49,7 @@ const Navbar = () => {
           </Link>
         </Show>
         <Show when="signed-in">
-          <UserButton>
-            <UserButton.MenuItems>
-              <UserButton.Link
-                label="My Garage"
-                labelIcon={<UserCircle className="w-4 h-4" />}
-                href="/garage"
-              />
-            </UserButton.MenuItems>
-          </UserButton>
+          <UserButton />
         </Show>
       </div>
     </header>

@@ -46,9 +46,14 @@ export function PartLabel({
       <Html
         position={targetPos}
         center
+        zIndexRange={[100, 0]}
         className={`select-none transition-opacity duration-500 ease-in-out ${show ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
-        <div className="px-3 py-1.5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-lg border border-gray-200/50 dark:border-gray-800/50 whitespace-nowrap text-xs font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+        <div
+          data-part-label="true"
+          data-label-title={title}
+          className="px-3 py-1.5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-full shadow-lg border border-gray-200/50 dark:border-gray-800/50 whitespace-nowrap text-xs font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2"
+        >
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
           {title}
         </div>

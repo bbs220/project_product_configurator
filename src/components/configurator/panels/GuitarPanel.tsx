@@ -1,45 +1,67 @@
-import { Guitar, Layers, Palette, RotateCcw, Settings2 } from "lucide-react";
+import {
+  Activity,
+  CircleDot,
+  Layers,
+  Music,
+  Palette,
+  RotateCcw,
+  Sliders,
+  Sparkles,
+} from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
-  DEFAULT_GUITAR_MATERIALS,
-  GuitarMaterialCategory,
   useConfiguratorStore,
+  GuitarMaterialCategory,
+  DEFAULT_GUITAR_MATERIALS,
 } from "@/stores/useConfiguratorStore";
 
 type GuitarPanelProps = {
   activeTab: string;
 };
 
-// configuration tabs for guitar customization
+// configuration tabs for stratocaster guitar customization
 export const guitarTabs = [
-  { id: "body", label: "Body", icon: Guitar },
-  { id: "neck", label: "Neck", icon: Layers },
-  { id: "hardware", label: "Hardware", icon: Settings2 },
-  { id: "pickguard", label: "Pickguard", icon: Palette },
+  { id: "body", label: "Body", icon: Palette },
+  { id: "pickguard", label: "Pickguard", icon: Layers },
+  { id: "neck", label: "Neck & Head", icon: Music },
+  { id: "fretboard", label: "Fretboard", icon: Activity },
+  { id: "pickups", label: "Pickups", icon: Sliders },
+  { id: "hardware", label: "Bridge Hardware", icon: Sparkles },
+  { id: "knobs", label: "Volume Knobs", icon: CircleDot },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
   body: {
-    title: "Body & Finish",
-    description: "Customize the contoured alder body lacquer and sunburst tint.",
-  },
-  neck: {
-    title: "Neck & Fretboard",
-    description: "Personalize the one-piece maple neck, headstock, and finish.",
-  },
-  hardware: {
-    title: "Hardware & Bridge",
-    description:
-      "Configure the synchronized tremolo bridge, tuners, and metal components.",
+    title: "Solid Alder Wood Body",
+    description: "Contoured alder body finished in nitrocellulose lacquer.",
   },
   pickguard: {
-    title: "Pickguard & Plastics",
-    description:
-      "Choose colors and finish for the pickguard plate, knobs, and pickup covers.",
+    title: "Layered Scratchplate",
+    description: "Classic three-ply beveled vintage celluloid pickguard.",
+  },
+  neck: {
+    title: "Maple Neck & Headstock",
+    description: "One-piece modern oval 'C'-shaped rock maple guitar neck.",
+  },
+  fretboard: {
+    title: "Fretboard Wood",
+    description: "Select 9.5-inch radius slab rosewood or slab maple fingerboard.",
+  },
+  pickups: {
+    title: "Single-Coil Pickup Covers",
+    description: "Vintage-wound staggered Alnico V magnetic pickup bobbins.",
+  },
+  hardware: {
+    title: "Synchronized Tremolo Bridge",
+    description: "Vintage synchronized tremolo with bent steel saddles.",
+  },
+  knobs: {
+    title: "Skirted Control Knobs",
+    description: "Embossed master volume and dual tone control potentiometers.",
   },
 };
 
-// guitar configuration panel with four component categories
+// guitar configuration panel with seven categories
 export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
   const { guitarMaterials, setGuitarMaterialProperty } = useConfiguratorStore();
 
@@ -54,7 +76,7 @@ export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
 
   const currentCategory = categoryInfo[activeTab] || {
     title: `${activeTab} Configuration`,
-    description: `Customize the guitar ${activeTab} options.`,
+    description: `Customize the guitar ${activeTab} components.`,
   };
 
   // reset category material properties to defaults
@@ -89,7 +111,7 @@ export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
       </div>
 
       {/* controls layout container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         {/* base color picker section */}
         <div className="flex flex-col gap-2.5 p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm">
           <div className="flex items-center justify-between">
@@ -107,7 +129,7 @@ export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-36!">
+          <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 [&_.react-colorful]:w-full! [&_.react-colorful]:h-40!">
             <HexColorPicker
               color={currentMaterial.color}
               onChange={(hex) =>
@@ -118,7 +140,7 @@ export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
         </div>
 
         {/* surface finish properties section */}
-        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-3">
+        <div className="flex flex-col justify-between p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-gray-800 shadow-sm gap-4">
           <span className="text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-300">
             Surface Properties
           </span>

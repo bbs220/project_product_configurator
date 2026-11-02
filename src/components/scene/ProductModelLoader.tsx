@@ -1,7 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, startTransition } from "react";
+import { useEffect, startTransition, useRef } from "react";
+import type { Group } from "three";
+import { registerProductGroup } from "@/lib/glbExport";
 import { WatchModel } from "../gltfjsx/WatchModel";
 import { KeyboardModel } from "../gltfjsx/KeyboardModel";
 import { MTBikeModel } from "../gltfjsx/MTBikeModel";
@@ -14,6 +16,17 @@ const ProductModelLoader = () => {
   
   const activeModel = useConfiguratorStore((state) => state.activeModel);
   const setActiveModel = useConfiguratorStore((state) => state.setActiveModel);
+  const groupRef = useRef<Group>(null);
+
+  // synchronize active model ref with glb exporter module
+  useEffect(() => {
+    if (groupRef.current) {
+      registerProductGroup(groupRef.current);
+    }
+    return () => {
+      registerProductGroup(null);
+    };
+  }, [activeModel]);
 
   useEffect(() => {
     if (["watch", "keyboard", "mtBike", "guitar"].includes(modelName) && modelName !== activeModel) {
@@ -24,7 +37,7 @@ const ProductModelLoader = () => {
   }, [modelName, activeModel, setActiveModel]);
 
   return (
-    <group position={[0, 0, 0]} scale={[1, 1, 1]}>
+    <group ref={groupRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
       {activeModel === "watch" && <WatchModel />}
       {activeModel === "keyboard" && <KeyboardModel />}
       {activeModel === "mtBike" && <MTBikeModel />}

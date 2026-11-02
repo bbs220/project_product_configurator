@@ -93,7 +93,7 @@ const PrimaryCanvas = () => {
       <Canvas
         shadows={"soft"}
         dpr={setDpr}
-        gl={{ alpha: true, antialias: true }}
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
       >
         <PrimaryScene />
         <EffectsStack />
