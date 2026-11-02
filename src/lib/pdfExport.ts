@@ -13,6 +13,12 @@ type ComponentSpec = {
   metalness: number;
 };
 
+// capture composite canvas image and return data with aspect ratio
+type CaptureResult = {
+  dataUrl: string;
+  aspect: number;
+};
+
 // model display titles mapping
 const modelTitles: Record<string, string> = {
   watch: "Apple Watch Ultra 2 (2023)",
@@ -106,95 +112,128 @@ function getModelSpecifications(modelKey: string): {
   }
 }
 
-// crop source canvas to widescreen aspect ratio
-function cropCanvasToAspect(
-  sourceCanvas: HTMLCanvasElement,
-  targetAspect: number,
-): HTMLCanvasElement {
+// crop canvas to square aspect ratio
+function cropCanvasToSquare(sourceCanvas: HTMLCanvasElement): HTMLCanvasElement {
   const srcW = sourceCanvas.width;
   const srcH = sourceCanvas.height;
-  const srcAspect = srcW / srcH;
-
-  let cropW = srcW;
-  let cropH = srcH;
-  let cropX = 0;
-  let cropY = 0;
-
-  if (srcAspect < targetAspect) {
-    cropH = Math.round(srcW / targetAspect);
-    cropY = Math.round((srcH - cropH) / 2);
-  } else {
-    cropW = Math.round(srcH * targetAspect);
-    cropX = Math.round((srcW - cropW) / 2);
-  }
+  const squareSize = Math.min(srcW, srcH);
+  const cropX = Math.round((srcW - squareSize) / 2);
+  const cropY = Math.round((srcH - squareSize) / 2);
 
   const dest = document.createElement("canvas");
-  dest.width = cropW;
-  dest.height = cropH;
+  dest.width = squareSize;
+  dest.height = squareSize;
   const ctx = dest.getContext("2d");
   if (ctx) {
-    ctx.drawImage(sourceCanvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+    ctx.drawImage(
+      sourceCanvas,
+      cropX,
+      cropY,
+      squareSize,
+      squareSize,
+      0,
+      0,
+      squareSize,
+      squareSize,
+    );
   }
   return dest;
 }
 
 // capture standard canvas image without labels
-function captureCanvasImage(
-  stageEl: HTMLElement,
-  targetAspect: number,
-): string | null {
+function captureCanvasImage(stageEl: HTMLElement): string | null {
   const canvas = stageEl.querySelector("canvas");
   if (!canvas) return null;
-  const cropped = cropCanvasToAspect(canvas, targetAspect);
+  const cropped = cropCanvasToSquare(canvas);
   return cropped.toDataURL("image/png");
 }
 
-// composite canvas and billboarding labels
-function captureCanvasWithLabels(
-  stageEl: HTMLElement,
-  targetAspect: number,
-): string | null {
+// composite canvas and billboarding labels in square aspect ratio
+function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
   const canvas = stageEl.querySelector("canvas");
   if (!canvas) return null;
 
   try {
     const srcW = canvas.width;
     const srcH = canvas.height;
-    const srcAspect = srcW / srcH;
-
-    let cropW = srcW;
-    let cropH = srcH;
-    let cropX = 0;
-    let cropY = 0;
-
-    if (srcAspect < targetAspect) {
-      cropH = Math.round(srcW / targetAspect);
-      cropY = Math.round((srcH - cropH) / 2);
-    } else {
-      cropW = Math.round(srcH * targetAspect);
-      cropX = Math.round((srcW - cropW) / 2);
-    }
-
-    const offscreen = document.createElement("canvas");
-    offscreen.width = cropW;
-    offscreen.height = cropH;
-    const ctx = offscreen.getContext("2d");
-    if (!ctx) return canvas.toDataURL("image/png");
-
-    // draw cropped base webgl canvas
-    ctx.drawImage(canvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
-
     const canvasRect = canvas.getBoundingClientRect();
-    if (canvasRect.width === 0 || canvasRect.height === 0) {
-      return offscreen.toDataURL("image/png");
-    }
-
-    const scaleX = srcW / canvasRect.width;
-    const scaleY = srcH / canvasRect.height;
+    const scaleX = canvasRect.width > 0 ? srcW / canvasRect.width : 1;
+    const scaleY = canvasRect.height > 0 ? srcH / canvasRect.height : 1;
 
     // locate all billboarding label elements
     const labelNodes = stageEl.querySelectorAll<HTMLElement>(
       "[data-part-label], .select-none div",
+    );
+
+    let minLabelX = srcW;
+    let maxLabelX = 0;
+    let minLabelY = srcH;
+    let maxLabelY = 0;
+
+    labelNodes.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      const rawX = (rect.left - canvasRect.left) * scaleX;
+      const rawY = (rect.top - canvasRect.top) * scaleY;
+      minLabelX = Math.min(minLabelX, rawX);
+      maxLabelX = Math.max(maxLabelX, rawX + rect.width * scaleX);
+      minLabelY = Math.min(minLabelY, rawY);
+      maxLabelY = Math.max(maxLabelY, rawY + rect.height * scaleY);
+    });
+
+    // calculate bounds to include all labels without clipping
+    const padding = 28 * Math.max(scaleX, scaleY);
+    let squareSize = Math.min(srcW, srcH);
+
+    if (minLabelX < maxLabelX && minLabelY < maxLabelY) {
+      const neededW = maxLabelX - minLabelX + padding * 2;
+      const neededH = maxLabelY - minLabelY + padding * 2;
+      squareSize = Math.min(
+        srcW,
+        Math.max(srcH, Math.max(neededW, neededH)),
+      );
+    }
+
+    let cropX = Math.round((srcW - squareSize) / 2);
+    let cropY = Math.round((srcH - squareSize) / 2);
+
+    if (minLabelX < maxLabelX) {
+      if (cropX > minLabelX - padding) {
+        cropX = Math.max(0, minLabelX - padding);
+      }
+      if (cropX + squareSize < maxLabelX + padding) {
+        cropX = Math.max(0, maxLabelX + padding - squareSize);
+      }
+    }
+
+    if (minLabelY < maxLabelY) {
+      if (cropY > minLabelY - padding) {
+        cropY = Math.max(0, minLabelY - padding);
+      }
+      if (cropY + squareSize < maxLabelY + padding) {
+        cropY = Math.max(0, maxLabelY + padding - squareSize);
+      }
+    }
+
+    const offscreen = document.createElement("canvas");
+    offscreen.width = squareSize;
+    offscreen.height = squareSize;
+    const ctx = offscreen.getContext("2d");
+    if (!ctx) {
+      return { dataUrl: canvas.toDataURL("image/png"), aspect: 1 };
+    }
+
+    // draw square cropped webgl canvas
+    ctx.drawImage(
+      canvas,
+      cropX,
+      cropY,
+      squareSize,
+      squareSize,
+      0,
+      0,
+      squareSize,
+      squareSize,
     );
 
     labelNodes.forEach((node) => {
@@ -214,9 +253,6 @@ function captureCanvasWithLabels(
       const w = rect.width * scaleX;
       const h = rect.height * scaleY;
       const radius = h / 2;
-
-      // skip labels outside crop boundary
-      if (x + w < 0 || x > cropW || y + h < 0 || y > cropH) return;
 
       ctx.save();
       // pill background styling
@@ -251,9 +287,12 @@ function captureCanvasWithLabels(
       ctx.restore();
     });
 
-    return offscreen.toDataURL("image/png");
+    return { dataUrl: offscreen.toDataURL("image/png"), aspect: 1 };
   } catch {
-    return canvas.toDataURL("image/png");
+    return {
+      dataUrl: canvas.toDataURL("image/png"),
+      aspect: 1,
+    };
   }
 }
 
@@ -273,10 +312,7 @@ export async function generateProductPdf({
   const originalLabels = store.showLabels;
 
   let implodedImage: string | null = null;
-  let explodedImage: string | null = null;
-
-  // target widescreen aspect ratio matching page width to height ratio
-  const targetAspect = 182 / 70;
+  let explodedResult: CaptureResult | null = null;
 
   try {
     // prepare imploded capture view without labels
@@ -286,7 +322,7 @@ export async function generateProductPdf({
     await wait(700);
 
     // capture imploded viewport snapshot
-    implodedImage = captureCanvasImage(stageEl, targetAspect);
+    implodedImage = captureCanvasImage(stageEl);
 
     // prepare exploded capture view with component labels
     onProgress?.("Framing exploded view with labels...");
@@ -295,14 +331,14 @@ export async function generateProductPdf({
     await wait(800);
 
     // capture exploded viewport snapshot
-    explodedImage = captureCanvasWithLabels(stageEl, targetAspect);
+    explodedResult = captureCanvasWithLabels(stageEl);
   } finally {
     // restore original user viewport toggle state
     store.setExploded(originalExploded);
     store.setLabels(originalLabels);
   }
 
-  // construct pdf specification document
+  // construct multi page pdf specification document
   onProgress?.("Assembling specification sheet...");
 
   const doc = new jsPDF({
@@ -315,8 +351,9 @@ export async function generateProductPdf({
   const pageHeight = 297;
   const margin = 14;
   const contentWidth = pageWidth - margin * 2;
+  const squareSize = contentWidth;
 
-  // dark header background banner
+  // page one header background banner
   doc.setFillColor(18, 18, 20);
   doc.rect(0, 0, pageWidth, 28, "F");
 
@@ -358,56 +395,120 @@ export async function generateProductPdf({
     align: "right",
   });
 
-  // visual views section header
-  let currentY = 34;
-  const imgWidth = contentWidth;
-  const imgHeight = 70;
-
-  // full width imploded view presentation card
+  // full width square imploded view
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, currentY);
-
-  currentY += 2.5;
+  doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 34);
 
   if (implodedImage) {
-    doc.addImage(implodedImage, "PNG", margin, currentY, imgWidth, imgHeight, undefined, "FAST");
+    doc.addImage(
+      implodedImage,
+      "PNG",
+      margin,
+      36.5,
+      squareSize,
+      squareSize,
+      undefined,
+      "FAST",
+    );
   }
 
   doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(margin, currentY, imgWidth, imgHeight, 1.5, 1.5, "S");
+  doc.roundedRect(margin, 36.5, squareSize, squareSize, 1.5, 1.5, "S");
 
-  currentY += imgHeight + 4;
+  // studio configuration overview card
+  doc.setFillColor(248, 249, 250);
+  doc.setDrawColor(228, 228, 231);
+  doc.roundedRect(margin, 224, contentWidth, 42, 2, 2, "FD");
 
-  // full width exploded view presentation card with labels
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(39, 39, 42);
+  doc.text("STUDIO CONFIGURATION OVERVIEW", margin + 5, 231);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(7.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text(`MODEL: ${modelTitle.toUpperCase()}`, margin + 5, 238);
+  doc.text("VIEW MODE: HIGH FIDELITY ASSEMBLED STATE", margin + 5, 245);
+  doc.text("STATUS: VERIFIED CONFIGURATION SPECIFICATION", margin + 5, 252);
+
+  doc.setTextColor(37, 99, 235);
+  doc.setFont("helvetica", "bold");
+  doc.text(
+    "SEE PAGE 2 FOR EXPLODED PART LABELS AND COMPONENT SPECIFICATIONS →",
+    margin + 5,
+    260,
+  );
+
+  // begin page two for exploded inspection and specifications
+  doc.addPage();
+
+  // page two compact header background banner
+  doc.setFillColor(18, 18, 20);
+  doc.rect(0, 0, pageWidth, 16, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("FORMA", margin, 11);
+  doc.link(margin - 1, 4, 18, 8, { url: studioOrigin });
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(161, 161, 170);
+  doc.text(`${modelTitle.toUpperCase()} — COMPONENT INSPECTION`, margin + 22, 11);
+
+  // full width square exploded view with labels
+  let pageTwoY = 22;
+  const explodedSquareSize = 136;
+  const explodedX = margin + (contentWidth - explodedSquareSize) / 2;
+
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   doc.setTextColor(71, 85, 105);
-  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin, currentY);
+  doc.text("2. EXPLODED ASSEMBLY (WITH LABELS)", margin, pageTwoY);
 
-  currentY += 2.5;
+  pageTwoY += 2.5;
 
-  if (explodedImage) {
-    doc.addImage(explodedImage, "PNG", margin, currentY, imgWidth, imgHeight, undefined, "FAST");
+  if (explodedResult?.dataUrl) {
+    doc.addImage(
+      explodedResult.dataUrl,
+      "PNG",
+      explodedX,
+      pageTwoY,
+      explodedSquareSize,
+      explodedSquareSize,
+      undefined,
+      "FAST",
+    );
   }
 
   doc.setDrawColor(228, 228, 231);
-  doc.roundedRect(margin, currentY, imgWidth, imgHeight, 1.5, 1.5, "S");
+  doc.roundedRect(
+    explodedX,
+    pageTwoY,
+    explodedSquareSize,
+    explodedSquareSize,
+    1.5,
+    1.5,
+    "S",
+  );
 
-  currentY += imgHeight + 6;
+  pageTwoY += explodedSquareSize + 5;
 
   // material configurations section header
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(39, 39, 42);
-  doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, currentY);
+  doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, pageTwoY);
 
-  currentY += 4.5;
+  pageTwoY += 4.5;
 
   // table column headers background
   doc.setFillColor(24, 24, 27);
-  doc.rect(margin, currentY, contentWidth, 7, "F");
+  doc.rect(margin, pageTwoY, contentWidth, 6.5, "F");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
@@ -418,89 +519,97 @@ export async function generateProductPdf({
   const colRoughnessX = margin + 115;
   const colMetalnessX = margin + 150;
 
-  doc.text("COMPONENT", colComponentX, currentY + 4.8);
-  doc.text("FINISH COLOR", colColorX, currentY + 4.8);
-  doc.text("ROUGHNESS", colRoughnessX, currentY + 4.8);
-  doc.text("METALNESS", colMetalnessX, currentY + 4.8);
+  doc.text("COMPONENT", colComponentX, pageTwoY + 4.5);
+  doc.text("FINISH COLOR", colColorX, pageTwoY + 4.5);
+  doc.text("ROUGHNESS", colRoughnessX, pageTwoY + 4.5);
+  doc.text("METALNESS", colMetalnessX, pageTwoY + 4.5);
 
-  currentY += 7;
+  pageTwoY += 6.5;
 
   // populate component specifications rows
   const { specs, extraDetails } = getModelSpecifications(modelKey);
-  const rowHeight = 8.5;
+  const rowHeight = 7;
 
   specs.forEach((spec, index) => {
     const isEven = index % 2 === 0;
     doc.setFillColor(isEven ? 255 : 249, isEven ? 255 : 250, isEven ? 255 : 251);
     doc.setDrawColor(241, 243, 245);
-    doc.rect(margin, currentY, contentWidth, rowHeight, "FD");
+    doc.rect(margin, pageTwoY, contentWidth, rowHeight, "FD");
 
     // component label
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(8);
+    doc.setFontSize(7.5);
     doc.setTextColor(24, 24, 27);
-    doc.text(spec.name, colComponentX, currentY + 5.5);
+    doc.text(spec.name, colComponentX, pageTwoY + 4.6);
 
     // color swatch block
     const rgb = hexToRgb(spec.color);
     doc.setFillColor(rgb[0], rgb[1], rgb[2]);
     doc.setDrawColor(200, 200, 200);
-    doc.roundedRect(colColorX, currentY + 2, 4.5, 4.5, 0.8, 0.8, "FD");
+    doc.roundedRect(colColorX, pageTwoY + 1.4, 4, 4, 0.8, 0.8, "FD");
 
     // hex color code
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(71, 85, 105);
-    doc.text(spec.color.toUpperCase(), colColorX + 7, currentY + 5.5);
+    doc.text(spec.color.toUpperCase(), colColorX + 6.5, pageTwoY + 4.6);
 
     // roughness level
     const roughnessPercent = Math.round(spec.roughness * 100);
     const roughnessTag = roughnessPercent < 30 ? "Glossy" : roughnessPercent > 70 ? "Matte" : "Satin";
-    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, currentY + 5.5);
+    doc.text(`${roughnessPercent}% (${roughnessTag})`, colRoughnessX, pageTwoY + 4.6);
 
     // metalness level
     const metalnessPercent = Math.round(spec.metalness * 100);
     const metalnessTag = metalnessPercent > 50 ? "Metallic" : "Dielectric";
-    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, currentY + 5.5);
+    doc.text(`${metalnessPercent}% (${metalnessTag})`, colMetalnessX, pageTwoY + 4.6);
 
-    currentY += rowHeight;
+    pageTwoY += rowHeight;
   });
 
   // optional extra details block
   if (extraDetails.length > 0) {
-    currentY += 5;
+    pageTwoY += 3.5;
     doc.setFillColor(244, 244, 245);
-    doc.roundedRect(margin, currentY, contentWidth, 13, 2, 2, "F");
+    doc.roundedRect(margin, pageTwoY, contentWidth, 10, 1.5, 1.5, "F");
 
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(7.5);
+    doc.setFontSize(7);
     doc.setTextColor(39, 39, 42);
-    doc.text("ADDITIONAL STUDIO PARAMETERS", margin + 4, currentY + 4.5);
+    doc.text("ADDITIONAL STUDIO PARAMETERS", margin + 4, pageTwoY + 3.8);
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(7.5);
+    doc.setFontSize(7);
     doc.setTextColor(82, 82, 91);
-    doc.text(extraDetails.join("   •   "), margin + 4, currentY + 9);
-
-    currentY += 13;
+    doc.text(extraDetails.join("   •   "), margin + 4, pageTwoY + 7.5);
   }
 
-  // bottom footer metadata bar
-  doc.setDrawColor(228, 228, 231);
-  doc.line(margin, pageHeight - 16, pageWidth - margin, pageHeight - 16);
+  // bottom footer metadata bar and page numbering
+  const totalPages = doc.getNumberOfPages();
+  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+    doc.setPage(pageNum);
+    doc.setDrawColor(228, 228, 231);
+    doc.line(margin, pageHeight - 16, pageWidth - margin, pageHeight - 16);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(7);
-  doc.setTextColor(161, 161, 170);
-  doc.text(
-    "FORMA STUDIO — PHOTOREALISTIC THREE DIMENSIONAL PRODUCT CONFIGURATION ENGINE",
-    margin,
-    pageHeight - 10,
-  );
-  doc.link(margin, pageHeight - 13, 120, 6, { url: studioOrigin });
-  doc.text("PAGE 1 OF 1", pageWidth - margin, pageHeight - 10, {
-    align: "right",
-  });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(161, 161, 170);
+    doc.text(
+      "FORMA STUDIO — PHOTOREALISTIC THREE DIMENSIONAL PRODUCT CONFIGURATION ENGINE",
+      margin,
+      pageHeight - 10,
+    );
+    doc.link(margin, pageHeight - 13, 120, 6, { url: studioOrigin });
+
+    doc.text(
+      `PAGE ${pageNum} OF ${totalPages}`,
+      pageWidth - margin,
+      pageHeight - 10,
+      {
+        align: "right",
+      },
+    );
+  }
 
   // trigger browser pdf file download
   const sanitizedModel = modelKey.toLowerCase().replace(/[^a-z0-9]/g, "-");
