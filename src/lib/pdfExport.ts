@@ -427,7 +427,7 @@ export async function generateProductPdf({
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  let pageOneY = 219;
+  let pageOneY = 222.5;
 
   // studio configuration overview card
   // material configurations section header
@@ -436,17 +436,7 @@ export async function generateProductPdf({
   doc.setTextColor(39, 39, 42);
   doc.text("MATERIAL & COMPONENT SPECIFICATIONS", margin, pageOneY);
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(7);
-  doc.setTextColor(37, 99, 235);
-  doc.text(
-    "SEE PAGE 2 FOR EXPLODED PART LABELS AND VERIFIED SIGN-OFF →",
-    pageWidth - margin,
-    pageOneY,
-    { align: "right" },
-  );
-
-  pageOneY += 3.5;
+  pageOneY += 3.8;
 
   // table column headers background
   doc.setFillColor(24, 24, 27);
@@ -584,7 +574,7 @@ export async function generateProductPdf({
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  pageTwoY += explodedSquareSize + 5;
+  pageTwoY += explodedSquareSize + 12;
 
   // designer authentication and approval sign off section
   const signBoxY = pageTwoY;
