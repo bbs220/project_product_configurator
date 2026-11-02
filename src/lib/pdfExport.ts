@@ -414,8 +414,12 @@ export async function generateProductPdf({
     );
   }
 
-  doc.setDrawColor(228, 228, 231);
+  // draw image border frame with enhanced stroke width
+  doc.setDrawColor(24, 24, 27);
+  doc.setLineWidth(0.6);
   doc.roundedRect(margin, 36.5, squareSize, squareSize, 1.5, 1.5, "S");
+  // restore baseline line width for subsequent elements
+  doc.setLineWidth(0.2);
 
   // studio configuration overview card
   doc.setFillColor(248, 249, 250);
@@ -485,7 +489,9 @@ export async function generateProductPdf({
     );
   }
 
-  doc.setDrawColor(228, 228, 231);
+  // draw image border frame with enhanced stroke width
+  doc.setDrawColor(24, 24, 27);
+  doc.setLineWidth(0.6);
   doc.roundedRect(
     explodedX,
     pageTwoY,
@@ -495,6 +501,8 @@ export async function generateProductPdf({
     1.5,
     "S",
   );
+  // restore baseline line width for subsequent elements
+  doc.setLineWidth(0.2);
 
   pageTwoY += explodedSquareSize + 5;
 
