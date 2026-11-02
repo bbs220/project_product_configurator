@@ -255,16 +255,24 @@ export async function generateProductPdf({
   doc.setFillColor(18, 18, 20);
   doc.rect(0, 0, pageWidth, 28, "F");
 
+  // interactive hyperlink navigating to root application
+  const studioOrigin =
+    typeof window !== "undefined" && window.location.origin
+      ? `${window.location.origin}/`
+      : "https://forma-config.vercel.app/";
+
   // brand wordmark and tagline
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
   doc.text("FORMA", margin, 13);
+  doc.link(margin - 1, 6, 25, 9, { url: studioOrigin });
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(161, 161, 170);
   doc.text("SHAPE YOUR PRODUCT — SPECIFICATION SHEET", margin, 19);
+  doc.link(margin - 1, 15, 68, 6, { url: studioOrigin });
 
   // model name and export timestamp
   const modelTitle = modelTitles[modelKey] || modelKey;
@@ -460,6 +468,7 @@ export async function generateProductPdf({
     margin,
     pageHeight - 10,
   );
+  doc.link(margin, pageHeight - 13, 120, 6, { url: studioOrigin });
   doc.text("PAGE 1 OF 1", pageWidth - margin, pageHeight - 10, {
     align: "right",
   });
