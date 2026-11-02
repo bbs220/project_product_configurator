@@ -1,17 +1,45 @@
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { savedConfigs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
-import { Car, Settings, Plus } from "lucide-react";
+import { Box, Lock, LogIn, Plus, Settings } from "lucide-react";
 import Image from "next/image";
 
+// user garage management page
 export default async function AccountPage() {
   const { userId } = await auth();
 
+  // prompt unauthenticated visitors to sign in to access cloud garage
   if (!userId) {
-    redirect("/sign-in");
+    return (
+      <div className="w-full min-h-[calc(100vh-64px)] pt-32 pb-12 px-6 md:px-12 max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
+        <div className="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center mb-6 text-gray-700 dark:text-gray-300">
+          <Lock className="w-8 h-8" />
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white mb-3">
+          Sign in to use My Garage
+        </h1>
+        <p className="text-base text-gray-600 dark:text-gray-400 max-w-md mb-8">
+          Your garage lets you store, update, and manage custom product variations. Please sign in to access your saved builds.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <Link
+            href="/sign-in"
+            className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-xl font-medium hover:opacity-90 transition-opacity"
+          >
+            <LogIn className="w-4 h-4" />
+            Sign In
+          </Link>
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+          >
+            Explore Products
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const configs = await db
@@ -27,7 +55,7 @@ export default async function AccountPage() {
             My Garage
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            View and manage your saved vehicle configurations.
+            View and manage your saved product configurations.
           </p>
         </div>
         <Link
@@ -41,12 +69,12 @@ export default async function AccountPage() {
 
       {configs.length === 0 ? (
         <div className="w-full h-64 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center text-center p-6">
-          <Car className="w-12 h-12 text-gray-400 mb-4" />
+          <Box className="w-12 h-12 text-gray-400 mb-4" />
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Your garage is empty
           </h2>
           <p className="text-gray-500 dark:text-gray-400 max-w-md">
-            {`You haven't saved any configurations yet. Head over to the dashboard to start customizing a new vehicle.`}
+            {`You haven't saved any configurations yet. Head over to the dashboard to start customizing a new product.`}
           </p>
         </div>
       ) : (
@@ -65,7 +93,7 @@ export default async function AccountPage() {
                     className="object-cover"
                   />
                 ) : (
-                  <Car className="w-16 h-16 text-gray-300 dark:text-gray-700" />
+                  <Box className="w-16 h-16 text-gray-300 dark:text-gray-700" />
                 )}
               </div>
               <div className="p-6">
