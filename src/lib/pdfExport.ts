@@ -117,38 +117,20 @@ function getModelSpecifications(modelKey: string): {
 
 // crop canvas to square aspect ratio
 function cropCanvasToSquare(sourceCanvas: HTMLCanvasElement): HTMLCanvasElement {
-  const srcW = sourceCanvas.width;
-  const srcH = sourceCanvas.height;
-  const squareSize = Math.min(srcW, srcH);
-  const cropX = Math.round((srcW - squareSize) / 2);
-  const cropY = Math.round((srcH - squareSize) / 2);
-
-  const dest = document.createElement("canvas");
-  dest.width = squareSize;
-  dest.height = squareSize;
-  const ctx = dest.getContext("2d");
-  if (ctx) {
-    ctx.drawImage(
-      sourceCanvas,
-      cropX,
-      cropY,
-      squareSize,
-      squareSize,
-      0,
-      0,
-      squareSize,
-      squareSize,
-    );
-  }
-  return dest;
+  return sourceCanvas;
 }
 
 // capture standard canvas image without labels
-function captureCanvasImage(stageEl: HTMLElement): string | null {
+function captureCanvasImage(stageEl: HTMLElement): CaptureResult | null {
   const canvas = stageEl.querySelector("canvas");
   if (!canvas) return null;
-  const cropped = cropCanvasToSquare(canvas);
-  return cropped.toDataURL("image/png");
+  const srcW = canvas.width;
+  const srcH = canvas.height;
+  const aspect = srcW > 0 && srcH > 0 ? srcW / srcH : 1;
+  return {
+    dataUrl: canvas.toDataURL("image/png"),
+    aspect,
+  };
 }
 
 // composite canvas and billboarding labels in square aspect ratio
@@ -185,58 +167,46 @@ function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
     });
 
     // calculate bounds to include all labels without clipping
-    const padding = 28 * Math.max(scaleX, scaleY);
-    let squareSize = Math.min(srcW, srcH);
+    const padding = 16 * Math.max(scaleX, scaleY);
+    let minX = 0;
+    let maxX = srcW;
+    let minY = 0;
+    let maxY = srcH;
 
     if (minLabelX < maxLabelX && minLabelY < maxLabelY) {
-      const neededW = maxLabelX - minLabelX + padding * 2;
-      const neededH = maxLabelY - minLabelY + padding * 2;
-      squareSize = Math.min(
-        srcW,
-        Math.max(srcH, Math.max(neededW, neededH)),
-      );
+      minX = Math.min(0, minLabelX - padding);
+      maxX = Math.max(srcW, maxLabelX + padding);
+      minY = Math.min(0, minLabelY - padding);
+      maxY = Math.max(srcH, maxLabelY + padding);
     }
 
-    let cropX = Math.round((srcW - squareSize) / 2);
-    let cropY = Math.round((srcH - squareSize) / 2);
-
-    if (minLabelX < maxLabelX) {
-      if (cropX > minLabelX - padding) {
-        cropX = Math.max(0, minLabelX - padding);
-      }
-      if (cropX + squareSize < maxLabelX + padding) {
-        cropX = Math.max(0, maxLabelX + padding - squareSize);
-      }
-    }
-
-    if (minLabelY < maxLabelY) {
-      if (cropY > minLabelY - padding) {
-        cropY = Math.max(0, minLabelY - padding);
-      }
-      if (cropY + squareSize < maxLabelY + padding) {
-        cropY = Math.max(0, maxLabelY + padding - squareSize);
-      }
-    }
+    const offsetX = minX < 0 ? Math.abs(minX) : 0;
+    const offsetY = minY < 0 ? Math.abs(minY) : 0;
+    const totalW = Math.round(maxX + offsetX);
+    const totalH = Math.round(maxY + offsetY);
 
     const offscreen = document.createElement("canvas");
-    offscreen.width = squareSize;
-    offscreen.height = squareSize;
+    offscreen.width = totalW;
+    offscreen.height = totalH;
     const ctx = offscreen.getContext("2d");
     if (!ctx) {
-      return { dataUrl: canvas.toDataURL("image/png"), aspect: 1 };
+      return {
+        dataUrl: canvas.toDataURL("image/png"),
+        aspect: srcW / srcH,
+      };
     }
 
     // draw square cropped webgl canvas
     ctx.drawImage(
       canvas,
-      cropX,
-      cropY,
-      squareSize,
-      squareSize,
       0,
       0,
-      squareSize,
-      squareSize,
+      srcW,
+      srcH,
+      offsetX,
+      offsetY,
+      srcW,
+      srcH,
     );
 
     labelNodes.forEach((node) => {
@@ -251,8 +221,8 @@ function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
       // transform coordinates into cropped offscreen canvas space
       const rawX = (rect.left - canvasRect.left) * scaleX;
       const rawY = (rect.top - canvasRect.top) * scaleY;
-      const x = rawX - cropX;
-      const y = rawY - cropY;
+      const x = rawX + offsetX;
+      const y = rawY + offsetY;
       const w = rect.width * scaleX;
       const h = rect.height * scaleY;
       const radius = h / 2;
@@ -290,11 +260,14 @@ function captureCanvasWithLabels(stageEl: HTMLElement): CaptureResult | null {
       ctx.restore();
     });
 
-    return { dataUrl: offscreen.toDataURL("image/png"), aspect: 1 };
+    const aspect = totalW > 0 && totalH > 0 ? totalW / totalH : srcW / srcH;
+    return { dataUrl: offscreen.toDataURL("image/png"), aspect };
   } catch {
+    const fallbackAspect =
+      canvas.width > 0 && canvas.height > 0 ? canvas.width / canvas.height : 1;
     return {
       dataUrl: canvas.toDataURL("image/png"),
-      aspect: 1,
+      aspect: fallbackAspect,
     };
   }
 }
@@ -317,7 +290,7 @@ export async function generateProductPdf({
   const originalExploded = store.isExploded;
   const originalLabels = store.showLabels;
 
-  let implodedImage: string | null = null;
+  let implodedResult: CaptureResult | null = null;
   let explodedResult: CaptureResult | null = null;
 
   try {
@@ -328,7 +301,7 @@ export async function generateProductPdf({
     await wait(700);
 
     // capture imploded viewport snapshot
-    implodedImage = captureCanvasImage(stageEl);
+    implodedResult = captureCanvasImage(stageEl);
 
     // prepare exploded capture view with component labels
     onProgress?.("Framing exploded view with labels...");
@@ -357,7 +330,6 @@ export async function generateProductPdf({
   const pageHeight = 297;
   const margin = 14;
   const contentWidth = pageWidth - margin * 2;
-  const squareSize = contentWidth;
 
   // page one header background banner
   doc.setFillColor(18, 18, 20);
@@ -407,14 +379,28 @@ export async function generateProductPdf({
   doc.setTextColor(71, 85, 105);
   doc.text("1. IMPLODED ASSEMBLY (CLEAN VIEW)", margin, 31);
 
-  if (implodedImage) {
+  const implodedAspect = implodedResult?.aspect || 1.6;
+  const maxImgHeight = 175;
+  let imgWidth = contentWidth;
+  let imgHeight = imgWidth / implodedAspect;
+  let imgX = margin;
+
+  if (imgHeight > maxImgHeight) {
+    imgHeight = maxImgHeight;
+    imgWidth = imgHeight * implodedAspect;
+    imgX = margin + (contentWidth - imgWidth) / 2;
+  }
+
+  const imgY = 33;
+
+  if (implodedResult?.dataUrl) {
     doc.addImage(
-      implodedImage,
+      implodedResult.dataUrl,
       "PNG",
-      margin,
-      33,
-      squareSize,
-      squareSize,
+      imgX,
+      imgY,
+      imgWidth,
+      imgHeight,
       undefined,
       "FAST",
     );
@@ -423,11 +409,11 @@ export async function generateProductPdf({
   // draw image border frame with enhanced stroke width
   doc.setDrawColor(24, 24, 27);
   doc.setLineWidth(0.6);
-  doc.roundedRect(margin, 33, squareSize, squareSize, 1.5, 1.5, "S");
+  doc.roundedRect(imgX, imgY, imgWidth, imgHeight, 1.5, 1.5, "S");
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  let pageOneY = 222.5;
+  let pageOneY = imgY + imgHeight + 7.5;
 
   // studio configuration overview card
   // material configurations section header
@@ -536,8 +522,17 @@ export async function generateProductPdf({
 
   // full width square exploded view with labels
   let pageTwoY = 21.5;
-  const explodedSquareSize = squareSize;
-  const explodedX = margin;
+  const explodedAspect = explodedResult?.aspect || implodedAspect;
+  const maxExpImgHeight = 175;
+  let expImgWidth = contentWidth;
+  let expImgHeight = expImgWidth / explodedAspect;
+  let expImgX = margin;
+
+  if (expImgHeight > maxExpImgHeight) {
+    expImgHeight = maxExpImgHeight;
+    expImgWidth = expImgHeight * explodedAspect;
+    expImgX = margin + (contentWidth - expImgWidth) / 2;
+  }
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
@@ -550,10 +545,10 @@ export async function generateProductPdf({
     doc.addImage(
       explodedResult.dataUrl,
       "PNG",
-      explodedX,
+      expImgX,
       pageTwoY,
-      explodedSquareSize,
-      explodedSquareSize,
+      expImgWidth,
+      expImgHeight,
       undefined,
       "FAST",
     );
@@ -563,10 +558,10 @@ export async function generateProductPdf({
   doc.setDrawColor(24, 24, 27);
   doc.setLineWidth(0.6);
   doc.roundedRect(
-    explodedX,
+    expImgX,
     pageTwoY,
-    explodedSquareSize,
-    explodedSquareSize,
+    expImgWidth,
+    expImgHeight,
     1.5,
     1.5,
     "S",
@@ -574,7 +569,7 @@ export async function generateProductPdf({
   // restore baseline line width for subsequent elements
   doc.setLineWidth(0.2);
 
-  pageTwoY += explodedSquareSize + 12;
+  pageTwoY += expImgHeight + 12;
 
   // designer authentication and approval sign off section
   const signBoxY = pageTwoY;
