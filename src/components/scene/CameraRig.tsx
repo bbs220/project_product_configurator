@@ -43,53 +43,30 @@ export default function CameraRig() {
   const focusTweak = useTweakpane(
     { title: "🎯 Part Focus", expanded: false },
     {
-      override: { value: false, label: "override coords" },
       posX: { value: 1.0, step: 0.1, label: "cam x" },
       posY: { value: 1.5, step: 0.1, label: "cam y" },
       posZ: { value: -2.0, step: 0.1, label: "cam z" },
       targetX: { value: 0, step: 0.1, label: "look x" },
       targetY: { value: 1.0, step: 0.1, label: "look y" },
       targetZ: { value: 0, step: 0.1, label: "look z" },
-      logCurrent: { value: false, label: "log to console" },
     },
   );
 
-  // previous log trigger state tracking
-  const prevLogTrigger = useRef(focusTweak.logCurrent);
+  // track initial render to avoid overriding default position
+  const isInitialMount = useRef(true);
   useEffect(() => {
-    if (focusTweak.logCurrent !== prevLogTrigger.current) {
-      prevLogTrigger.current = focusTweak.logCurrent;
-      const controls = controlsRef.current;
-      if (controls) {
-        const pos = controls.object.position;
-        const tgt = controls.target;
-        const px = Number(pos.x.toFixed(2));
-        const py = Number(pos.y.toFixed(2));
-        const pz = Number(pos.z.toFixed(2));
-        const tx = Number(tgt.x.toFixed(2));
-        const ty = Number(tgt.y.toFixed(2));
-        const tz = Number(tgt.z.toFixed(2));
-        // log focus snippet for code copy
-        console.log(
-          `[Focus Target] ${activeModel} -> ${activeTab}:\n  ${activeTab}: { position: [${px}, ${py}, ${pz}], target: [${tx}, ${ty}, ${tz}] },`,
-        );
-      }
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
     }
-  }, [focusTweak.logCurrent, activeModel, activeTab]);
-
-  // apply manual override coordinates from tweakpane
-  useEffect(() => {
-    if (focusTweak.override) {
-      targetPos.current.set(focusTweak.posX, focusTweak.posY, focusTweak.posZ);
-      targetLook.current.set(
-        focusTweak.targetX,
-        focusTweak.targetY,
-        focusTweak.targetZ,
-      );
-      isLerping.current = true;
-    }
+    targetPos.current.set(focusTweak.posX, focusTweak.posY, focusTweak.posZ);
+    targetLook.current.set(
+      focusTweak.targetX,
+      focusTweak.targetY,
+      focusTweak.targetZ,
+    );
+    isLerping.current = true;
   }, [
-    focusTweak.override,
     focusTweak.posX,
     focusTweak.posY,
     focusTweak.posZ,
@@ -99,7 +76,6 @@ export default function CameraRig() {
   ]);
 
   useEffect(() => {
-    if (focusTweak.override) return;
     // Determine the desired camera state based on activeModel and isExploded
     if (isExploded) {
       targetPos.current.set(...MODEL_EXPLODED_CAMERA_POSITIONS[activeModel]);
@@ -127,7 +103,6 @@ export default function CameraRig() {
     activeTab,
     cameraPosition,
     cameraTarget,
-    focusTweak.override,
   ]);
 
   useFrame((state, delta) => {
