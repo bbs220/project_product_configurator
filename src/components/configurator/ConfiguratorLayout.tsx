@@ -60,7 +60,7 @@ export default function ConfiguratorLayout({
   const isDesktop = useIsDesktop();
 
   // default to open during server rendering
-  const open = mounted ? isSidebarOpen : true;
+  const open = mounted ? isSidebarOpen : false;
 
   return (
     <main className="w-full h-[calc(100dvh-64px)] mt-16 flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-black">

@@ -8,7 +8,7 @@ type typeSidebarStore = {
 
 // configurator studio sidebar visibility store with open default state
 export const useSidebarStore = create<typeSidebarStore>()((set) => ({
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   toggleSidebar: () =>
     set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
   setSidebarOpen: (open) => set({ isSidebarOpen: open }),
