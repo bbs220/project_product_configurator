@@ -549,7 +549,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
   toggleFloor: () => set((state) => ({ showFloor: !state.showFloor })),
   setFloor: (val) => set({ showFloor: val }),
 
-  focus: true,
+  focus: false,
   toggleFocus: () => set((state) => ({ focus: !state.focus })),
   setFocus: (val) => set({ focus: val }),
 

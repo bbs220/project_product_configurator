@@ -36,12 +36,16 @@ export const MODEL_FOCUS_TARGETS: Record<
     },
   },
   keyboard: {
-    base: { position: [0, 2.2, -2.0], target: [0, 0, 0], distance: 2.97 },
-    keycaps: { position: [0, 2.4, -1.0], target: [0, 0.1, 0], distance: 2.51 },
+    base: {
+      position: [2.1, 0.7, -1.55],
+      target: [0.1, -0.25, 0.3],
+      distance: 1.66,
+    },
+    keycaps: { position: [0, 2.4, -0.01], target: [0, 0.1, 0], distance: 1.26 },
     switches: {
-      position: [0.9, 1.8, -0.9],
-      target: [0.2, 0.1, 0],
-      distance: 2.05,
+      position: [0, 2.4, -0.01],
+      target: [0, 0.1, 0],
+      distance: 1.26,
     },
     knobs: {
       position: [-1.2, 1.5, -0.6],
