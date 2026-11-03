@@ -339,7 +339,7 @@ type ConfiguratorState = {
   // populate materials and styles from saved configuration
   loadConfigSnapshot: (
     model: ConfiguratorModel,
-    data: Record<string, unknown>
+    data: Record<string, unknown>,
   ) => void;
 };
 
@@ -523,10 +523,10 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
         model === "watch"
           ? "case"
           : model === "keyboard"
-          ? "base"
-          : model === "mtBike"
-          ? "frame"
-          : "body",
+            ? "base"
+            : model === "mtBike"
+              ? "frame"
+              : "body",
       cameraPosition: MODEL_CAMERA_POSITIONS[model],
       cameraTarget: MODEL_CAMERA_TARGETS[model],
       cameraFov: MODEL_CAMERA_FOV[model],
@@ -549,7 +549,7 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
   toggleFloor: () => set((state) => ({ showFloor: !state.showFloor })),
   setFloor: (val) => set({ showFloor: val }),
 
-  focus: false,
+  focus: true,
   toggleFocus: () => set((state) => ({ focus: !state.focus })),
   setFocus: (val) => set({ focus: val }),
 
