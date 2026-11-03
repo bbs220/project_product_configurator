@@ -80,7 +80,7 @@ export function useTweakpane<T extends Record<string, unknown>>(
     }
 
     if (!sharedPane) {
-      sharedPane = new Pane({ title: "🛠️ Controls", expanded: false });
+      sharedPane = new Pane({ title: "🛠️ Controls", expanded: true });
       sharedFolders = {};
     }
     activeHooksCount++;

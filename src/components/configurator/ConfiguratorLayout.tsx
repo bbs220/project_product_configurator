@@ -77,7 +77,7 @@ export default function ConfiguratorLayout({
         {canvas}
 
         {/* top left stage navigation instructions without background */}
-        <div className="absolute top-4 left-4 z-20 hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm">
+        <div className="absolute top-4 left-4 z-20 hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm pointer-events-none">
           <span className="font-semibold text-gray-700 dark:text-gray-200">
             L-Click
           </span>
@@ -103,9 +103,7 @@ export default function ConfiguratorLayout({
             >
               Pan
             </span>
-            {focus && (
-              <Lock className="w-3 h-3 text-red-500" />
-            )}
+            {focus && <Lock className="w-3 h-3 text-red-500" />}
           </div>
           <span className="text-gray-400 dark:text-gray-600">•</span>
           <span className="font-semibold text-gray-700 dark:text-gray-200">
@@ -143,9 +141,7 @@ export default function ConfiguratorLayout({
           <motion.section
             key="configurator-sidebar-panel"
             initial={
-              isDesktop
-                ? { width: 0, opacity: 0 }
-                : { height: 0, opacity: 0 }
+              isDesktop ? { width: 0, opacity: 0 } : { height: 0, opacity: 0 }
             }
             animate={
               isDesktop
@@ -153,9 +149,7 @@ export default function ConfiguratorLayout({
                 : { height: "50%", opacity: 1 }
             }
             exit={
-              isDesktop
-                ? { width: 0, opacity: 0 }
-                : { height: 0, opacity: 0 }
+              isDesktop ? { width: 0, opacity: 0 } : { height: 0, opacity: 0 }
             }
             transition={slideTransition}
             className="border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-800 flex flex-col bg-gray-50/70 dark:bg-zinc-950/70 backdrop-blur-xl overflow-hidden shrink-0"
@@ -164,12 +158,8 @@ export default function ConfiguratorLayout({
               initial={
                 isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }
               }
-              animate={
-                isDesktop ? { x: 0, opacity: 1 } : { y: 0, opacity: 1 }
-              }
-              exit={
-                isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }
-              }
+              animate={isDesktop ? { x: 0, opacity: 1 } : { y: 0, opacity: 1 }}
+              exit={isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }}
               transition={slideTransition}
               className="w-full lg:w-[40vw] h-full flex flex-col overflow-hidden"
             >

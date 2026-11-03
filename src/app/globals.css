@@ -61,10 +61,10 @@ body {
   right: auto !important;
   width: 340px !important;
   max-width: calc(100vw - 32px) !important;
-  z-index: 60 !important;
-  top: 116px !important;
+  z-index: 99 !important;
+  top: 120px !important;
   max-height: calc(
-    100vh - 132px
+    100vh - 136px
   ) !important; /* constrain to viewport minus navbar and spacing */
   overflow-y: auto !important;
   overflow-x: hidden !important;
