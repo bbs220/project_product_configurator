@@ -10,6 +10,8 @@ import {
   MODEL_EXPLODED_CAMERA_POSITIONS,
   MODEL_EXPLODED_CAMERA_TARGETS,
 } from "@/stores/useConfiguratorStore";
+import { getFocusTarget } from "@/constants/modelFocusPositions";
+import { useTweakpane } from "@/hooks/useTweakpane";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
 // maximum pan distance offsets allowed from model center
@@ -28,6 +30,7 @@ export default function CameraRig() {
     cameraMaxDistance,
     isExploded,
     activeModel,
+    activeTab,
     focus,
   } = useConfiguratorStore();
   const controlsRef = useRef<OrbitControlsImpl>(null);
@@ -36,11 +39,80 @@ export default function CameraRig() {
   const targetLook = useRef(new THREE.Vector3(...cameraTarget));
   const isLerping = useRef(false);
 
+  // tweakpane controls for visual focus adjustment
+  const focusTweak = useTweakpane(
+    { title: "🎯 Part Focus", expanded: false },
+    {
+      override: { value: false, label: "override coords" },
+      posX: { value: 1.0, step: 0.1, label: "cam x" },
+      posY: { value: 1.5, step: 0.1, label: "cam y" },
+      posZ: { value: -2.0, step: 0.1, label: "cam z" },
+      targetX: { value: 0, step: 0.1, label: "look x" },
+      targetY: { value: 1.0, step: 0.1, label: "look y" },
+      targetZ: { value: 0, step: 0.1, label: "look z" },
+      logCurrent: { value: false, label: "log to console" },
+    },
+  );
+
+  // previous log trigger state tracking
+  const prevLogTrigger = useRef(focusTweak.logCurrent);
   useEffect(() => {
+    if (focusTweak.logCurrent !== prevLogTrigger.current) {
+      prevLogTrigger.current = focusTweak.logCurrent;
+      const controls = controlsRef.current;
+      if (controls) {
+        const pos = controls.object.position;
+        const tgt = controls.target;
+        const px = Number(pos.x.toFixed(2));
+        const py = Number(pos.y.toFixed(2));
+        const pz = Number(pos.z.toFixed(2));
+        const tx = Number(tgt.x.toFixed(2));
+        const ty = Number(tgt.y.toFixed(2));
+        const tz = Number(tgt.z.toFixed(2));
+        // log focus snippet for code copy
+        console.log(
+          `[Focus Target] ${activeModel} -> ${activeTab}:\n  ${activeTab}: { position: [${px}, ${py}, ${pz}], target: [${tx}, ${ty}, ${tz}] },`,
+        );
+      }
+    }
+  }, [focusTweak.logCurrent, activeModel, activeTab]);
+
+  // apply manual override coordinates from tweakpane
+  useEffect(() => {
+    if (focusTweak.override) {
+      targetPos.current.set(focusTweak.posX, focusTweak.posY, focusTweak.posZ);
+      targetLook.current.set(
+        focusTweak.targetX,
+        focusTweak.targetY,
+        focusTweak.targetZ,
+      );
+      isLerping.current = true;
+    }
+  }, [
+    focusTweak.override,
+    focusTweak.posX,
+    focusTweak.posY,
+    focusTweak.posZ,
+    focusTweak.targetX,
+    focusTweak.targetY,
+    focusTweak.targetZ,
+  ]);
+
+  useEffect(() => {
+    if (focusTweak.override) return;
     // Determine the desired camera state based on activeModel and isExploded
     if (isExploded) {
       targetPos.current.set(...MODEL_EXPLODED_CAMERA_POSITIONS[activeModel]);
       targetLook.current.set(...MODEL_EXPLODED_CAMERA_TARGETS[activeModel]);
+    } else if (focus) {
+      const focusTarget = getFocusTarget(activeModel, activeTab);
+      if (focusTarget) {
+        targetPos.current.set(...focusTarget.position);
+        targetLook.current.set(...focusTarget.target);
+      } else {
+        targetPos.current.set(...cameraPosition);
+        targetLook.current.set(...cameraTarget);
+      }
     } else {
       if (["watch", "guitar", "keyboard", "mtBike"].includes(activeModel)) {
         targetPos.current.set(...cameraPosition);
@@ -48,45 +120,55 @@ export default function CameraRig() {
       }
     }
     isLerping.current = true;
-  }, [isExploded, activeModel, cameraPosition, cameraTarget]);
+  }, [
+    isExploded,
+    activeModel,
+    focus,
+    activeTab,
+    cameraPosition,
+    cameraTarget,
+    focusTweak.override,
+  ]);
 
   useFrame((state, delta) => {
     if (!controlsRef.current) return;
 
-    // clamp pan target and position within bounding box
-    const center = isExploded
-      ? MODEL_EXPLODED_CAMERA_TARGETS[activeModel]
-      : MODEL_CAMERA_TARGETS[activeModel];
+    if (!focus && !isExploded) {
+      // clamp pan target and position within bounding box
+      const center = isExploded
+        ? MODEL_EXPLODED_CAMERA_TARGETS[activeModel]
+        : MODEL_CAMERA_TARGETS[activeModel];
 
-    const currentX = controlsRef.current.target.x;
-    const currentY = controlsRef.current.target.y;
-    const currentZ = controlsRef.current.target.z;
+      const currentX = controlsRef.current.target.x;
+      const currentY = controlsRef.current.target.y;
+      const currentZ = controlsRef.current.target.z;
 
-    const clampedX = THREE.MathUtils.clamp(
-      currentX,
-      center[0] - PAN_LIMITS.x,
-      center[0] + PAN_LIMITS.x,
-    );
-    const clampedY = THREE.MathUtils.clamp(
-      currentY,
-      center[1] - PAN_LIMITS.y,
-      center[1] + PAN_LIMITS.y,
-    );
-    const clampedZ = THREE.MathUtils.clamp(
-      currentZ,
-      center[2] - PAN_LIMITS.z,
-      center[2] + PAN_LIMITS.z,
-    );
+      const clampedX = THREE.MathUtils.clamp(
+        currentX,
+        center[0] - PAN_LIMITS.x,
+        center[0] + PAN_LIMITS.x,
+      );
+      const clampedY = THREE.MathUtils.clamp(
+        currentY,
+        center[1] - PAN_LIMITS.y,
+        center[1] + PAN_LIMITS.y,
+      );
+      const clampedZ = THREE.MathUtils.clamp(
+        currentZ,
+        center[2] - PAN_LIMITS.z,
+        center[2] + PAN_LIMITS.z,
+      );
 
-    const diffX = clampedX - currentX;
-    const diffY = clampedY - currentY;
-    const diffZ = clampedZ - currentZ;
+      const diffX = clampedX - currentX;
+      const diffY = clampedY - currentY;
+      const diffZ = clampedZ - currentZ;
 
-    if (diffX !== 0 || diffY !== 0 || diffZ !== 0) {
-      controlsRef.current.target.set(clampedX, clampedY, clampedZ);
-      state.camera.position.x += diffX;
-      state.camera.position.y += diffY;
-      state.camera.position.z += diffZ;
+      if (diffX !== 0 || diffY !== 0 || diffZ !== 0) {
+        controlsRef.current.target.set(clampedX, clampedY, clampedZ);
+        state.camera.position.x += diffX;
+        state.camera.position.y += diffY;
+        state.camera.position.z += diffZ;
+      }
     }
 
     if (isLerping.current) {
@@ -96,8 +178,8 @@ export default function CameraRig() {
       controlsRef.current.update();
 
       if (
-        state.camera.position.distanceTo(targetPos.current) < 0.1 &&
-        controlsRef.current.target.distanceTo(targetLook.current) < 0.1
+        state.camera.position.distanceTo(targetPos.current) < 0.05 &&
+        controlsRef.current.target.distanceTo(targetLook.current) < 0.05
       ) {
         isLerping.current = false;
       }

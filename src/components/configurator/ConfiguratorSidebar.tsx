@@ -43,7 +43,8 @@ const ConfiguratorSidebar = () => {
   const modelKey = searchParams.get("model") || "watch";
   const tabs = modelTabsConfig[modelKey] || fallbackTabs;
 
-  const [activeTab, setActiveTab] = useState<string>(tabs[0]?.id || "general");
+  const activeTab = useConfiguratorStore((s) => s.activeTab);
+  const setActiveTab = useConfiguratorStore((s) => s.setActiveTab);
   const [prevModelKey, setPrevModelKey] = useState<string>(modelKey);
 
   const isReadOnly = Boolean(

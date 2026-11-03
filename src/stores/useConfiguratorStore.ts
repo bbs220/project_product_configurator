@@ -244,6 +244,10 @@ type ConfiguratorState = {
   focus: boolean;
   toggleFocus: () => void;
   setFocus: (val: boolean) => void;
+  // active customization tab identifier
+  activeTab: string;
+  // update active customization tab
+  setActiveTab: (tab: string) => void;
 
   // watch customization materials state
   watchMaterials: Record<WatchMaterialCategory, MaterialProperties>;
@@ -515,6 +519,14 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
   setActiveModel: (model) =>
     set({
       activeModel: model,
+      activeTab:
+        model === "watch"
+          ? "case"
+          : model === "keyboard"
+          ? "base"
+          : model === "mtBike"
+          ? "frame"
+          : "body",
       cameraPosition: MODEL_CAMERA_POSITIONS[model],
       cameraTarget: MODEL_CAMERA_TARGETS[model],
       cameraFov: MODEL_CAMERA_FOV[model],
@@ -540,6 +552,9 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
   focus: false,
   toggleFocus: () => set((state) => ({ focus: !state.focus })),
   setFocus: (val) => set({ focus: val }),
+
+  activeTab: "case",
+  setActiveTab: (tab) => set({ activeTab: tab }),
 
   cameraTarget: MODEL_CAMERA_TARGETS["watch"],
   setCameraTarget: (target) => set({ cameraTarget: target }),
