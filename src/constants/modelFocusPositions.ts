@@ -12,9 +12,9 @@ export const MODEL_FOCUS_TARGETS: Record<
   Record<string, FocusCameraTarget>
 > = {
   watch: {
-    case: { position: [0.8, 1.8, -2.4], target: [0, 1.0, 0] },
-    band: { position: [-1.4, 1.2, -2.0], target: [-0.3, 0.9, 0] },
-    crown: { position: [-0.9, 1.15, -1.3], target: [-0.15, 1.0, 0] },
+    case: { position: [2.45, 1.7, -1.65], target: [-0.2, 0.9, -0.1] },
+    band: { position: [-1.15, 1.15, 2.2], target: [0, 1.0, 0] },
+    crown: { position: [-3.75, 1.15, -0.75], target: [-0.15, 1.0, 0] },
     face: { position: [0, 2.4, -1.4], target: [0, 1.05, 0] },
     back: { position: [0.1, 1.1, 2.2], target: [0, 1.0, 0] },
   },
@@ -54,4 +54,3 @@ export function getFocusTarget(
   if (!modelTargets) return null;
   return modelTargets[tab] || null;
 }
-
