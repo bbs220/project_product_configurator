@@ -60,35 +60,20 @@ export const MODEL_FOCUS_TARGETS: Record<
   },
   mtBike: {
     frame: { position: [3.2, 1.8, -3.0], target: [0, 1.0, 0], distance: 4.46 },
-    fork: {
-      position: [2.2, 1.6, 1.2],
-      target: [1.2, 0.9, 0.3],
-      distance: 1.52,
-    },
-    rims: {
+    wheels: {
       position: [2.4, 1.1, 1.5],
       target: [1.3, 0.6, 0.4],
       distance: 1.63,
-    },
-    handlebar: {
-      position: [-1.6, 2.2, 0.9],
-      target: [-0.8, 1.4, 0.2],
-      distance: 1.33,
-    },
-    seat: {
-      position: [1.6, 2.4, -0.7],
-      target: [0.4, 1.5, -0.1],
-      distance: 1.62,
-    },
-    chain: {
-      position: [-1.4, 0.9, -1.1],
-      target: [-0.4, 0.6, -0.2],
-      distance: 1.38,
     },
     suspension: {
       position: [1.2, 1.5, -1.1],
       target: [0.2, 1.1, -0.1],
       distance: 1.47,
+    },
+    drivetrain: {
+      position: [-1.4, 0.9, -1.1],
+      target: [-0.4, 0.6, -0.2],
+      distance: 1.38,
     },
   },
   guitar: {

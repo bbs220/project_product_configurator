@@ -184,7 +184,14 @@ export const DEFAULT_BIKE_MATERIALS: Record<
 };
 
 // guitar material categories mapping
-export type GuitarMaterialCategory = "body" | "neck" | "hardware" | "pickguard";
+export type GuitarMaterialCategory =
+  | "body"
+  | "pickguard"
+  | "neck"
+  | "fretboard"
+  | "pickups"
+  | "hardware"
+  | "knobs";
 
 // default guitar material values
 export const DEFAULT_GUITAR_MATERIALS: Record<
@@ -196,9 +203,24 @@ export const DEFAULT_GUITAR_MATERIALS: Record<
     roughness: 0.25,
     metalness: 0.05,
   },
+  pickguard: {
+    color: "#f8fafc",
+    roughness: 0.4,
+    metalness: 0.0,
+  },
   neck: {
-    color: "#ffffff",
+    color: "#fef3c7",
     roughness: 0.35,
+    metalness: 0.0,
+  },
+  fretboard: {
+    color: "#451a03",
+    roughness: 0.6,
+    metalness: 0.1,
+  },
+  pickups: {
+    color: "#f4f4f5",
+    roughness: 0.3,
     metalness: 0.0,
   },
   hardware: {
@@ -206,9 +228,9 @@ export const DEFAULT_GUITAR_MATERIALS: Record<
     roughness: 0.2,
     metalness: 0.9,
   },
-  pickguard: {
-    color: "#f8fafc",
-    roughness: 0.4,
+  knobs: {
+    color: "#f4f4f5",
+    roughness: 0.3,
     metalness: 0.0,
   },
 };
@@ -434,10 +456,10 @@ export const useConfiguratorStore = create<ConfiguratorState>((set, get) => ({
       }
     } else if (model === "guitar") {
       if (data.materials) {
-        partial.guitarMaterials = data.materials as Record<
-          GuitarMaterialCategory,
-          MaterialProperties
-        >;
+        partial.guitarMaterials = {
+          ...DEFAULT_GUITAR_MATERIALS,
+          ...(data.materials as Record<string, MaterialProperties>),
+        };
       }
     }
     set(partial);
