@@ -14,6 +14,7 @@ import {
 import {
   MODEL_FOCUS_TARGETS,
   getFocusTarget,
+  getEffectiveCameraPosition,
 } from "@/constants/modelFocusPositions";
 import { useTweakpane } from "@/hooks/useTweakpane";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -51,6 +52,14 @@ function createFocusTweakpaneConfig(): Record<string, unknown> {
         },
         folder: `${model}/${part}`,
         label: "look target",
+        step: 0.05,
+      };
+      config[`${model}_${part}_dist`] = {
+        value: target.distance ?? 2.0,
+        folder: `${model}/${part}`,
+        label: "zoom dist",
+        min: 0.2,
+        max: 8.0,
         step: 0.05,
       };
     });
@@ -98,6 +107,9 @@ export default function CameraRig() {
           const targetVal = focusParams[`${model}_${part}_target`] as
             | { x: number; y: number; z: number }
             | undefined;
+          const distVal = focusParams[`${model}_${part}_dist`] as
+            | number
+            | undefined;
 
           if (posVal) {
             parts[part].position = [posVal.x, posVal.y, posVal.z];
@@ -105,15 +117,15 @@ export default function CameraRig() {
           if (targetVal) {
             parts[part].target = [targetVal.x, targetVal.y, targetVal.z];
           }
+          if (typeof distVal === "number" && distVal > 0) {
+            parts[part].distance = Number(distVal.toFixed(2));
+          }
 
           // apply active focus coordinates immediately
           if (focus && model === activeModel && part === activeTab) {
-            if (posVal) {
-              targetPos.current.set(posVal.x, posVal.y, posVal.z);
-            }
-            if (targetVal) {
-              targetLook.current.set(targetVal.x, targetVal.y, targetVal.z);
-            }
+            const effectivePos = getEffectiveCameraPosition(parts[part]);
+            targetPos.current.set(...effectivePos);
+            targetLook.current.set(...parts[part].target);
             isLerping.current = true;
           }
         });
@@ -129,7 +141,8 @@ export default function CameraRig() {
     } else if (focus) {
       const focusTarget = getFocusTarget(activeModel, activeTab);
       if (focusTarget) {
-        targetPos.current.set(...focusTarget.position);
+        const effectivePos = getEffectiveCameraPosition(focusTarget);
+        targetPos.current.set(...effectivePos);
         targetLook.current.set(...focusTarget.target);
       } else {
         targetPos.current.set(...cameraPosition);
