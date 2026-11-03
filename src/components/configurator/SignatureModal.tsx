@@ -131,8 +131,8 @@ export default function SignatureModal({
 
   return createPortal(
     <div
-      style={{ zIndex: 9999 }}
-      className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+      style={{ zIndex: 60 }}
+      className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
     >
       <div className="relative w-full max-w-md p-6 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl flex flex-col gap-5 my-auto">
         {/* dialog header bar */}

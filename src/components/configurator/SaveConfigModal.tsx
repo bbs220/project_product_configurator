@@ -6,7 +6,10 @@ import { Loader2, Lock, Globe, Bookmark, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { saveNewConfig, updateConfig, forkConfig } from "@/actions/garage";
 import { captureStudioThumbnail } from "@/lib/thumbnailCapture";
-import { useConfiguratorStore, type ConfiguratorModel } from "@/stores/useConfiguratorStore";
+import {
+  useConfiguratorStore,
+  type ConfiguratorModel,
+} from "@/stores/useConfiguratorStore";
 
 // modal operation mode definition
 export type SaveModalMode = "new" | "update" | "fork" | "duplicate";
@@ -63,10 +66,10 @@ export default function SaveConfigModal({
     mode === "update"
       ? "Update Saved Variation"
       : mode === "fork"
-      ? "Fork to My Garage"
-      : mode === "duplicate"
-      ? "Save As New Copy"
-      : "Save to My Garage";
+        ? "Fork to My Garage"
+        : mode === "duplicate"
+          ? "Save As New Copy"
+          : "Save to My Garage";
 
   // handle form submission to backend actions
   const handleSubmit = async (e: React.FormEvent) => {
@@ -144,8 +147,8 @@ export default function SaveConfigModal({
 
   return createPortal(
     <div
-      style={{ zIndex: 9999 }}
-      className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+      style={{ zIndex: 50 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
     >
       <div className="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl my-auto">
         {/* modal close button */}
@@ -263,6 +266,6 @@ export default function SaveConfigModal({
         </form>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
