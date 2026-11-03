@@ -9,8 +9,12 @@ import {
   MODEL_CAMERA_TARGETS,
   MODEL_EXPLODED_CAMERA_POSITIONS,
   MODEL_EXPLODED_CAMERA_TARGETS,
+  type ConfiguratorModel,
 } from "@/stores/useConfiguratorStore";
-import { getFocusTarget } from "@/constants/modelFocusPositions";
+import {
+  MODEL_FOCUS_TARGETS,
+  getFocusTarget,
+} from "@/constants/modelFocusPositions";
 import { useTweakpane } from "@/hooks/useTweakpane";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
@@ -20,6 +24,43 @@ const PAN_LIMITS = {
   y: 1.2,
   z: 1.5,
 };
+
+// generate initial tweakpane configuration from model focus targets
+function createFocusTweakpaneConfig(): Record<string, unknown> {
+  const config: Record<string, unknown> = {};
+
+  (Object.keys(MODEL_FOCUS_TARGETS) as ConfiguratorModel[]).forEach((model) => {
+    const parts = MODEL_FOCUS_TARGETS[model];
+    Object.keys(parts).forEach((part) => {
+      const target = parts[part];
+      config[`${model}_${part}_pos`] = {
+        value: {
+          x: target.position[0],
+          y: target.position[1],
+          z: target.position[2],
+        },
+        folder: `${model}/${part}`,
+        label: "cam pos",
+        step: 0.05,
+      };
+      config[`${model}_${part}_target`] = {
+        value: {
+          x: target.target[0],
+          y: target.target[1],
+          z: target.target[2],
+        },
+        folder: `${model}/${part}`,
+        label: "look target",
+        step: 0.05,
+      };
+    });
+  });
+
+  return config;
+}
+
+// stable initial focus configuration for tweakpane bindings
+const initialFocusConfig = createFocusTweakpaneConfig();
 
 export default function CameraRig() {
   const {
@@ -39,41 +80,46 @@ export default function CameraRig() {
   const targetLook = useRef(new THREE.Vector3(...cameraTarget));
   const isLerping = useRef(false);
 
-  // tweakpane controls for visual focus adjustment
-  const focusTweak = useTweakpane(
-    { title: "🎯 Part Focus", expanded: false },
-    {
-      posX: { value: 1.0, step: 0.1, label: "cam x" },
-      posY: { value: 1.5, step: 0.1, label: "cam y" },
-      posZ: { value: -2.0, step: 0.1, label: "cam z" },
-      targetX: { value: 0, step: 0.1, label: "look x" },
-      targetY: { value: 1.0, step: 0.1, label: "look y" },
-      targetZ: { value: 0, step: 0.1, label: "look z" },
-    },
+  // register tweakpane controls for all model focus targets
+  const focusParams = useTweakpane(
+    { title: "🎯 Part Focus", expanded: true },
+    initialFocusConfig,
   );
 
-  // track initial render to avoid overriding default position
-  const isInitialMount = useRef(true);
+  // synchronize tweakpane adjustments with model focus targets
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-    targetPos.current.set(focusTweak.posX, focusTweak.posY, focusTweak.posZ);
-    targetLook.current.set(
-      focusTweak.targetX,
-      focusTweak.targetY,
-      focusTweak.targetZ,
+    (Object.keys(MODEL_FOCUS_TARGETS) as ConfiguratorModel[]).forEach(
+      (model) => {
+        const parts = MODEL_FOCUS_TARGETS[model];
+        Object.keys(parts).forEach((part) => {
+          const posVal = focusParams[`${model}_${part}_pos`] as
+            | { x: number; y: number; z: number }
+            | undefined;
+          const targetVal = focusParams[`${model}_${part}_target`] as
+            | { x: number; y: number; z: number }
+            | undefined;
+
+          if (posVal) {
+            parts[part].position = [posVal.x, posVal.y, posVal.z];
+          }
+          if (targetVal) {
+            parts[part].target = [targetVal.x, targetVal.y, targetVal.z];
+          }
+
+          // apply active focus coordinates immediately
+          if (focus && model === activeModel && part === activeTab) {
+            if (posVal) {
+              targetPos.current.set(posVal.x, posVal.y, posVal.z);
+            }
+            if (targetVal) {
+              targetLook.current.set(targetVal.x, targetVal.y, targetVal.z);
+            }
+            isLerping.current = true;
+          }
+        });
+      },
     );
-    isLerping.current = true;
-  }, [
-    focusTweak.posX,
-    focusTweak.posY,
-    focusTweak.posZ,
-    focusTweak.targetX,
-    focusTweak.targetY,
-    focusTweak.targetZ,
-  ]);
+  }, [focusParams, focus, activeModel, activeTab]);
 
   useEffect(() => {
     // Determine the desired camera state based on activeModel and isExploded
