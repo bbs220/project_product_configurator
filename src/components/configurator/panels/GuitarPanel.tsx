@@ -14,14 +14,15 @@ type GuitarPanelProps = {
 export const guitarTabs = [
   { id: "body", label: "Body", icon: Guitar },
   { id: "neck", label: "Neck", icon: Layers },
-  { id: "hardware", label: "Hardware", icon: Settings2 },
+  { id: "hardware", label: "Tremolo & Bridge", icon: Settings2 },
   { id: "pickguard", label: "Pickguard", icon: Palette },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
   body: {
     title: "Body & Finish",
-    description: "Customize the contoured alder body lacquer and sunburst tint.",
+    description:
+      "Customize the contoured alder body lacquer and sunburst tint.",
   },
   neck: {
     title: "Neck & Fretboard",

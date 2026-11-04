@@ -92,9 +92,9 @@ export const MODEL_FOCUS_TARGETS: Record<
       distance: 4.72,
     },
     hardware: {
-      position: [0.6, 1.3, -1.6],
-      target: [0.2, 0.6, 0],
-      distance: 1.79,
+      position: [0.25, 0.1, -2.05],
+      target: [-0.15, 0.3, 1.05],
+      distance: 1.8,
     },
     pickguard: {
       position: [-0.15, 0.55, -4.6],
