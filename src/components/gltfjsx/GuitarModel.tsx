@@ -47,9 +47,6 @@ export const GUITAR_LABELS = {
 // custom cloned materials for guitar configuration
 type CustomGuitarMaterials = {
   pickguard: THREE.MeshPhysicalMaterial;
-  fretboard: THREE.MeshPhysicalMaterial;
-  pickups: THREE.MeshPhysicalMaterial;
-  knobs: THREE.MeshPhysicalMaterial;
 };
 
 // apply customized colors roughness and metalness to guitar materials
@@ -81,21 +78,6 @@ function applyGuitarMaterialProperties(
   materials.white.color.set(guitarMaterials.pickguard.color);
   materials.white.roughness = guitarMaterials.pickguard.roughness;
   materials.white.metalness = guitarMaterials.pickguard.metalness;
-
-  // fretboard customization
-  customMaterials.fretboard.color.set(guitarMaterials.fretboard.color);
-  customMaterials.fretboard.roughness = guitarMaterials.fretboard.roughness;
-  customMaterials.fretboard.metalness = guitarMaterials.fretboard.metalness;
-
-  // pickups customization
-  customMaterials.pickups.color.set(guitarMaterials.pickups.color);
-  customMaterials.pickups.roughness = guitarMaterials.pickups.roughness;
-  customMaterials.pickups.metalness = guitarMaterials.pickups.metalness;
-
-  // knobs customization
-  customMaterials.knobs.color.set(guitarMaterials.knobs.color);
-  customMaterials.knobs.roughness = guitarMaterials.knobs.roughness;
-  customMaterials.knobs.metalness = guitarMaterials.knobs.metalness;
 }
 
 export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
@@ -181,9 +163,6 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
   const customMaterials = useMemo(
     () => ({
       pickguard: materials.NeckMaterial.clone(),
-      fretboard: materials.NeckMaterial.clone(),
-      pickups: materials.NeckMaterial.clone(),
-      knobs: materials.NeckMaterial.clone(),
     }),
     [materials],
   );
@@ -250,21 +229,21 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.toneControlA.geometry}
-              material={customMaterials.knobs}
+              material={customMaterials.pickguard}
             />
             <mesh
               name="toneControlB"
               castShadow
               receiveShadow
               geometry={nodes.toneControlB.geometry}
-              material={customMaterials.knobs}
+              material={customMaterials.pickguard}
             />
             <mesh
               name="volumeControl"
               castShadow
               receiveShadow
               geometry={nodes.volumeControl.geometry}
-              material={customMaterials.knobs}
+              material={customMaterials.pickguard}
             />
           </mesh>
           <mesh
@@ -286,7 +265,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.frets.geometry}
-              material={customMaterials.fretboard}
+              material={materials.MetalPartsMaterial}
             />
             <mesh
               name="pickupBridge"
@@ -345,7 +324,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
             castShadow
             receiveShadow
             geometry={nodes.pickups.geometry}
-            material={customMaterials.pickups}
+            material={customMaterials.pickguard}
           >
             <PartLabel
               show={showLabels && isExploded}
@@ -366,7 +345,7 @@ export function GuitarModel(props: JSX.IntrinsicElements["group"]) {
               castShadow
               receiveShadow
               geometry={nodes.pickupSelector.geometry}
-              material={customMaterials.knobs}
+              material={customMaterials.pickguard}
             />
           </mesh>
           <mesh

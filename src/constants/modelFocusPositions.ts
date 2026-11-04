@@ -86,35 +86,20 @@ export const MODEL_FOCUS_TARGETS: Record<
       target: [0.05, 0.35, 1.4],
       distance: 2.9,
     },
-    pickguard: {
-      position: [-0.15, 0.55, -4.6],
-      target: [0.05, 0.4, 1.4],
-      distance: 2.45,
-    },
     neck: {
       position: [0, 0.1, -0.2],
       target: [0.05, 1.25, 1.25],
       distance: 4.72,
-    },
-    fretboard: {
-      position: [-0.02, 0.1, -0.5],
-      target: [0.05, 1.05, 1.05],
-      distance: 2.77,
-    },
-    pickups: {
-      position: [0, 0, -0.15],
-      target: [-0.05, 0.45, 0.85],
-      distance: 1.8,
     },
     hardware: {
       position: [0.6, 1.3, -1.6],
       target: [0.2, 0.6, 0],
       distance: 1.79,
     },
-    knobs: {
-      position: [0.8, 1.2, -1.5],
-      target: [0.3, 0.5, 0],
-      distance: 1.73,
+    pickguard: {
+      position: [-0.15, 0.55, -4.6],
+      target: [0.05, 0.4, 1.4],
+      distance: 2.45,
     },
   },
 };

@@ -104,15 +104,12 @@ function getModelSpecifications(modelKey: string): {
       return {
         specs: [
           { name: "Contoured Body", ...state.guitarMaterials.body },
-          { name: "Single-Ply Pickguard", ...state.guitarMaterials.pickguard },
           { name: "Maple Neck & Headstock", ...state.guitarMaterials.neck },
-          { name: "Fretboard Wood", ...state.guitarMaterials.fretboard },
-          { name: "Single-Coil Pickups", ...state.guitarMaterials.pickups },
           {
             name: "Chrome Hardware & Bridge",
             ...state.guitarMaterials.hardware,
           },
-          { name: "Control Knobs", ...state.guitarMaterials.knobs },
+          { name: "Single-Ply Pickguard", ...state.guitarMaterials.pickguard },
         ],
         extraDetails: [
           "Pickups: Custom 1954 Single-Coil Trio",
