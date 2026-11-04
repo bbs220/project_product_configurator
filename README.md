@@ -10,11 +10,11 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 
 - **High-Fidelity 3D Rendering**: Physically-based rendering (PBR) powered by Three.js and React Three Fiber, featuring soft contact shadows, HDR environment lighting, ACESFilmic tone mapping, and ground reflections.
 - **Multiple Configurable Models**:
-  - **Apple Watch Ultra 2**: Multi-component smartwatch with titanium chassis, digital crown, display face, alpine band, and biometric sensor backplate.
-  - **Santa Cruz V10**: Downhill mountain bike with frame, Fox suspension, chainwheel, pedals, and disc brakes.
-  - **Fender Stratocaster 1954**: Classic electric guitar with wood body, maple neck, pickups, pickguard, and hardware.
-  - **Knob1 Mechanical Keyboard**: Custom keyboard assembly with keycaps, switches, knobs, and dynamic interactive OLED display.
-- **Cinematic Part-Focused Views**: Smooth camera lerping and framing transitions focused on specific component categories (Case, Band, Crown, Display, Back) with clamped OrbitControls.
+  - **Apple Watch Ultra 2**: Multi-component smartwatch with case, alpine loop band, digital crown, display face, and ceramic backplate.
+  - **Santa Cruz V10**: Downhill mountain bike with carbon chassis frame, wheel rims, Fox suspension, and drivetrain pedals/gears.
+  - **Fender Stratocaster 1954**: Classic electric guitar with contoured alder body, maple neck, single-ply pickguard, and chrome bridge hardware.
+  - **Knob1 Mechanical Keyboard**: Custom keyboard assembly with aluminum chassis base, keycaps, switch plate, rotary encoder knob, and interactive OLED matrix display.
+- **Cinematic Part-Focused Views**: Smooth camera lerping and framing transitions focused on active component categories, featuring full focus-lock security (orbit rotation, panning, scroll zooming, and explode mode safely locked to preserve precision framing).
 - **Exploded View & 3D Labels**: Smooth spatial disassembly along configured axes with billboarding HTML markers anchored to 3D mesh coordinates.
 - **Client-Side Binary GLB Export**: In-browser 3D model serialization powered by Three.js `GLTFExporter`, embedding real-time PBR roughness, metalness, hex albedos, canvas textures, and component hierarchies into standalone `.glb` files.
 - **User Garage & Build Locker**: Cloud persistence for up to 20 custom variations per user powered by Neon Serverless Postgres and Drizzle ORM. Features URL deep linking (`?id=`), public design forking, edit lock protection, and automated WebP canvas thumbnails.
@@ -88,15 +88,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```text
 ├── public/
+│   ├── .well-known/           # Security.txt disclosure policy
 │   ├── hdris/                 # Studio HDR environment maps
 │   ├── models/                # 3D assets (.glb formats)
 │   ├── appIcon.png            # Application logo
 │   ├── thumbnail_1200x630.png # Open Graph social preview
 │   ├── llms.txt               # LLM/agent index
+│   ├── llms-full.txt          # Complete LLM/agent context corpus
 │   └── robots.txt             # Search crawler directives
 ├── src/
 │   ├── actions/               # Server Actions (garage CRUD, permissions, quota)
-│   ├── app/                   # Next.js App Router pages and layouts
+│   ├── app/                   # Next.js App Router pages, metadata, and layouts
 │   ├── components/
 │   │   ├── configurator/      # Sidebar inspector, export modals, and model panels
 │   │   ├── garage/            # Garage cards and action menus
@@ -104,6 +106,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   │   ├── landing/           # Hero, showcase, and FeatureGrid components
 │   │   ├── layout/            # Navbar, footer, and theme controls
 │   │   └── scene/             # PrimaryCanvas, CameraRig, Floor, lighting
+│   ├── constants/             # Focus targets, camera positions, and zoom parameters
 │   ├── db/                    # Drizzle schema and Neon database client
 │   ├── hooks/                 # Custom React and Tweakpane hooks
 │   ├── lib/                   # GLB exporter, PDF compositor, and 3D labels
