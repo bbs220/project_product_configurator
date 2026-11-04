@@ -3,6 +3,7 @@
 import * as THREE from "three";
 import { Html, Line } from "@react-three/drei";
 import { useMemo } from "react";
+import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 export function PartLabel({
   show,
@@ -17,6 +18,9 @@ export function PartLabel({
   position?: [number, number, number];
   offset?: [number, number, number];
 }) {
+  const focus = useConfiguratorStore((s) => s.focus);
+  const isVisible = show && !focus;
+
   const center = useMemo(() => {
     if (geometry) {
       if (!geometry.boundingBox) geometry.computeBoundingBox();
@@ -40,14 +44,14 @@ export function PartLabel({
         color="#888888"
         lineWidth={2}
         transparent
-        opacity={show ? 0.8 : 0}
-        visible={show}
+        opacity={isVisible ? 0.8 : 0}
+        visible={isVisible}
       />
       <Html
         position={targetPos}
         center
         zIndexRange={[100, 0]}
-        className={`select-none transition-opacity duration-500 ease-in-out ${show ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className={`select-none transition-opacity duration-500 ease-in-out ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
         <div
           data-part-label="true"

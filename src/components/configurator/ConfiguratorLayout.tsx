@@ -60,7 +60,7 @@ export default function ConfiguratorLayout({
   const isDesktop = useIsDesktop();
 
   // default to open during server rendering
-  const open = mounted ? isSidebarOpen : true;
+  const open = mounted ? isSidebarOpen : false;
 
   return (
     <main className="w-full h-[calc(100dvh-64px)] mt-16 flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-black">
@@ -77,16 +77,34 @@ export default function ConfiguratorLayout({
         {canvas}
 
         {/* top left stage navigation instructions without background */}
-        <div className="absolute top-4 left-4 z-20 hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm">
-          <span className="font-semibold text-gray-700 dark:text-gray-200">
-            L-Click
-          </span>
-          <span>Rotate</span>
+        <div
+          className="absolute top-4 left-4 z-20 hidden md:flex items-center gap-2 text-[11px] text-gray-500/90 dark:text-gray-400/90 select-none drop-shadow-sm pointer-events-none"
+          title={
+            focus
+              ? "Camera navigation is disabled when focus is on"
+              : undefined
+          }
+        >
+          <div className="flex items-center gap-1">
+            <span
+              className={`font-semibold transition-colors ${
+                focus
+                  ? "text-red-500 line-through"
+                  : "text-gray-700 dark:text-gray-200"
+              }`}
+            >
+              L-Click
+            </span>
+            <span
+              className={`transition-colors ${
+                focus ? "line-through text-red-500" : ""
+              }`}
+            >
+              Rotate
+            </span>
+          </div>
           <span className="text-gray-400 dark:text-gray-600">•</span>
-          <div
-            className="flex items-center gap-1"
-            title={focus ? "Panning is disabled when focus is on" : undefined}
-          >
+          <div className="flex items-center gap-1">
             <span
               className={`font-semibold transition-colors ${
                 focus
@@ -103,15 +121,27 @@ export default function ConfiguratorLayout({
             >
               Pan
             </span>
-            {focus && (
-              <Lock className="w-3 h-3 text-red-500" />
-            )}
           </div>
           <span className="text-gray-400 dark:text-gray-600">•</span>
-          <span className="font-semibold text-gray-700 dark:text-gray-200">
-            Scroll
-          </span>
-          <span>Zoom</span>
+          <div className="flex items-center gap-1">
+            <span
+              className={`font-semibold transition-colors ${
+                focus
+                  ? "text-red-500 line-through"
+                  : "text-gray-700 dark:text-gray-200"
+              }`}
+            >
+              Scroll
+            </span>
+            <span
+              className={`transition-colors ${
+                focus ? "line-through text-red-500" : ""
+              }`}
+            >
+              Zoom
+            </span>
+          </div>
+          {focus && <Lock className="w-3 h-3 text-red-500 shrink-0" />}
         </div>
 
         {/* floating viewport controls on canvas stage */}
@@ -143,9 +173,7 @@ export default function ConfiguratorLayout({
           <motion.section
             key="configurator-sidebar-panel"
             initial={
-              isDesktop
-                ? { width: 0, opacity: 0 }
-                : { height: 0, opacity: 0 }
+              isDesktop ? { width: 0, opacity: 0 } : { height: 0, opacity: 0 }
             }
             animate={
               isDesktop
@@ -153,9 +181,7 @@ export default function ConfiguratorLayout({
                 : { height: "50%", opacity: 1 }
             }
             exit={
-              isDesktop
-                ? { width: 0, opacity: 0 }
-                : { height: 0, opacity: 0 }
+              isDesktop ? { width: 0, opacity: 0 } : { height: 0, opacity: 0 }
             }
             transition={slideTransition}
             className="border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-800 flex flex-col bg-gray-50/70 dark:bg-zinc-950/70 backdrop-blur-xl overflow-hidden shrink-0"
@@ -164,12 +190,8 @@ export default function ConfiguratorLayout({
               initial={
                 isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }
               }
-              animate={
-                isDesktop ? { x: 0, opacity: 1 } : { y: 0, opacity: 1 }
-              }
-              exit={
-                isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }
-              }
+              animate={isDesktop ? { x: 0, opacity: 1 } : { y: 0, opacity: 1 }}
+              exit={isDesktop ? { x: 80, opacity: 0 } : { y: 40, opacity: 0 }}
               transition={slideTransition}
               className="w-full lg:w-[40vw] h-full flex flex-col overflow-hidden"
             >

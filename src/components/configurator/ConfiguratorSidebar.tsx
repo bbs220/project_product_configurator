@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Globe, Lock, PanelRightClose, Settings2, type LucideIcon } from "lucide-react";
+import {
+  Globe,
+  Lock,
+  PanelRightClose,
+  Settings2,
+  type LucideIcon,
+} from "lucide-react";
 
 import WatchPanel, { watchTabs } from "./panels/WatchPanel";
 import KeyboardPanel, { keyboardTabs } from "./panels/KeyboardPanel";
@@ -43,7 +49,8 @@ const ConfiguratorSidebar = () => {
   const modelKey = searchParams.get("model") || "watch";
   const tabs = modelTabsConfig[modelKey] || fallbackTabs;
 
-  const [activeTab, setActiveTab] = useState<string>(tabs[0]?.id || "general");
+  const activeTab = useConfiguratorStore((s) => s.activeTab);
+  const setActiveTab = useConfiguratorStore((s) => s.setActiveTab);
   const [prevModelKey, setPrevModelKey] = useState<string>(modelKey);
 
   const isReadOnly = Boolean(
@@ -96,8 +103,8 @@ const ConfiguratorSidebar = () => {
                   !isConfigOwner
                     ? "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20"
                     : isConfigLocked
-                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                    : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
+                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                      : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
                 }`}
               >
                 {!isConfigOwner ? (
@@ -105,12 +112,16 @@ const ConfiguratorSidebar = () => {
                 ) : isConfigLocked ? (
                   <Lock className="w-2.5 h-2.5 shrink-0" />
                 ) : null}
-                <span className="truncate max-w-[120px]">{activeConfigName}</span>
+                <span className="truncate max-w-30">{activeConfigName}</span>
                 {!isConfigOwner && (
-                  <span className="font-normal opacity-75 shrink-0">(view only)</span>
+                  <span className="font-normal opacity-75 shrink-0">
+                    (view only)
+                  </span>
                 )}
                 {isConfigOwner && isConfigLocked && (
-                  <span className="font-normal opacity-75 shrink-0">(locked)</span>
+                  <span className="font-normal opacity-75 shrink-0">
+                    (locked)
+                  </span>
                 )}
               </span>
             )}
@@ -121,9 +132,10 @@ const ConfiguratorSidebar = () => {
             onClick={toggleSidebar}
             title="Collapse studio sidebar"
             aria-label="Collapse studio sidebar"
-            className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors shrink-0"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-zinc-800 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors shrink-0"
           >
             <PanelRightClose className="w-4 h-4" />
+            <span>Close Studio</span>
           </button>
         </div>
 

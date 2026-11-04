@@ -1,13 +1,4 @@
-import {
-  Activity,
-  CircleDot,
-  Layers,
-  Music,
-  Palette,
-  RotateCcw,
-  Sliders,
-  Sparkles,
-} from "lucide-react";
+import { Guitar, Layers, Palette, RotateCcw, Settings2 } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
   useConfiguratorStore,
@@ -19,49 +10,37 @@ type GuitarPanelProps = {
   activeTab: string;
 };
 
-// configuration tabs for stratocaster guitar customization
+// configuration tabs for guitar customization
 export const guitarTabs = [
-  { id: "body", label: "Body", icon: Palette },
-  { id: "pickguard", label: "Pickguard", icon: Layers },
-  { id: "neck", label: "Neck & Head", icon: Music },
-  { id: "fretboard", label: "Fretboard", icon: Activity },
-  { id: "pickups", label: "Pickups", icon: Sliders },
-  { id: "hardware", label: "Bridge Hardware", icon: Sparkles },
-  { id: "knobs", label: "Volume Knobs", icon: CircleDot },
+  { id: "body", label: "Body", icon: Guitar },
+  { id: "neck", label: "Neck", icon: Layers },
+  { id: "hardware", label: "Tremolo & Bridge", icon: Settings2 },
+  { id: "pickguard", label: "Pickguard", icon: Palette },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
   body: {
-    title: "Solid Alder Wood Body",
-    description: "Contoured alder body finished in nitrocellulose lacquer.",
-  },
-  pickguard: {
-    title: "Layered Scratchplate",
-    description: "Classic three-ply beveled vintage celluloid pickguard.",
+    title: "Body & Finish",
+    description:
+      "Customize the contoured alder body lacquer and sunburst tint.",
   },
   neck: {
-    title: "Maple Neck & Headstock",
-    description: "One-piece modern oval 'C'-shaped rock maple guitar neck.",
-  },
-  fretboard: {
-    title: "Fretboard Wood",
-    description: "Select 9.5-inch radius slab rosewood or slab maple fingerboard.",
-  },
-  pickups: {
-    title: "Single-Coil Pickup Covers",
-    description: "Vintage-wound staggered Alnico V magnetic pickup bobbins.",
+    title: "Neck & Fretboard",
+    description: "Personalize the one-piece maple neck, headstock, and finish.",
   },
   hardware: {
-    title: "Synchronized Tremolo Bridge",
-    description: "Vintage synchronized tremolo with bent steel saddles.",
+    title: "Hardware & Bridge",
+    description:
+      "Configure the synchronized tremolo bridge, tuners, and metal components.",
   },
-  knobs: {
-    title: "Skirted Control Knobs",
-    description: "Embossed master volume and dual tone control potentiometers.",
+  pickguard: {
+    title: "Pickguard & Plastics",
+    description:
+      "Choose colors and finish for the pickguard plate, knobs, and pickup covers.",
   },
 };
 
-// guitar configuration panel with seven categories
+// guitar configuration panel with four component categories
 export default function GuitarPanel({ activeTab }: GuitarPanelProps) {
   const { guitarMaterials, setGuitarMaterialProperty } = useConfiguratorStore();
 

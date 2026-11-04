@@ -1,13 +1,4 @@
-import {
-  Activity,
-  CircleDot,
-  Layers,
-  Palette,
-  RotateCcw,
-  Sliders,
-  Sparkles,
-  Zap,
-} from "lucide-react";
+import { Bike, Disc, Layers, RotateCcw, Settings2 } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
   useConfiguratorStore,
@@ -21,47 +12,32 @@ type BikePanelProps = {
 
 // configuration tabs for mountain bike customization
 export const bikeTabs = [
-  { id: "frame", label: "Frame", icon: Palette },
-  { id: "fork", label: "Front Fork", icon: Zap },
-  { id: "rims", label: "Wheel Rims", icon: CircleDot },
-  { id: "handlebar", label: "Handlebar", icon: Sliders },
-  { id: "seat", label: "Saddle", icon: Layers },
-  { id: "chain", label: "Drivetrain", icon: Activity },
-  { id: "suspension", label: "Rear Shock", icon: Sparkles },
+  { id: "frame", label: "Frame", icon: Bike },
+  { id: "wheels", label: "Wheels", icon: Disc },
+  { id: "suspension", label: "Suspension", icon: Layers },
+  { id: "drivetrain", label: "Pedals & Gears", icon: Settings2 },
 ];
 
 const categoryInfo: Record<string, { title: string; description: string }> = {
   frame: {
-    title: "Carbon Chassis Frame",
-    description: "High-modulus aerospace grade carbon fiber downhill frame.",
+    title: "Frame & Finish",
+    description: "Customize the carbon chassis, rear triangle, and linkages.",
   },
-  fork: {
-    title: "Front Suspension Stanchions",
-    description: "Kashima coated dual-crown inverted downhill suspension.",
-  },
-  rims: {
-    title: "Tubeless Alloy Rims",
-    description: "Double-walled welded aluminum tubeless-ready wheelset.",
-  },
-  handlebar: {
-    title: "Cockpit Handlebars",
-    description: "Riser handlebars with laser-etched alignment markings.",
-  },
-  seat: {
-    title: "Downhill Racing Saddle",
-    description: "Ergonomic Kevlar-reinforced composite racing seat.",
-  },
-  chain: {
-    title: "Drivetrain & Cassette",
-    description: "Nickel-plated hardened alloy chain and titanium cassette.",
+  wheels: {
+    title: "Wheels & Rims",
+    description: "Personalize the wheel rims, spokes, and hub assembly.",
   },
   suspension: {
-    title: "Coil Shock Spring",
-    description: "Progressive damping piggyback reservoir rear coil spring.",
+    title: "Suspension System",
+    description: "Configure front fork stanchions and rear coil shock spring.",
+  },
+  drivetrain: {
+    title: "Pedals & Gears",
+    description: "Customize the pedals, crank arms, chain, and gear cassette.",
   },
 };
 
-// bike configuration panel with seven categories
+// mountain bike configuration panel with four component categories
 export default function BikePanel({ activeTab }: BikePanelProps) {
   const { bikeMaterials, setBikeMaterialProperty } = useConfiguratorStore();
 

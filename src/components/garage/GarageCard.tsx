@@ -87,7 +87,8 @@ export default function GarageCard({ config }: GarageCardProps) {
   // copy direct studio configuration link to clipboard
   const handleCopyLink = async () => {
     try {
-      const origin = typeof window !== "undefined" ? window.location.origin : "";
+      const origin =
+        typeof window !== "undefined" ? window.location.origin : "";
       const shareUrl = `${origin}/configurator?model=${config.modelType}&id=${config.id}`;
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -139,7 +140,7 @@ export default function GarageCard({ config }: GarageCardProps) {
       toast.success(
         nextLockedState
           ? `Locked "${config.name}" from edits`
-          : `Unlocked "${config.name}" for edits`
+          : `Unlocked "${config.name}" for edits`,
       );
       setMenuOpen(false);
     } catch (err) {
@@ -322,66 +323,72 @@ export default function GarageCard({ config }: GarageCardProps) {
       </div>
 
       {/* in-app delete confirmation modal */}
-      {showDeleteConfirm && mounted && createPortal(
-        <div
-          style={{ zIndex: 9999 }}
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150"
-        >
-          {/* modal backdrop dismiss surface */}
+      {showDeleteConfirm &&
+        mounted &&
+        createPortal(
           <div
-            className="fixed inset-0"
-            onClick={() => !isDeleting && setShowDeleteConfirm(false)}
-          />
+            style={{ zIndex: 70 }}
+            className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150"
+          >
+            {/* modal backdrop dismiss surface */}
+            <div
+              className="fixed inset-0"
+              onClick={() => !isDeleting && setShowDeleteConfirm(false)}
+            />
 
-          {/* delete confirmation dialog card */}
-          <div className="relative w-full max-w-sm rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl z-10 space-y-4 my-auto">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 flex items-center justify-center shrink-0">
-                <Trash2 className="w-5 h-5" />
+            {/* delete confirmation dialog card */}
+            <div className="relative w-full max-w-sm rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl z-10 space-y-4 my-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 flex items-center justify-center shrink-0">
+                  <Trash2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-gray-900 dark:text-white">
+                    Delete Configuration?
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    This action cannot be undone
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-base font-bold text-gray-900 dark:text-white">
-                  Delete Configuration?
-                </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  This action cannot be undone
-                </p>
+
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                Are you sure you want to permanently delete{" "}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  &ldquo;{config.name}&rdquo;
+                </span>{" "}
+                from your garage?
+              </p>
+
+              <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-gray-100 dark:border-gray-800">
+                <button
+                  type="button"
+                  onClick={() => setShowDeleteConfirm(false)}
+                  disabled={isDeleting}
+                  className="px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmDelete}
+                  disabled={isDeleting}
+                  className="flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-red-600 hover:bg-red-500 text-white shadow-sm transition-colors disabled:opacity-50"
+                >
+                  {isDeleting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Deleting...</span>
+                    </>
+                  ) : (
+                    <span>Delete Build</span>
+                  )}
+                </button>
               </div>
             </div>
-
-            <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
-              Are you sure you want to permanently delete <span className="font-semibold text-gray-900 dark:text-white">&ldquo;{config.name}&rdquo;</span> from your garage?
-            </p>
-
-            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-gray-100 dark:border-gray-800">
-              <button
-                type="button"
-                onClick={() => setShowDeleteConfirm(false)}
-                disabled={isDeleting}
-                className="px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-xl transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={handleConfirmDelete}
-                disabled={isDeleting}
-                className="flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-red-600 hover:bg-red-500 text-white shadow-sm transition-colors disabled:opacity-50"
-              >
-                {isDeleting ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Deleting...</span>
-                  </>
-                ) : (
-                  <span>Delete Build</span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
