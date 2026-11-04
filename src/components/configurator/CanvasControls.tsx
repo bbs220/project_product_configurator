@@ -38,13 +38,16 @@ export default function CanvasControls({
     >
       <button
         type="button"
+        disabled={focus}
         onClick={toggleExploded}
         className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-          isExploded
-            ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
+          focus
+            ? "opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-500"
+            : isExploded
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
-        title="Explode View"
+        title={focus ? "Explode view disabled during part focus" : "Explode View"}
       >
         <BoxSelect className="w-3.5 h-3.5 shrink-0" />
         <span className="hidden sm:inline">
@@ -88,6 +91,7 @@ export default function CanvasControls({
         onClick={() => {
           if (!focus) {
             setLabels(false);
+            setExploded(false);
           }
           toggleFocus();
         }}
