@@ -238,6 +238,8 @@ export default function CameraRig() {
           isLerping.current = false;
         }}
         enablePan={!focus}
+        enableRotate={!focus}
+        enableZoom={!focus}
         screenSpacePanning={true}
       />
     </>

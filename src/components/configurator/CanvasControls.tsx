@@ -54,13 +54,16 @@ export default function CanvasControls({
 
       <button
         type="button"
+        disabled={focus}
         onClick={toggleLabels}
         className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-          showLabels
-            ? "bg-blue-600 text-white shadow-sm"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
+          focus
+            ? "opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-500"
+            : showLabels
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
-        title="Toggle Info Labels"
+        title={focus ? "Labels disabled during part focus" : "Toggle Info Labels"}
       >
         <Tag className="w-3.5 h-3.5 shrink-0" />
         <span className="hidden sm:inline">Labels</span>
@@ -82,13 +85,22 @@ export default function CanvasControls({
 
       <button
         type="button"
-        onClick={toggleFocus}
+        onClick={() => {
+          if (!focus) {
+            setLabels(false);
+          }
+          toggleFocus();
+        }}
         className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
           focus
             ? "bg-blue-600 text-white shadow-sm"
             : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
         }`}
-        title={focus ? "Focus View: Active (Panning disabled)" : "Toggle Focus View"}
+        title={
+          focus
+            ? "Focus View: Active (Panning, rotation, zoom disabled)"
+            : "Toggle Focus View"
+        }
       >
         <Focus className="w-3.5 h-3.5 shrink-0" />
         <span className="hidden sm:inline">Focus</span>
