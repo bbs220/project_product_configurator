@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Show, UserButton } from "@clerk/nextjs";
 import { Box, UserCircle } from "lucide-react";
 import Link from "next/link";
@@ -8,8 +10,55 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 // application header navigation component
 const Navbar = () => {
+  const pathname = usePathname();
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  // track navbar visibility during scroll
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  // reset navbar visibility when pathname changes
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsVisible(true);
+  }
+
+  // handle window scroll direction to toggle header visibility
+  useEffect(() => {
+    const threshold = 10;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // always display header when near top of viewport
+      if (currentScrollY <= 64) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      const diff = currentScrollY - lastScrollY.current;
+
+      // hide header when scrolling downwards
+      if (diff > threshold) {
+        setIsVisible(false);
+        lastScrollY.current = currentScrollY;
+      // reveal header when scrolling upwards
+      } else if (diff < -threshold) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-100 w-full flex justify-between items-center px-8 md:px-12 h-16 min-h-16 shrink-0 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-none">
+    <header
+      className={`fixed top-0 left-0 right-0 z-100 w-full flex justify-between items-center px-8 md:px-12 h-16 min-h-16 shrink-0 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } focus-within:translate-y-0`}
+    >
       <div className="flex items-center gap-3">
         <Link
           href="/"
