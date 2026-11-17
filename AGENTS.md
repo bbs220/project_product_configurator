@@ -19,6 +19,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - **Never work on anything not explicitly requested.** Only complete the exact task asked. Ignore unrelated bugs, errors, or improvements you notice.
 - **Never delete existing comments when refactoring any file.**
 - **Always check `./package.json` before writing code** to use the correct installed package APIs.
+- **Never run git commands.** The user must run all git commands. If git actions are needed, provide instructions only—never execute git commands directly or via agents.
+- **Never save helper scripts to disk.** Run any one-off helper scripts directly using `node -e` inline commands to prevent bloat on the drive.
 
 ---
 
