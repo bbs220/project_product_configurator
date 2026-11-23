@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { Loader2, Lock, Globe, Bookmark, X } from "lucide-react";
 import toast from "react-hot-toast";
@@ -58,6 +58,27 @@ export default function SaveConfigModal({
   const mounted = useClientMount();
 
   const getConfigSnapshot = useConfiguratorStore((s) => s.getConfigSnapshot);
+
+  // prevent body scroll and handle escape key dismissal while modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isSubmitting) {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, isSubmitting, onClose]);
 
   if (!isOpen || !mounted) return null;
 
@@ -148,15 +169,27 @@ export default function SaveConfigModal({
   return createPortal(
     <div
       style={{ zIndex: 50 }}
+      role="presentation"
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !isSubmitting) {
+          onClose();
+        }
+      }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl my-auto">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="save-config-modal-title"
+        className="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-800 p-6 shadow-2xl my-auto"
+      >
         {/* modal close button */}
         <button
           type="button"
           onClick={onClose}
           disabled={isSubmitting}
-          className="absolute top-4 right-4 p-1.5 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+          aria-label="Close dialog"
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -167,7 +200,10 @@ export default function SaveConfigModal({
             <Bookmark className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+            <h2
+              id="save-config-modal-title"
+              className="text-lg font-bold text-gray-900 dark:text-white"
+            >
               {modalTitle}
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400">
