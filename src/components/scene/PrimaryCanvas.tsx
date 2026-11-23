@@ -1,8 +1,9 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { GizmoHelper, GizmoViewport, StatsGl } from "@react-three/drei";
+import type * as THREE from "three";
 import ProductModelLoader from "./ProductModelLoader";
 import EffectsStack from "./EffectsStack";
 import { useTweakpane } from "@/hooks/useTweakpane";
@@ -11,6 +12,7 @@ import EditorLoader from "./EditorLoader";
 import EnvLoader from "./EnvLoader";
 import CameraRig from "./CameraRig";
 import { useThemeStore } from "@/stores/useThemeStore";
+import { useConfiguratorStore } from "@/stores/useConfiguratorStore";
 
 const PrimaryScene = () => {
   const { theme } = useThemeStore();
@@ -74,6 +76,24 @@ const PrimaryScene = () => {
 };
 
 const PrimaryCanvas = () => {
+  const { activeModel } = useConfiguratorStore();
+  const [isContextLost, setIsContextLost] = useState(false);
+
+  // handle webgl context loss and restoration events
+  const handleCreated = useCallback(({ gl }: { gl: THREE.WebGLRenderer }) => {
+    const canvasElement = gl.domElement;
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      setIsContextLost(true);
+    };
+    const handleContextRestored = () => {
+      setIsContextLost(false);
+    };
+
+    canvasElement.addEventListener("webglcontextlost", handleContextLost, false);
+    canvasElement.addEventListener("webglcontextrestored", handleContextRestored, false);
+  }, []);
+
   const { setDpr } = useTweakpane(
     { title: "☀️ Scene", expanded: true },
     {
@@ -90,9 +110,20 @@ const PrimaryCanvas = () => {
   return (
     <>
       <EditorLoader />
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {`active product model is ${activeModel}`}
+      </div>
+      {isContextLost && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 text-white">
+          <p className="text-sm font-medium">three dimensional context lost attempting recovery</p>
+        </div>
+      )}
       <Canvas
+        role="img"
+        aria-label="Interactive 3D product configurator viewport"
         shadows={"soft"}
         dpr={setDpr}
+        onCreated={handleCreated}
         gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
       >
         <PrimaryScene />

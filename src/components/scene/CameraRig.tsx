@@ -114,6 +114,19 @@ export default function CameraRig() {
     }
 
     if (isLerping.current) {
+      // jump camera immediately when user prefers reduced motion
+      const prefersReducedMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (prefersReducedMotion) {
+        state.camera.position.copy(targetPos.current);
+        controlsRef.current.target.copy(targetLook.current);
+        controlsRef.current.update();
+        isLerping.current = false;
+        return;
+      }
+
       const speed = 4 * delta;
       state.camera.position.lerp(targetPos.current, speed);
       controlsRef.current.target.lerp(targetLook.current, speed);
