@@ -10,6 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 .vscode
+AGENTS.md
+agents.md
+[aA][gG][eE][nN][tT][sS].[mM][dD]
+*[aA][gG][eE][nN][tT][sS]*.[mM][dD]
 
 # testing
 /coverage

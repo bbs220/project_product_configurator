@@ -19,7 +19,13 @@ forma gives users a real-time 3D studio experience to inspect, customize, and co
 - **Client-Side Binary GLB Export**: In-browser 3D model serialization powered by Three.js `GLTFExporter`, embedding real-time PBR roughness, metalness, hex albedos, canvas textures, and component hierarchies into standalone `.glb` files.
 - **User Garage & Build Locker**: Cloud persistence for up to 20 custom variations per user powered by Neon Serverless Postgres and Drizzle ORM. Features URL deep linking (`?id=`), public design forking, edit lock protection, and automated WebP canvas thumbnails.
 - **Downloadable Specification PDF**: Automated client-side engineering spec sheet export featuring dual high-resolution captures (imploded overview and exploded view with 3D labels), interactive digital designer signature pad, verified Clerk authorization badges, and material telemetry tables.
-- **Adaptive Design & A11y**: Full light/dark mode support, semantic HTML landmarks, WCAG-compliant contrast, and keyboard navigation.
+- **Production Web Standards & A11y**:
+  - **Screen Reader Telemetry**: `role="img"` viewport semantics and live region announcements (`aria-live="polite"`) tracking active 3D models and configurations.
+  - **Vestibular & Motion Accommodations**: Automatic camera lerp bypass and instantaneous positioning when `prefers-reduced-motion` is detected.
+  - **Accessible Dialogs**: Accessible modal overlays with `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, body scroll lock, and keyboard `Escape` / light dismiss.
+  - **WebGL Context Resilience**: Automatic `webglcontextlost` and `webglcontextrestored` event handling with user-facing recovery states.
+  - **W3C Standard Scrollbars**: Standard `scrollbar-width: thin` and `scrollbar-color` with `@supports not` vendor fallbacks.
+  - **PWA & AI Discovery**: Native Next.js Web App Manifest (`/manifest.webmanifest`), machine-readable `llms.txt` / `llms-full.txt`, and crawler directives for AI agents (`GPTBot`, `ClaudeBot`, `PerplexityBot`).
 
 ---
 
@@ -98,7 +104,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   └── robots.txt             # Search crawler directives
 ├── src/
 │   ├── actions/               # Server Actions (garage CRUD, permissions, quota)
-│   ├── app/                   # Next.js App Router pages, metadata, and layouts
+│   ├── app/                   # Next.js App Router routes, layouts, metadata, and manifest.ts
 │   ├── components/
 │   │   ├── configurator/      # Sidebar inspector, export modals, and model panels
 │   │   ├── garage/            # Garage cards and action menus
