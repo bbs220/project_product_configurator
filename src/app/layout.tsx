@@ -33,7 +33,8 @@ export const metadata: Metadata = {
     default: "forma — shape your product",
     template: "%s | forma",
   },
-  description: "shape your product",
+  description:
+    "The next-generation 3D product configurator. Customize, visualize, and export photorealistic models in real-time.",
   alternates: {
     canonical: "/",
   },
@@ -50,7 +51,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "forma",
-    description: "shape your product",
+    description:
+    "The next-generation 3D product configurator. Customize, visualize, and export photorealistic models in real-time.",
     url: "https://forma-config.vercel.app/",
     siteName: "forma",
     locale: "en_US",
@@ -67,7 +69,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "forma",
-    description: "shape your product",
+    description:
+    "The next-generation 3D product configurator. Customize, visualize, and export photorealistic models in real-time.",
     images: ["/thumbnail_1200x630.png"],
   },
 };

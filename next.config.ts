@@ -41,9 +41,13 @@ const nextConfig: NextConfig = {
             value: "upgrade-insecure-requests; frame-ancestors 'self'",
           },
           {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
             key: "Link",
             value:
-              '</llms.txt>; rel="alternate"; type="text/plain", </sitemap.xml>; rel="sitemap"; type="application/xml"',
+              '</llms.txt>; rel="describedby"; type="text/markdown"; title="Site index for LLMs", </sitemap.xml>; rel="sitemap"; type="application/xml", </.well-known/security.txt>; rel="security"; type="text/plain"',
           },
         ],
       },
